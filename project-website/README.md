@@ -6,3 +6,4 @@ All our reports will be stored in the `posts` folder.
 
 ## Credits
 This website uses the Bootstrap-based [Clean Blog theme](https://startbootstrap.com/template-overviews/clean-blog/).
+Logo made with [Online Logo Maker](https://www.onlinelogomaker.com/).
