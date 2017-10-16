@@ -13,3 +13,6 @@ Hi, we're the Code Manglers. Welcome to our group repository for CSCC01 Fall 201
 
 ## Reports
 Our reports will be documented on our project website, in the `project-website` folder. Clone the repository and open the `index.html` file to access it.
+
+## Recent Updates
+**10/15**: Uploaded personas/user stories for deliverable #2
