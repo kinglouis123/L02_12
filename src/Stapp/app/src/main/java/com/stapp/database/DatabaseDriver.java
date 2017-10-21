@@ -23,7 +23,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
 
   @Override
   public void onCreate(SQLiteDatabase sqLiteDatabase) {
-    sqLiteDatabase.execSQL("CREATE TABLE USER (ID INTEGER PRIMARY KEY NOT NULL, USERNAME TEXT NOT NULL, NAME TEXT NOT NULL, PASSWORD TEXT NOT NULL, ROLE INTEGER NOT NULL)");
+    sqLiteDatabase.execSQL("CREATE TABLES USER (ID INTEGER PRIMARY KEY NOT NULL, USERNAME TEXT NOT NULL, NAME TEXT NOT NULL, PASSWORD TEXT NOT NULL, ROLE INTEGER NOT NULL)");
   }
 
   @Override
@@ -46,9 +46,39 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   }
 
   // UPDATE
+  protected boolean updateUserName(String username, int id) {
+    SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+    ContentValues contentValues = new ContentValues();
+    contentValues.put("USERNAME", username);
+    return sqLiteDatabase.update("USERS", contentValues, "ID = ?", new String[]{String.valueOf(id)})
+        > 0;
+  }
 
+  protected boolean updatePassword(String password, int id) {
+    SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+    ContentValues contentValues = new ContentValues();
+    contentValues.put("PASSWORD", password);
+    return sqLiteDatabase.update("USERS", contentValues, "ID = ?", new String[]{String.valueOf(id)})
+        > 0;
+  }
 
-  // SELECT
+  protected boolean updateName(String name, int id) {
+    SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+    ContentValues contentValues = new ContentValues();
+    contentValues.put("NAME", name);
+    return sqLiteDatabase.update("USERS", contentValues, "ID = ?", new String[]{String.valueOf(id)})
+        > 0;
+  }
+
+  protected boolean updateRole(int role, int id) {
+    SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+    ContentValues contentValues = new ContentValues();
+    contentValues.put("ROLE", role);
+    return sqLiteDatabase.update("USERS", contentValues, "ID = ?", new String[]{String.valueOf(id)})
+        > 0;
+  }
+
+    // SELECT
 
 
 }
