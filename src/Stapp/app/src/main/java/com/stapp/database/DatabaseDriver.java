@@ -2,6 +2,7 @@ package com.stapp.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.stapp.security.PasswordHelpers;
@@ -78,7 +79,50 @@ public class DatabaseDriver extends SQLiteOpenHelper {
         > 0;
   }
 
-    // SELECT
+  // SELECT
+  protected String getUserName(int id) {
+    SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT USERNAME FROM USERS WHERE ID = ?",
+        new String[]{String.valueOf(id)});
+    cursor.moveToFirst();
+    String value = cursor.getString(cursor.getColumnIndex("NAME"));
+    cursor.close();
+    return value;
+  }
 
+  protected String getName(int id) {
+    SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT NAME FROM USERS WHERE ID = ?",
+        new String[]{String.valueOf(id)});
+    cursor.moveToFirst();
+    String value = cursor.getString(cursor.getColumnIndex("NAME"));
+    cursor.close();
+    return value;
+  }
+
+  protected int getRoleId(int id) {
+    SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT ROLE FROM USERS WHERE ID = ?",
+        new String[]{String.valueOf(id)});
+    cursor.moveToFirst();
+    int value = cursor.getInt(cursor.getColumnIndex("NAME"));
+    cursor.close();
+    return value;
+  }
+
+  protected Cursor getUsersDetails() {
+    SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+    return sqLiteDatabase.rawQuery("SELECT * FROM USERS", null);
+  }
+
+  protected String getPassword(int userId) {
+    SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT PASSWORD FROM USERS WHERE ID = ?",
+        new String[]{String.valueOf(userId)});
+    cursor.moveToFirst();
+    String result = cursor.getString(cursor.getColumnIndex("PASSWORD"));
+    cursor.close();
+    return result;
+  }
 
 }
