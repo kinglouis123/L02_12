@@ -23,7 +23,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
 
   @Override
   public void onCreate(SQLiteDatabase sqLiteDatabase) {
-    sqLiteDatabase.execSQL("CREATE TABLE USER (ID INTEGER PRIMARY KEY NOT NULL)");
+    sqLiteDatabase.execSQL("CREATE TABLE USER (ID INTEGER PRIMARY KEY NOT NULL, USERNAME TEXT NOT NULL, NAME TEXT NOT NULL, PASSWORD TEXT NOT NULL, ROLE INTEGER NOT NULL)");
   }
 
   @Override
