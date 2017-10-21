@@ -2,9 +2,9 @@ package com.stapp.database;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import com.stapp.security.PasswordHelpers;
 
 
 /**
@@ -32,8 +32,21 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   }
 
   // INSERT
+  protected long insertUser(String username, String name, String password, int role) {
+    SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+    ContentValues contentValues = new ContentValues();
+    contentValues.put("USERNAME", username);
+    contentValues.put("NAME", name);
+    // Hash pw
+    password = PasswordHelpers.passwordHash(password);
+    contentValues.put("PASSWORD", password);
+    contentValues.put("ROLE", role);
+
+    return sqLiteDatabase.insert("USERS", null, contentValues);
+  }
 
   // UPDATE
+
 
   // SELECT
 
