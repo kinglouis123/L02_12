@@ -18,16 +18,13 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    if (!(InitializeDatabase.initializeDatabase())) {
-      Toast.makeText(this, ":^(", Toast.LENGTH_SHORT).show();
-    } else {
-      Toast.makeText(this, ":^)", Toast.LENGTH_SHORT).show();
-    }
+    InitializeDatabase.initializeDatabase();
     try {
-      long role1 = UserHelper.insertRole("STUDENT");
-      Toast.makeText(this, Long.toString(role1), Toast.LENGTH_SHORT).show();
-    } catch (Exception e) {
-      Toast.makeText(this, ":^(", Toast.LENGTH_SHORT).show();
+      String roleName = "STUDENT";
+      int role1 = UserHelper.getRoleIdGivenRoleName(roleName);
+      Toaster.toastShort("ID of a " + roleName + " is: " + role1);
+    } catch (InvalidRoleException e) {
+      Toaster.toastShort("Invalid Role");
     }
     setContentView(R.layout.activity_main);
   }

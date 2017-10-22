@@ -21,15 +21,9 @@ public class DatabaseDriverHelper {
    * Reninitializes database.
    */
   public static void reinitializeDatabase() {
-    if (databaseDriver == null) {
-      initializeDatabase();
-    } else {
-      //deleteDatabase();
+      deleteDatabase();
       databaseDriver = new DatabaseDriver(ContextHelper.getStappContext());
-      databaseDriver.onUpgrade(databaseDriver.getWritableDatabase(),
-          1, 2);
       databaseDriver.close();
-    }
   }
 
   public static boolean databaseExists() {

@@ -8,14 +8,12 @@ import com.stapp.exceptions.RoleAlreadyExistsException;
  */
 
 public class InitializeDatabase {
-  private static DatabaseDriver databaseDriver;
 
   /**
    * Initializes database.
    */
   public static boolean initializeDatabase() {
-    databaseDriver = new DatabaseDriver(ContextHelper.getStappContext());
-    databaseDriver.close();
+    DatabaseDriverHelper.initializeDatabase();
     return initializeRolesTable();
   }
 

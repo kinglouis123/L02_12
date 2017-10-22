@@ -180,7 +180,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
 
   public boolean roleExists(String roleName) {
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-    Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM ROLES WHERE ID = ?",
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM ROLES WHERE NAME = ?",
         new String[]{roleName});
     boolean result = true;
     if (cursor.getCount() <= 0) {
