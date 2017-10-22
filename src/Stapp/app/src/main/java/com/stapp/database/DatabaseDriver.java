@@ -90,7 +90,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
 
   public String getRoleNameGivenUsername(String username) {
     int roleId = getRoleIdGivenUsername(username);
-    SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
     Cursor cursor = sqLiteDatabase.rawQuery("SELECT NAME FROM ROLES WHERE ID = ?",
         new String[]{String.valueOf(roleId)});
     cursor.moveToFirst();
@@ -100,7 +100,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   }
 
   public int getRoleIdGivenRoleName(String roleName) {
-    SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
     Cursor cursor = sqLiteDatabase.rawQuery("SELECT ID FROM ROLES WHERE NAME = ?",
         new String[]{roleName});
     cursor.moveToFirst();
@@ -110,7 +110,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   }
 
   public int getRoleIdGivenUsername(String username) {
-    SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
     Cursor cursor = sqLiteDatabase.rawQuery("SELECT ROLE FROM USERS WHERE USERNAME = ?",
         new String[]{username});
     cursor.moveToFirst();
@@ -120,7 +120,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   }
 
   public int getId(String username) {
-    SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
     Cursor cursor = sqLiteDatabase.rawQuery("SELECT ID FROM USERS WHERE USERNAME = ?",
         new String[]{username});
     cursor.moveToFirst();
@@ -130,7 +130,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   }
 
   public String getName(String username) {
-    SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
     Cursor cursor = sqLiteDatabase.rawQuery("SELECT NAME FROM USERS WHERE USERNAME = ?",
         new String[]{username});
     cursor.moveToFirst();
@@ -140,12 +140,12 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   }
 
   public Cursor getUsersDetails() {
-    SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
     return sqLiteDatabase.rawQuery("SELECT * FROM USERS", null);
   }
 
   public String getPassword(String username) {
-    SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
     Cursor cursor = sqLiteDatabase.rawQuery("SELECT PASSWORD FROM USERS WHERE USERNAME = ?",
         new String[]{username});
     cursor.moveToFirst();
@@ -155,7 +155,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   }
 
   public boolean userExists(String username) {
-    SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
     Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM USERS WHERE USERNAME = ?",
         new String[]{username});
     boolean result = true;
@@ -167,7 +167,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   }
 
   public boolean roleExists(int roleId) {
-    SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
     Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM ROLES WHERE ID = ?",
         new String[]{String.valueOf(roleId)});
     boolean result = true;
@@ -179,7 +179,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   }
 
   public boolean roleExists(String roleName) {
-    SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
     Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM ROLES WHERE ID = ?",
         new String[]{roleName});
     boolean result = true;

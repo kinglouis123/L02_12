@@ -13,94 +13,151 @@ import com.stapp.exceptions.UserNotFoundException;
 
 public class UserHelper {
 
-  private static DatabaseDriver databaseDriver = new DatabaseDriver(ContextHelper.getStappContext());
+  private static DatabaseDriver databaseDriver;
+
+  private static void openDatabase() {
+    if (databaseDriver == null) {
+      databaseDriver = new DatabaseDriver(ContextHelper.getStappContext());
+    }
+  }
+
+  private static void closeDatabase() {
+    databaseDriver.close();
+    databaseDriver = null;
+  }
 
   // INSERTERS
 
   public static long insertUser(String username, String name, String password, int role) throws UserAlreadyExistsException, InvalidRoleException {
+    openDatabase();
     if (databaseDriver.userExists(username)) {
+      closeDatabase();
       throw new UserAlreadyExistsException();
     }
     if (databaseDriver.roleExists(role)) {
-      return databaseDriver.insertUser(username, name, password, role);
+      long id = databaseDriver.insertUser(username, name, password, role);
+      closeDatabase();
+      return id;
     }
+    closeDatabase();
     throw new InvalidRoleException();
   }
 
   public static long insertRole(String roleName) throws RoleAlreadyExistsException {
+    openDatabase();
     if (databaseDriver.roleExists(roleName)) {
+      closeDatabase();
       throw new RoleAlreadyExistsException();
     }
-    return databaseDriver.insertRole(roleName);
+    long role =  databaseDriver.insertRole(roleName);
+    closeDatabase();
+    return role;
   }
 
   // UPDATERS
 
   public static boolean updatePassword(String password, String username) throws UserNotFoundException {
+    openDatabase();
     if (databaseDriver.userExists(username)) {
-      return databaseDriver.updatePassword(password, username);
+      boolean updated = databaseDriver.updatePassword(password, username);
+      closeDatabase();
+      return updated;
     }
+    closeDatabase();
     throw new UserNotFoundException();
   }
 
   public static boolean updateName(String name, String username) throws UserNotFoundException {
+    openDatabase();
     if (databaseDriver.userExists(username)) {
-      return databaseDriver.updateName(name, username);
+      boolean updated = databaseDriver.updateName(name, username);
+      closeDatabase();
+      return updated;
     }
+    closeDatabase();
     throw new UserNotFoundException();
   }
 
   public static boolean updateRole(String roleName, String username) throws InvalidRoleException, UserNotFoundException {
+    openDatabase();
     if (databaseDriver.userExists(username)) {
       if (databaseDriver.roleExists(roleName)) {
-        return databaseDriver.updateRole(databaseDriver.getRoleIdGivenRoleName(roleName), username);
+        boolean updated = databaseDriver.updateRole(databaseDriver.getRoleIdGivenRoleName(roleName), username);
+        closeDatabase();
+        return updated;
       }
+      closeDatabase();
       throw new InvalidRoleException();
     }
+    closeDatabase();
     throw new UserNotFoundException();
   }
 
   // SELECTORS
 
   public static String getRoleNameGivenUsername(String username) throws UserNotFoundException {
+    openDatabase();
     if (databaseDriver.userExists(username)) {
-      return databaseDriver.getRoleNameGivenUsername(username);
+      String role = databaseDriver.getRoleNameGivenUsername(username);
+      closeDatabase();
+      return role;
     }
+    closeDatabase();
     throw new UserNotFoundException();
   }
 
   public static int getRoleIdGivenRoleName(String roleName) throws InvalidRoleException {
+    openDatabase();
     if (databaseDriver.roleExists(roleName)) {
-      return databaseDriver.getRoleIdGivenRoleName(roleName);
+      int roleId = databaseDriver.getRoleIdGivenRoleName(roleName);
+      closeDatabase();
+      return roleId;
     }
+    closeDatabase();
     throw new InvalidRoleException();
   }
 
   public static int getRoleIdGivenUsername(String username) throws UserNotFoundException {
+    openDatabase();
     if (databaseDriver.userExists(username)) {
-      return databaseDriver.getRoleIdGivenUsername(username);
+      int roleId = databaseDriver.getRoleIdGivenUsername(username);
+      closeDatabase();
+      return roleId;
     }
+    closeDatabase();
     throw new UserNotFoundException();
   }
 
   public static int getId(String username) throws UserNotFoundException {
+    openDatabase();
     if (databaseDriver.userExists(username)) {
-      return databaseDriver.getId(username);
+      int id = databaseDriver.getId(username);
+      closeDatabase();
+      return id;
     }
+    closeDatabase();
     throw new UserNotFoundException();
   }
 
   public static String getName(String username) throws UserNotFoundException {
+    openDatabase();
     if (databaseDriver.userExists(username)) {
-      return databaseDriver.getName(username);
+      String name = databaseDriver.getName(username);
+      closeDatabase();
+      return name;
     }
+    closeDatabase();
     throw new UserNotFoundException();
   }
 
   public static String getPassword(String username) throws UserNotFoundException {
+    openDatabase();
     if (databaseDriver.userExists(username)) {
-      return databaseDriver.getPassword(username);
+      String password = databaseDriver.getPassword(username);
+      closeDatabase();
+      return password;
     }
+    closeDatabase();
     throw new UserNotFoundException();
   }
 
