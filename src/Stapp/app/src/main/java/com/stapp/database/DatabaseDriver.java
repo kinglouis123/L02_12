@@ -24,7 +24,14 @@ public class DatabaseDriver extends SQLiteOpenHelper {
 
   @Override
   public void onCreate(SQLiteDatabase sqLiteDatabase) {
-    sqLiteDatabase.execSQL("CREATE TABLES USER (ID INTEGER PRIMARY KEY NOT NULL, USERNAME TEXT NOT NULL, NAME TEXT NOT NULL, PASSWORD TEXT NOT NULL, ROLE INTEGER NOT NULL)");
+    sqLiteDatabase.execSQL("CREATE TABLE USERS " +
+        "(ID INTEGER PRIMARY KEY NOT NULL, " +
+        "USERNAME TEXT NOT NULL, NAME TEXT NOT NULL, " +
+        "PASSWORD TEXT NOT NULL, " +
+        "ROLE INTEGER NOT NULL)");
+    sqLiteDatabase.execSQL("CREATE TABLE ROLES" +
+        "(ID INTEGER PRIMARY KEY NOT NULL, " +
+        "NAME TEXT NOT NULL)");
   }
 
   @Override
@@ -121,6 +128,18 @@ public class DatabaseDriver extends SQLiteOpenHelper {
         new String[]{username});
     cursor.moveToFirst();
     String result = cursor.getString(cursor.getColumnIndex("PASSWORD"));
+    cursor.close();
+    return result;
+  }
+
+  protected boolean userExists(String username) {
+    SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM USERS WHERE USERNAME = ?",
+        new String[]{username});
+    boolean result = true;
+    if (cursor.getCount() <= 0) {
+      result = false;
+    }
     cursor.close();
     return result;
   }
