@@ -61,13 +61,6 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   }
 
   // UPDATE
-  public boolean updateUserName(String newUsername, String oldUsername) {
-    SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-    ContentValues contentValues = new ContentValues();
-    contentValues.put("USERNAME", newUsername);
-    return sqLiteDatabase.update("USERS", contentValues, "USERNAME = ?", new String[]{oldUsername})
-        > 0;
-  }
 
   public boolean updatePassword(String password, String username) {
     SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
@@ -165,6 +158,30 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     SQLiteDatabase sqLiteDatabase = getReadableDatabase();
     Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM USERS WHERE USERNAME = ?",
         new String[]{username});
+    boolean result = true;
+    if (cursor.getCount() <= 0) {
+      result = false;
+    }
+    cursor.close();
+    return result;
+  }
+
+  public boolean roleExists(int roleId) {
+    SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM ROLES WHERE ID = ?",
+        new String[]{String.valueOf(roleId)});
+    boolean result = true;
+    if (cursor.getCount() <= 0) {
+      result = false;
+    }
+    cursor.close();
+    return result;
+  }
+
+  public boolean roleExists(String roleName) {
+    SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM ROLES WHERE ID = ?",
+        new String[]{roleName});
     boolean result = true;
     if (cursor.getCount() <= 0) {
       result = false;
