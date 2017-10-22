@@ -47,35 +47,35 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   }
 
   // UPDATE
-  protected boolean updateUserName(String username, int id) {
+  protected boolean updateUserName(String newUsername, String oldUsername) {
     SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
-    contentValues.put("USERNAME", username);
-    return sqLiteDatabase.update("USERS", contentValues, "ID = ?", new String[]{String.valueOf(id)})
+    contentValues.put("USERNAME", newUsername);
+    return sqLiteDatabase.update("USERS", contentValues, "USERNAME = ?", new String[]{oldUsername})
         > 0;
   }
 
-  protected boolean updatePassword(String password, int id) {
+  protected boolean updatePassword(String password, String username) {
     SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
     contentValues.put("PASSWORD", password);
-    return sqLiteDatabase.update("USERS", contentValues, "ID = ?", new String[]{String.valueOf(id)})
+    return sqLiteDatabase.update("USERS", contentValues, "USERNAME = ?", new String[]{username})
         > 0;
   }
 
-  protected boolean updateName(String name, int id) {
+  protected boolean updateName(String name, String username) {
     SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
     contentValues.put("NAME", name);
-    return sqLiteDatabase.update("USERS", contentValues, "ID = ?", new String[]{String.valueOf(id)})
+    return sqLiteDatabase.update("USERS", contentValues, "USERNAME = ?", new String[]{username})
         > 0;
   }
 
-  protected boolean updateRole(int role, int id) {
+  protected boolean updateRole(int role, String username) {
     SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
     contentValues.put("ROLE", role);
-    return sqLiteDatabase.update("USERS", contentValues, "ID = ?", new String[]{String.valueOf(id)})
+    return sqLiteDatabase.update("USERS", contentValues, "USERNAME = ?", new String[]{username})
         > 0;
   }
 
