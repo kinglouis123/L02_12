@@ -80,32 +80,32 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   }
 
   // SELECT
-  protected String getUserName(int id) {
+  protected int getId(String username) {
     SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-    Cursor cursor = sqLiteDatabase.rawQuery("SELECT USERNAME FROM USERS WHERE ID = ?",
-        new String[]{String.valueOf(id)});
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT ID FROM USERS WHERE USERNAME = ?",
+        new String[]{username});
+    cursor.moveToFirst();
+    int value = cursor.getInt(cursor.getColumnIndex("ID"));
+    cursor.close();
+    return value;
+  }
+
+  protected String getName(String username) {
+    SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT NAME FROM USERS WHERE USERNAME = ?",
+        new String[]{username});
     cursor.moveToFirst();
     String value = cursor.getString(cursor.getColumnIndex("NAME"));
     cursor.close();
     return value;
   }
 
-  protected String getName(int id) {
+  protected int getRole(String username) {
     SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-    Cursor cursor = sqLiteDatabase.rawQuery("SELECT NAME FROM USERS WHERE ID = ?",
-        new String[]{String.valueOf(id)});
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT ROLE FROM USERS WHERE USERNAME = ?",
+        new String[]{username});
     cursor.moveToFirst();
-    String value = cursor.getString(cursor.getColumnIndex("NAME"));
-    cursor.close();
-    return value;
-  }
-
-  protected int getRoleId(int id) {
-    SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-    Cursor cursor = sqLiteDatabase.rawQuery("SELECT ROLE FROM USERS WHERE ID = ?",
-        new String[]{String.valueOf(id)});
-    cursor.moveToFirst();
-    int value = cursor.getInt(cursor.getColumnIndex("NAME"));
+    int value = cursor.getInt(cursor.getColumnIndex("ROLE"));
     cursor.close();
     return value;
   }
@@ -115,10 +115,10 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     return sqLiteDatabase.rawQuery("SELECT * FROM USERS", null);
   }
 
-  protected String getPassword(int userId) {
+  protected String getPassword(String username) {
     SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-    Cursor cursor = sqLiteDatabase.rawQuery("SELECT PASSWORD FROM USERS WHERE ID = ?",
-        new String[]{String.valueOf(userId)});
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT PASSWORD FROM USERS WHERE USERNAME = ?",
+        new String[]{username});
     cursor.moveToFirst();
     String result = cursor.getString(cursor.getColumnIndex("PASSWORD"));
     cursor.close();
