@@ -40,7 +40,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   }
 
   // INSERT
-  protected long insertUser(String username, String name, String password, int role) {
+  public long insertUser(String username, String name, String password, int role) {
     SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
     contentValues.put("USERNAME", username);
@@ -53,8 +53,15 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     return sqLiteDatabase.insert("USERS", null, contentValues);
   }
 
+  public long insertRole(String role) {
+    SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+    ContentValues contentValues = new ContentValues();
+    contentValues.put("NAME", role);
+    return sqLiteDatabase.insert("ROLES", null, contentValues);
+  }
+
   // UPDATE
-  protected boolean updateUserName(String newUsername, String oldUsername) {
+  public boolean updateUserName(String newUsername, String oldUsername) {
     SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
     contentValues.put("USERNAME", newUsername);
@@ -62,7 +69,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
         > 0;
   }
 
-  protected boolean updatePassword(String password, String username) {
+  public boolean updatePassword(String password, String username) {
     SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
     contentValues.put("PASSWORD", password);
@@ -70,7 +77,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
         > 0;
   }
 
-  protected boolean updateName(String name, String username) {
+  public boolean updateName(String name, String username) {
     SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
     contentValues.put("NAME", name);
@@ -78,7 +85,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
         > 0;
   }
 
-  protected boolean updateRole(int role, String username) {
+  public boolean updateRole(int role, String username) {
     SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
     contentValues.put("ROLE", role);
@@ -87,27 +94,29 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   }
 
   // SELECT
-  protected int getId(String username) {
+
+  public String getRoleNameGivenUsername(String username) {
+    int roleId = getRoleIdGivenUsername(username);
     SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-    Cursor cursor = sqLiteDatabase.rawQuery("SELECT ID FROM USERS WHERE USERNAME = ?",
-        new String[]{username});
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT NAME FROM ROLES WHERE ID = ?",
+        new String[]{String.valueOf(roleId)});
     cursor.moveToFirst();
-    int value = cursor.getInt(cursor.getColumnIndex("ID"));
+    String roleName = cursor.getString(cursor.getColumnIndex("NAME"));
     cursor.close();
-    return value;
+    return roleName;
   }
 
-  protected String getName(String username) {
+  public int getRoleIdGivenRoleName(String roleName) {
     SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-    Cursor cursor = sqLiteDatabase.rawQuery("SELECT NAME FROM USERS WHERE USERNAME = ?",
-        new String[]{username});
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT ID FROM ROLES WHERE NAME = ?",
+        new String[]{roleName});
     cursor.moveToFirst();
-    String value = cursor.getString(cursor.getColumnIndex("NAME"));
+    int roleId = cursor.getInt(cursor.getColumnIndex("ID"));
     cursor.close();
-    return value;
+    return roleId;
   }
 
-  protected int getRole(String username) {
+  public int getRoleIdGivenUsername(String username) {
     SQLiteDatabase sqLiteDatabase = getReadableDatabase();
     Cursor cursor = sqLiteDatabase.rawQuery("SELECT ROLE FROM USERS WHERE USERNAME = ?",
         new String[]{username});
@@ -117,12 +126,32 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     return value;
   }
 
-  protected Cursor getUsersDetails() {
+  public int getId(String username) {
+    SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT ID FROM USERS WHERE USERNAME = ?",
+        new String[]{username});
+    cursor.moveToFirst();
+    int value = cursor.getInt(cursor.getColumnIndex("ID"));
+    cursor.close();
+    return value;
+  }
+
+  public String getName(String username) {
+    SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT NAME FROM USERS WHERE USERNAME = ?",
+        new String[]{username});
+    cursor.moveToFirst();
+    String value = cursor.getString(cursor.getColumnIndex("NAME"));
+    cursor.close();
+    return value;
+  }
+
+  public Cursor getUsersDetails() {
     SQLiteDatabase sqLiteDatabase = getReadableDatabase();
     return sqLiteDatabase.rawQuery("SELECT * FROM USERS", null);
   }
 
-  protected String getPassword(String username) {
+  public String getPassword(String username) {
     SQLiteDatabase sqLiteDatabase = getReadableDatabase();
     Cursor cursor = sqLiteDatabase.rawQuery("SELECT PASSWORD FROM USERS WHERE USERNAME = ?",
         new String[]{username});
@@ -132,7 +161,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     return result;
   }
 
-  protected boolean userExists(String username) {
+  public boolean userExists(String username) {
     SQLiteDatabase sqLiteDatabase = getReadableDatabase();
     Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM USERS WHERE USERNAME = ?",
         new String[]{username});
