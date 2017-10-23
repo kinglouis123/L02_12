@@ -5,12 +5,15 @@ import android.os.Bundle;
 
 import com.stapp.database.InitializeDatabase;
 import com.stapp.databasehelpers.UserHelper;
+import com.stapp.terminals.LoginTerminal;
 import com.stapp.users.Professor;
 import com.stapp.users.Student;
+import com.stapp.users.User;
 
 public class MainActivity extends AppCompatActivity {
 
-  Student user1 = new Student("nick", "Nick Harrington", "nick");
+  Student user0 = new Student("nick", "Nick Harrington", "nick");
+  Student user1 = LoginTerminal.getStudent("nick", "nick");
   Professor user2 = new Professor("shierry", "Shierry Tans", "shierry");
   Student user3 = new Student("john", "John Doe", "john");
   Professor user4 = new Professor("Kohee", "Kohee Sang", "kohee");
