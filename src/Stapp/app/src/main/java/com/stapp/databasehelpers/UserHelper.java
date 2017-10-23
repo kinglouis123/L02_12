@@ -2,7 +2,6 @@ package com.stapp.databasehelpers;
 
 import com.stapp.database.ContextHelper;
 import com.stapp.database.DatabaseDriver;
-import com.stapp.exceptions.InvalidRoleException;
 import com.stapp.exceptions.RoleAlreadyExistsException;
 import com.stapp.exceptions.UserAlreadyExistsException;
 import com.stapp.exceptions.UserNotFoundException;
@@ -26,9 +25,16 @@ public class UserHelper {
     databaseDriver = null;
   }
 
+  public static boolean userExists(String username) {
+    openDatabase();
+    boolean result = databaseDriver.userExists(username);
+    closeDatabase();
+    return result;
+  }
+
   // INSERTERS
 
-  public static long insertUser(String username, String name, String password, int role) throws UserAlreadyExistsException, InvalidRoleException {
+  public static long insertUser(String username, String name, String password, int role) throws UserAlreadyExistsException {
     openDatabase();
     if (databaseDriver.userExists(username)) {
       closeDatabase();
@@ -40,7 +46,7 @@ public class UserHelper {
       return id;
     }
     closeDatabase();
-    throw new InvalidRoleException();
+    return -1;
   }
 
   public static long insertRole(String roleName) throws RoleAlreadyExistsException {
@@ -78,7 +84,7 @@ public class UserHelper {
     throw new UserNotFoundException();
   }
 
-  public static boolean updateRole(String roleName, String username) throws InvalidRoleException, UserNotFoundException {
+  public static boolean updateRole(String roleName, String username) throws UserNotFoundException {
     openDatabase();
     if (databaseDriver.userExists(username)) {
       if (databaseDriver.roleExists(roleName)) {
@@ -87,7 +93,7 @@ public class UserHelper {
         return updated;
       }
       closeDatabase();
-      throw new InvalidRoleException();
+      return false;
     }
     closeDatabase();
     throw new UserNotFoundException();
@@ -106,7 +112,7 @@ public class UserHelper {
     throw new UserNotFoundException();
   }
 
-  public static int getRoleIdGivenRoleName(String roleName) throws InvalidRoleException {
+  public static int getRoleIdGivenRoleName(String roleName) {
     openDatabase();
     if (databaseDriver.roleExists(roleName)) {
       int roleId = databaseDriver.getRoleIdGivenRoleName(roleName);
@@ -114,7 +120,7 @@ public class UserHelper {
       return roleId;
     }
     closeDatabase();
-    throw new InvalidRoleException();
+    return -1;
   }
 
   public static int getRoleIdGivenUsername(String username) throws UserNotFoundException {
