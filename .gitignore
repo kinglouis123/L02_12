@@ -2,6 +2,7 @@
 .gradle
 /local.properties
 /.idea/workspace.xml
+/src/Stapp/.idea/misc.xml
 /.idea/libraries
 .DS_Store
 /build
