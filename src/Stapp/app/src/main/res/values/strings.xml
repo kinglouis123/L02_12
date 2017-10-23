@@ -1,3 +1,8 @@
 <resources>
   <string name="app_name">Stapp</string>
+  <string name="Username">Username</string>
+  <string name="Password">Password</string>
+  <string name="LogIn">Log In</string>
+  <string name="Register">Register</string>
+  <string name="Confirm">Confirm Password</string>
 </resources>
