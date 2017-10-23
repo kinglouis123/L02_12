@@ -16,4 +16,5 @@ public class Student extends User {
   public Student(String username, String name, String password) {
     super(username, name, password, UserHelper.getRoleIdGivenRoleName("STUDENT"));
   }
+
 }

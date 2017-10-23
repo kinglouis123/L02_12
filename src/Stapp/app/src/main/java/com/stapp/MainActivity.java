@@ -37,5 +37,13 @@ public class MainActivity extends AppCompatActivity {
     Toaster.toastLong("User3 Name: " + user3_Name + " User2 Role: " + user3_Role);
     Toaster.toastLong("User4 Name: " + user4_Name + " User2 Role: " + user4_Role);
     setContentView(R.layout.activity_main);
+
+    Student student = new Student("usernameforstudent", "student", "pass4student");
+
+      Toaster.toastShort(student.getName());
+      Toaster.toastShort(student.getPassword());
+      Toaster.toastShort(student.getRoleName());
+      Toaster.toastShort(student.getId() + "");
+      Toaster.toastShort(student.isLoggedIn() + "");
   }
 }

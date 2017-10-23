@@ -18,6 +18,10 @@ public class User {
     return UserHelper.userExists(username);
   }
 
+  public boolean isLoggedIn() {
+    return loggedIn;
+  }
+
   /**
    * USE THIS TO LOG IN AN EXISTING USER
    */
@@ -33,8 +37,12 @@ public class User {
     this.username = username;
     try {
       UserHelper.insertUser(username, name, password, roleId);
+    } catch (UserAlreadyExistsException e) {
+      // shouldn't happen
+    }
+    try {
       login(password);
-    } catch (UserAlreadyExistsException | UserNotFoundException e) {
+    } catch (UserNotFoundException e) {
       // shouldn't happen
     }
   }
@@ -84,6 +92,15 @@ public class User {
       // Shouldn't happen
     }
     return null;
+  }
+
+  public int getId() {
+    try {
+      return UserHelper.getId(username);
+    } catch (UserNotFoundException e) {
+      // Shouldn't happen
+    }
+    return -1;
   }
 
   // UPDATERS
