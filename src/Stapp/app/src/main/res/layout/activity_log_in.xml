@@ -44,7 +44,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/loginButton"
             android:layout_alignRight="@+id/loginButton"
-            android:text="@string/Register" />
+            android:onClick="showRegisterActivity"
+            android:text="@string/Register"/>
 
 
     </RelativeLayout>
