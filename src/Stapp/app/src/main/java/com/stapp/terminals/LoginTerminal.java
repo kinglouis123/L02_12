@@ -1,5 +1,6 @@
 package com.stapp.terminals;
 
+import com.stapp.databasehelpers.UserHelper;
 import com.stapp.exceptions.UserNotFoundException;
 import com.stapp.users.Professor;
 import com.stapp.users.Student;
@@ -51,11 +52,14 @@ public class LoginTerminal {
    * @param username of Professor
    * @param name of Professor
    * @param password of Professor
-   * @return Professor Object, null if Professor already exists and wrong password provided!
+   * @return Professor Object, null if Professor already exists or wrong password provided!
    */
   public static Professor newProfessor(String username, String name, String password) {
+    if (UserHelper.userExists(username)) {
+      return null;
+    }
     Professor professor = new Professor(username, name, password);
-    if (professor.isLoggedIn()) {
+    if (professor.isLoggedIn() && professor.getRoleName().equals("PROFESSOR")) {
       return professor;
     }
     return null;
@@ -66,11 +70,14 @@ public class LoginTerminal {
    * @param username of Student
    * @param name of Student
    * @param password of Student
-   * @return Student Object, null if Student already exists and wrong password provided!
+   * @return Student Object, null if Student already exists or wrong password provided!
    */
   public static Student newStudent(String username, String name, String password) {
+    if (UserHelper.userExists(username)) {
+      return null;
+    }
     Student student = new Student(username, name, password);
-    if (student.isLoggedIn()) {
+    if (student.isLoggedIn() && student.getRoleName().equals("STUDENT")) {
       return student;
     }
     return null;

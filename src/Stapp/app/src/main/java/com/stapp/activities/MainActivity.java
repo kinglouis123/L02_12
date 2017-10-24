@@ -3,6 +3,7 @@ package com.stapp.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,11 +20,12 @@ import com.stapp.users.User;
 
 public class MainActivity extends AppCompatActivity {
 
-  Student user0 = new Student("nick", "Nick Harrington", "nick");
-  Student user1 = LoginTerminal.getStudent("nick", "nick");
-  Professor user2 = new Professor("shierry", "Shierry Tans", "shierry");
-  Student user3 = new Student("john", "John Doe", "john");
-  Professor user4 = new Professor("Kohee", "Kohee Sang", "kohee");
+  Student user1 = LoginTerminal.newStudent("nick", "Nick Harrington", "nick");
+  Professor prof1 = LoginTerminal.newProfessor("nick", "nicc", "nick");
+  Student student1 = LoginTerminal.newStudent("nick", "nicccc", "nick2");
+  Professor user2 = LoginTerminal.newProfessor("shierry", "Shierry Tans", "shierry");
+  Student user3 = LoginTerminal.newStudent("john", "John Doe", "john");
+  Professor user4 = LoginTerminal.newProfessor("Kohee", "Kohee Sang", "kohee");
 
   protected void showRegisterActivity(View view) {
     Intent intent = new Intent(this, RegisterActivity.class);
@@ -42,11 +44,13 @@ public class MainActivity extends AppCompatActivity {
       if ((student = LoginTerminal.getStudent(username, password)) == null) {
         Toaster.toastShort("Login failed!");
       } else {
-        Toaster.toastShort("Welcome " + student.getName() + "!");
+        Toaster.toastShort("Welcome Student " + student.getName() + "!");
+        Toaster.toastShort("DATABASE ID: " + student.getId());
         // Start Student interface
       }
     } else {
-      Toaster.toastShort("Welcome " + professor.getName() + "!");
+      Toaster.toastShort("Welcome Professor " + professor.getName() + "!");
+      Toaster.toastShort("DATABASE ID: " + professor.getId());
       // Start Professor interface
     }
 
