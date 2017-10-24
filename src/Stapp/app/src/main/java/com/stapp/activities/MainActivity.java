@@ -30,6 +30,28 @@ public class MainActivity extends AppCompatActivity {
     startActivity(intent);
   }
 
+  protected void loginUser(View view) {
+
+    String username = ((EditText) findViewById(R.id.editTextUsernameSignIn)).getText().toString();
+    String password = ((EditText) findViewById(R.id.editTextPasswordLogIn)).getText().toString();
+
+    Student student;
+    Professor professor;
+
+    if ((professor = LoginTerminal.getProfessor(username, password)) == null) {
+      if ((student = LoginTerminal.getStudent(username, password)) == null) {
+        Toaster.toastShort("Login failed!");
+      } else {
+        Toaster.toastShort("Welcome " + student.getName() + "!");
+        // Start Student interface
+      }
+    } else {
+      Toaster.toastShort("Welcome " + professor.getName() + "!");
+      // Start Professor interface
+    }
+
+  }
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -37,35 +59,14 @@ public class MainActivity extends AppCompatActivity {
 
     setContentView(R.layout.activity_log_in);
 
-    final EditText usernameField = (EditText) findViewById(R.id.editTextUsernameSignIn);
-    final EditText passwordField = (EditText) findViewById(R.id.editTextPasswordLogIn);
-
-    Button loginButton = (Button) findViewById(R.id.loginButton);
-
-    loginButton.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-
-        String username = usernameField.getText().toString();
-        String password = passwordField.getText().toString();
-
-        Student student;
-        Professor professor;
-
-        if ((professor = LoginTerminal.getProfessor(username, password)) == null) {
-          if ((student = LoginTerminal.getStudent(username, password)) == null) {
-            Toaster.toastShort("Login failed!");
-          } else {
-            Toaster.toastShort("Welcome " + student.getName() + "!");
-            // Start Student interface
-          }
-        } else {
-          Toaster.toastShort("Welcome " + professor.getName() + "!");
-          // Start Professor interface
-        }
-
-      }
-    });
-
   }
+
+  @Override
+  public void onBackPressed() {
+    Intent startMain = new Intent(Intent.ACTION_MAIN);
+    startMain.addCategory(Intent.CATEGORY_HOME);
+    startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    startActivity(startMain);
+  }
+
 }

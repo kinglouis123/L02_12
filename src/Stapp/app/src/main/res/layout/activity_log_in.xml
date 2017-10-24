@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/editTextPasswordLogIn"
             android:layout_alignRight="@+id/editTextPasswordLogIn"
+            android:onClick="loginUser"
             android:text="@string/LogIn" />
 
         <Button
