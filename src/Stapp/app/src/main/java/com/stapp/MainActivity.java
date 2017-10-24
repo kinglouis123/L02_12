@@ -2,6 +2,7 @@ package com.stapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.EditText;
 
 import com.stapp.database.InitializeDatabase;
 import com.stapp.databasehelpers.UserHelper;
@@ -22,31 +23,12 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     InitializeDatabase.initializeDatabase();
-    String roleName = "STUDENT";
-    int role1 = UserHelper.getRoleIdGivenRoleName(roleName);
-    Toaster.toastShort("ID of a " + roleName + " is: " + role1);
 
-    String user1_Name = user1.getName();
-    String user1_Role = user1.getRoleName();
-    String user2_Name = user2.getName();
-    String user2_Role = user2.getRoleName();
-    String user3_Name = user3.getName();
-    String user3_Role = user3.getRoleName();
-    String user4_Name = user4.getName();
-    String user4_Role = user4.getRoleName();
+    setContentView(R.layout.activity_log_in);
 
-    Toaster.toastLong("User1 Name: " + user1_Name + " User1 Role: " + user1_Role);
-    Toaster.toastLong("User2 Name: " + user2_Name + " User2 Role: " + user2_Role);
-    Toaster.toastLong("User3 Name: " + user3_Name + " User2 Role: " + user3_Role);
-    Toaster.toastLong("User4 Name: " + user4_Name + " User2 Role: " + user4_Role);
-    setContentView(R.layout.activity_main);
+    EditText usernameField = (EditText) findViewById(R.id.editTextUsernameSignIn);
+    EditText passwordField = (EditText) findViewById(R.id.editTextPasswordLogIn);
+    
 
-    Student student = new Student("usernameforstudent", "student", "pass4student");
-
-      Toaster.toastShort(student.getName());
-      Toaster.toastShort(student.getPassword());
-      Toaster.toastShort(student.getRoleName());
-      Toaster.toastShort(student.getId() + "");
-      Toaster.toastShort(student.isLoggedIn() + "");
   }
 }
