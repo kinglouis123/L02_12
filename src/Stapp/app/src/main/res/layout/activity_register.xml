@@ -69,6 +69,7 @@
             android:id="@+id/RegisterRadioLayout">
 
             <RadioGroup
+                android:id="@+id/RegisterRadioGroup"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -100,7 +101,8 @@
             android:text="@string/Register"
             android:layout_alignEnd="@+id/RegisterEditTextUsername"
             android:layout_below="@+id/RegisterRadioLayout"
-            android:layout_marginTop="25dp"/>
+            android:layout_marginTop="25dp"
+            android:onClick="registerUser"/>
 
     </RelativeLayout>
 
