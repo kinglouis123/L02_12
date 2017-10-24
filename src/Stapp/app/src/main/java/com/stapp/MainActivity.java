@@ -2,6 +2,9 @@ package com.stapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.stapp.database.InitializeDatabase;
@@ -26,9 +29,35 @@ public class MainActivity extends AppCompatActivity {
 
     setContentView(R.layout.activity_log_in);
 
-    EditText usernameField = (EditText) findViewById(R.id.editTextUsernameSignIn);
-    EditText passwordField = (EditText) findViewById(R.id.editTextPasswordLogIn);
-    
+    final EditText usernameField = (EditText) findViewById(R.id.editTextUsernameSignIn);
+    final EditText passwordField = (EditText) findViewById(R.id.editTextPasswordLogIn);
+
+    Button loginButton = (Button) findViewById(R.id.loginButton);
+
+    loginButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+
+        String username = usernameField.getText().toString();
+        String password = passwordField.getText().toString();
+
+        Student student;
+        Professor professor;
+
+        if ((professor = LoginTerminal.getProfessor(username, password)) == null) {
+          if ((student = LoginTerminal.getStudent(username, password)) == null) {
+            Toaster.toastShort("Login failed!");
+          } else {
+            Toaster.toastShort("Welcome " + student.getName() + "!");
+            // Start Student interface
+          }
+        } else {
+          Toaster.toastShort("Welcome " + professor.getName() + "!");
+          // Start Professor interface
+        }
+
+      }
+    });
 
   }
 }
