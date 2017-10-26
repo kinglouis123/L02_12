@@ -15,7 +15,7 @@ import com.stapp.security.PasswordHelpers;
 public class DatabaseDriver extends SQLiteOpenHelper {
 
   private static final int DATABASE_VERSION = 1;
-  private static final String DATABASE_NAME = "bank.db";
+  private static final String DATABASE_NAME = "database.db";
 
   public DatabaseDriver(Context context) {
     super(context, DATABASE_NAME, null, 1);
