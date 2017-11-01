@@ -5,7 +5,16 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.ListAdapter;
+
+import com.stapp.databasehelpers.UserHelper;
+import com.stapp.exceptions.UserNotFoundException;
 import com.stapp.security.PasswordHelpers;
+import com.stapp.terminals.LoginTerminal;
+import com.stapp.users.Student;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -26,12 +35,23 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   public void onCreate(SQLiteDatabase sqLiteDatabase) {
     sqLiteDatabase.execSQL("CREATE TABLE USERS " +
         "(ID INTEGER PRIMARY KEY NOT NULL, " +
-        "USERNAME TEXT NOT NULL, NAME TEXT NOT NULL, " +
+        "USERNAME TEXT NOT NULL, " +
+        "NAME TEXT NOT NULL, " +
         "PASSWORD TEXT NOT NULL, " +
         "ROLE INTEGER NOT NULL)");
-    sqLiteDatabase.execSQL("CREATE TABLE ROLES" +
+    sqLiteDatabase.execSQL("CREATE TABLE ROLES " +
         "(ID INTEGER PRIMARY KEY NOT NULL, " +
         "NAME TEXT NOT NULL)");
+    sqLiteDatabase.execSQL("CREATE TABLE CLASSES " +
+        "(ID INTEGER PRIMARY KEY NOT NULL, " +
+        "UNIQUEKEY TEXT NOT NULL, " +
+        "NAME TEXT NOT NULL, " +
+        "PROFUSERNAME TEXT NOT NULL, " +
+        "ARCHIVED INTEGER NOT NULL)");
+    sqLiteDatabase.execSQL("CREATE TABLE STUDENTCLASSLINKS " +
+        "(ID INTEGER PRIMARY KEY NOT NULL, " +
+        "UNIQUEKEY TEXT NOT NULL" +
+        "STUDENTUSERNAME TEXT NOT NULL");
   }
 
   @Override
@@ -39,6 +59,76 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     onCreate(sqLiteDatabase);
   }
 
+  // CLASSES STUFF
+  // INSERT
+  public String insertClass(String name, String profUsername) {
+    SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+    ContentValues contentValues = new ContentValues();
+    String uniqueKey = PasswordHelpers.passwordHash(name);
+    // create a unique key
+    uniqueKey = uniqueKey.substring(0, Math.min(uniqueKey.length(), 10));
+    contentValues.put("UNIQUEKEY", uniqueKey);
+    contentValues.put("NAME", name);
+    contentValues.put("PROFUSERNAME", profUsername);
+    contentValues.put("ARCHIVED", 0);
+    if (sqLiteDatabase.insert("CLASSES", null, contentValues) > 0) {
+
+    }
+
+  }
+
+  public long insertStudentToClass(String uniqueKey, String studentUsername) {
+    SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+    ContentValues contentValues = new ContentValues();
+    contentValues.put("UNIQUEKEY", uniqueKey);
+    contentValues.put("STUDENTUSERNAME", studentUsername);
+    return sqLiteDatabase.insert("STUDENTCLASSLINKS", null, contentValues);
+  }
+
+  // UPDATE
+  public boolean archiveClass(String uniqueKey) {
+    SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+    ContentValues contentValues = new ContentValues();
+    contentValues.put("ARCHIVED", 1);
+    return sqLiteDatabase.update("CLASSES", contentValues, "UNIQUEKEY = ?", new String[]{uniqueKey})
+        > 0;
+  }
+
+  public boolean removeStudentFromClass(String uniqueKey, String username) {
+    SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+    return sqLiteDatabase.delete("STUDENTCLASSLINKS", "UNIQUEKEY = ? AND STUDENTUSERNAME = ?",
+        new String[]{uniqueKey, username}) > 0;
+  }
+
+  // SELECT
+  public String getClassName(String uniqueKey) {
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT NAME FROM CLASSES WHERE UNIQUEKEY = ?",
+        new String[]{uniqueKey});
+
+  }
+
+  public ArrayList<String> getStudentUsernames(String uniqueKey) {
+    ArrayList<String> usernames = new ArrayList<>();
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT STUDENTUSERNAME FROM STUDENTCLASSLINKS WHERE " +
+        "UNIQUEKEY = ?", new String[]{uniqueKey});
+    while (cursor.moveToNext()) {
+      usernames.add(cursor.getString(cursor.getColumnIndex("STUDENTUSERNAME")));
+    }
+    return usernames;
+  }
+
+  //TODO this method
+  public ArrayList<String> getStudentClassNames(String username) {
+    ArrayList<String> classNames = new ArrayList<>();
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    //Cursor cursor = sqLiteDatabase.rawQuery("SELECT ")
+    return classNames;
+  }
+
+
+  // USERS/ROLES STUFF
   // INSERT
   public long insertUser(String username, String name, String password, int role) {
     SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
