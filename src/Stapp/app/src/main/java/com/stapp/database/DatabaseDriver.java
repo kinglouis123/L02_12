@@ -72,9 +72,9 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     contentValues.put("PROFUSERNAME", profUsername);
     contentValues.put("ARCHIVED", 0);
     if (sqLiteDatabase.insert("CLASSES", null, contentValues) > 0) {
-
+      return uniqueKey;
     }
-
+    return null;
   }
 
   public long insertStudentToClass(String uniqueKey, String studentUsername) {
