@@ -179,6 +179,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
         > 0;
   }
 
+  // USER STUFF
   // SELECT
 
   public String getRoleNameGivenUsername(String username) {
