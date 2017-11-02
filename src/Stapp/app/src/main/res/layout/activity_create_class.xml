@@ -6,4 +6,19 @@
     android:layout_height="match_parent"
     tools:context="com.stapp.activities.CreateClass">
 
+    <EditText
+        android:id="@+id/CreateClassName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Class name"/>
+
+    <Button
+        android:id="@+id/CreateClassConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Class"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="57dp"
+        android:onClick="createClass"/>
+
 </android.support.constraint.ConstraintLayout>
