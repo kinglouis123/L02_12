@@ -52,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
       Toaster.toastShort("Welcome Professor " + professor.getName() + "!");
       Toaster.toastShort("DATABASE ID: " + professor.getId());
       // Start Professor interface
+      Intent intent = new Intent(this, ProfessorMenu.class);
+      intent.putExtra("username", username);
+      intent.putExtra("password", password);
+      startActivity(intent);
     }
 
   }

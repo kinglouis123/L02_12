@@ -18,7 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.RegisterActivity" />
-        <activity android:name=".activities.ProfessorMenu"></activity>
+        <activity android:name=".activities.ProfessorMenu" />
+        <activity android:name=".activities.CreateClass"></activity>
     </application>
 
 </manifest>
