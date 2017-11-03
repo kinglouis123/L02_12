@@ -50,8 +50,8 @@ public class DatabaseDriver extends SQLiteOpenHelper {
         "ARCHIVED INTEGER NOT NULL)");
     sqLiteDatabase.execSQL("CREATE TABLE STUDENTCLASSLINKS " +
         "(ID INTEGER PRIMARY KEY NOT NULL, " +
-        "UNIQUEKEY TEXT NOT NULL" +
-        "STUDENTUSERNAME TEXT NOT NULL");
+        "UNIQUEKEY TEXT NOT NULL, " +
+        "STUDENTUSERNAME TEXT NOT NULL)");
   }
 
   @Override
@@ -105,7 +105,10 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
     Cursor cursor = sqLiteDatabase.rawQuery("SELECT NAME FROM CLASSES WHERE UNIQUEKEY = ?",
         new String[]{uniqueKey});
-
+    cursor.moveToFirst();
+    String className = cursor.getString(cursor.getColumnIndex("NAME"));
+    cursor.close();
+    return className;
   }
 
   public ArrayList<String> getStudentUsernames(String uniqueKey) {
@@ -176,6 +179,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
         > 0;
   }
 
+  // USER STUFF
   // SELECT
 
   public String getRoleNameGivenUsername(String username) {
