@@ -12,6 +12,7 @@ import com.stapp.databasehelpers.UserHelper;
 import com.stapp.exceptions.UserNotFoundException;
 import com.stapp.security.PasswordHelpers;
 import com.stapp.terminals.LoginTerminal;
+import com.stapp.users.Professor;
 import com.stapp.users.Student;
 
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
         "NAME TEXT NOT NULL)");
     sqLiteDatabase.execSQL("CREATE TABLE CLASSES " +
         "(ID INTEGER PRIMARY KEY NOT NULL, " +
-        "NAME TEXT NOT NULL, " +
+        "CLASSNAME TEXT NOT NULL, " +
         "PROFUSERNAME TEXT NOT NULL, " +
         "ARCHIVED INTEGER NOT NULL)");
     sqLiteDatabase.execSQL("CREATE TABLE STUDENTCLASSLINKS " +
@@ -64,7 +65,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   public void insertClass(String name, String profUsername) {
     SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
-    contentValues.put("NAME", name);
+    contentValues.put("CLASSNAME", name);
     contentValues.put("PROFUSERNAME", profUsername);
     contentValues.put("ARCHIVED", 0);
     sqLiteDatabase.insert("CLASSES", null, contentValues);
@@ -83,7 +84,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
     contentValues.put("ARCHIVED", 1);
-    return sqLiteDatabase.update("CLASSES", contentValues, "NAME = ?", new String[]{className})
+    return sqLiteDatabase.update("CLASSES", contentValues, "CLASSNAME = ?", new String[]{className})
         > 0;
   }
 
@@ -130,16 +131,31 @@ public class DatabaseDriver extends SQLiteOpenHelper {
 
   public String getProfUsername(String className) {
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-    Cursor cursor = sqLiteDatabase.rawQuery("SELECT PROFUSERNAME FROM CLASSES WHERE NAME = ?",
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT PROFUSERNAME FROM CLASSES WHERE CLASSNAME = ?",
         new String[]{className});
     cursor.moveToFirst();
     return cursor.getString(cursor.getColumnIndex("PROFUSERNAME"));
   }
 
+  /**
+   * Checks if a class is archived or not (ie if it is still running this semester)
+   * @return true if class isn't archived
+   */
+  public boolean classNotArchived(String className) {
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT ARCHIVED FROM CLASSES WHERE CLASSNAME = ?",
+        new String[]{className});
+    int archived = cursor.getInt(cursor.getColumnIndex("ARCHIVED"));
+    if (archived == 0) {
+      return true;
+    }
+    return false;
+  }
+
   public boolean classExists(String className) {
     boolean exists = true;
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-    Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM CLASSES WHERE NAME = ?",
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM CLASSES WHERE CLASSNAME = ?",
         new String[]{className});
     if (cursor.getCount() <= 0) {
       exists = false;
