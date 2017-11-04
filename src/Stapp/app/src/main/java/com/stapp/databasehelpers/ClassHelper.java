@@ -21,21 +21,14 @@ public class ClassHelper {
         databaseDriver = null;
     }
 
-    public static String insertClass(String name, String profUsername) {
+    public static void insertClass(String name, String profUsername) {
         openDatabase();
-        String uniqueKey = databaseDriver.insertClass(name, profUsername);
+        databaseDriver.insertClass(name, profUsername);
         closeDatabase();
-
-        if (uniqueKey == null) {
-            // TODO throw exception instead
-            return null;
-        }
-
-        return uniqueKey;
     }
 
-    public static long insertStudentToClass(String uniqueKey, String studentUsername) {
+    public static long insertStudentToClass(String className, String studentUsername) {
         openDatabase();
-        return databaseDriver.insertStudentToClass(uniqueKey, studentUsername);
+        return databaseDriver.insertStudentToClass(className, studentUsername);
     }
 }
