@@ -20,10 +20,11 @@
         <activity android:name=".activities.RegisterActivity" />
         <activity android:name=".activities.ProfessorMenu" />
         <activity android:name=".activities.CreateClass" />
-        <activity android:name=".activities.StudentMenu">
-
-        </activity>
-
+        <activity android:name=".activities.StudentMenu"></activity>
+        <activity
+            android:name=".activities.CourseDisplay"
+            android:label="@string/title_activity_course"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

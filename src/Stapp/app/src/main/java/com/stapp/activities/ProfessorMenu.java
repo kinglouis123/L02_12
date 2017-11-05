@@ -64,17 +64,17 @@ public class ProfessorMenu extends AppCompatActivity {
         startActivity(intent);
     }
 
-    //Coures List OnClick Navigation
-        private AdapterView.OnItemClickListener courseListClickedListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //TO-DO fill in onclick
-
-
-            }
-        };
+    //Courses List OnClick Navigation
+        protected void showCourseActivity(View view) {
+        Intent intent = new Intent (this, CourseDisplay.class);
+        //intent.putExtra("course code",view.toString());
+        startActivity(intent);
 
     }
+
+    }
+
+
 
 
 

@@ -29,7 +29,7 @@ public class CourseTerminal {
     }
 
     /**
-     * Generate a Course object from the database, with all of its information (essentially
+     * Generate a CourseDisplay object from the database, with all of its information (essentially
      * a factory method).
      * @param courseCode
      * @return the course

@@ -33,10 +33,10 @@ public class CreateClass extends AppCompatActivity {
         // Attempt to create course
         if (CourseTerminal.createNewCourse(courseCode.getText().toString(),
                 this.profUsername) != null) {
-            Toaster.toastLong("Course successfully created!");
+            Toaster.toastLong("CourseDisplay successfully created!");
             finish();
         } else {
-            Toaster.toastLong("Course creation unsuccessful.");
+            Toaster.toastLong("CourseDisplay creation unsuccessful.");
             finish();
         }
     }
