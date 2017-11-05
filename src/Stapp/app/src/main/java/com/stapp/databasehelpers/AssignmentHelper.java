@@ -3,6 +3,9 @@ package com.stapp.databasehelpers;
 import com.stapp.database.ContextHelper;
 import com.stapp.database.DatabaseDriver;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * Created by rahulkumar1998 on 2017-11-05.
  */
@@ -24,8 +27,11 @@ public class AssignmentHelper {
 
   public static int getAssignmentId(String assignmentName, String className) {
     openDatabase();
+    int Id = databaseDriver.getAssignmentId(assignmentName, className);
     closeDatabase();
-    return -1;
+    return Id;
   }
+
+
 
 }

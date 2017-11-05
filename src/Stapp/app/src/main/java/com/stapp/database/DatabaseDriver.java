@@ -6,9 +6,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.stapp.school.Question;
 import com.stapp.security.PasswordHelpers;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Queue;
 
 
 /**
@@ -51,8 +54,9 @@ public class DatabaseDriver extends SQLiteOpenHelper {
         "CLASSNAME TEXT NOT NULL, " +
         "DUE TEXT NOT NULL)");
 
-    sqLiteDatabase.execSQL("CREATE TABLE Questions ( " +
-        "ID INTEGER PRIMARY KEY NOT NULL, " +
+    sqLiteDatabase.execSQL("CREATE TABLE QUESTIONS " +
+        "(ID INTEGER PRIMARY KEY NOT NULL, " +
+        "ASSIGNMENTNAME TEXT NOT NULL, " +
         "QUESTION TEXT NOT NULL, " +
         "CHOICE1 TEXT NOT NULL, " +
         "CHOICE2 TEXT NOT NULL, " +
@@ -67,21 +71,8 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   }
 
 
-
-  // ASSIGNMENTS STUFF
+  // QUESTIONS STUFF
   // INSERT
-
-  /**
-   * @param due must be in format "yyyy-MM-dd HH:mm:ss"
-   */
-  public void insertAssignment(String assignmentName, String due, String courseName) {
-    SQLiteDatabase sqliteDatabase = this.getWritableDatabase();
-    ContentValues contentValues = new ContentValues();
-    contentValues.put("ASSIGNMENTNAME", assignmentName);
-    contentValues.put("COURSENAME", courseName);
-    contentValues.put("DUE", due);
-    sqliteDatabase.insert("ASSIGNMENTCOURSELINKS", null, contentValues);
-  }
 
   /**
    * @param correctAnswer must be the same as one of the choices
@@ -102,10 +93,30 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     return sqLiteDatabase.insert("QUESTIONS", null, contentValues);
   }
 
+  // SELECT
+
+
+  // ASSIGNMENTS STUFF
+  // INSERT
+
+  /**
+   * @param due must be in format "yyyy-MM-dd HH:mm:ss"
+   */
+  public void insertAssignment(String assignmentName, String due, String courseName) {
+    SQLiteDatabase sqliteDatabase = this.getWritableDatabase();
+    ContentValues contentValues = new ContentValues();
+    contentValues.put("ASSIGNMENTNAME", assignmentName);
+    contentValues.put("COURSENAME", courseName);
+    contentValues.put("DUE", due);
+    sqliteDatabase.insert("ASSIGNMENTCOURSELINKS", null, contentValues);
+  }
+
+
+
   // UPDATE
   // SELECT
 
-  public long getAssignmentId(String assignmentName, String className) {
+  public int getAssignmentId(String assignmentName, String className) {
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
     Cursor cursor = sqLiteDatabase.rawQuery("SELECT ID FROM ASSIGNMENTCLASSLINKS WHERE " +
         "ASSIGNMENTNAME = ? AND COURSENAME = ?", new String[]{assignmentName, className});
@@ -115,7 +126,16 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     return Id;
   }
 
-
+  public ArrayList<Question> getQuestions(String assignmentName) {
+    ArrayList<Question> questions = new ArrayList<>();
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT ID FROM QUESTIONS WHERE ASSIGNMENTNAME = ?", new String[]{assignmentName});
+    while (cursor.moveToNext()) {
+      questions.add(new Question(cursor.getInt(cursor.getColumnIndex("ID"))));
+    }
+    cursor.close();
+    return questions;
+  }
 
 
 
