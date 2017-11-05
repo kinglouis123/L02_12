@@ -44,6 +44,22 @@ public class DatabaseDriver extends SQLiteOpenHelper {
         "(ID INTEGER PRIMARY KEY NOT NULL, " +
         "STUDENTUSERNAME TEXT NOT NULL," +
         "COURSENAME TEXT NOT NULL)");
+
+    sqLiteDatabase.execSQL("CREATE TABLE ASSIGNMENTCLASSLINK" +
+        "( AssignmentID  INTEGER PRIMARY KEY NOT NULL, " +
+        "AssignmentName TEXT," +
+        "classname TEXT," +
+        "Duedate TEXT)" );
+
+    sqLiteDatabase.execSQL("CREATE TABLE Questions ( " +
+        "QuestionID INTEGER PRIMARY KEY NOT NULL," +
+        "QuestionName TEXT, " +
+        "QuestionString TEXT," +
+            "Choice1 TEXT, " +
+         "Choice2 TEXT," +
+          "Choice3 TEXT," +
+            "Choice4 TEXT,"+
+            " Correctanswer int )");
   }
 
   @Override
