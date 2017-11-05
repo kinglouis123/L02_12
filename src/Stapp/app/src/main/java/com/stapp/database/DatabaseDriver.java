@@ -167,7 +167,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   public ArrayList<String> getProfCourses(String profUsername) {
     ArrayList<String> profCourses = new ArrayList<>();
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-    Cursor cursor = sqLiteDatabase.rawQuery("SELECT COURSENAME FROM COURSEES WHERE PROFUSERNAME = ?",
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT COURSENAME FROM COURSES WHERE PROFUSERNAME = ?",
         new String[]{profUsername});
     while (cursor.moveToNext()) {
       profCourses.add(cursor.getString(cursor.getColumnIndex("COURSENAME")));
@@ -192,7 +192,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   public boolean courseExists(String courseName) {
     boolean exists = true;
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-    Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM COURSEES WHERE COURSENAME = ?",
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM COURSES WHERE COURSENAME = ?",
         new String[]{courseName});
     if (cursor.getCount() <= 0) {
       exists = false;
