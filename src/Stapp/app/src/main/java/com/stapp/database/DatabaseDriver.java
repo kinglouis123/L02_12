@@ -35,15 +35,15 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     sqLiteDatabase.execSQL("CREATE TABLE ROLES " +
         "(ID INTEGER PRIMARY KEY NOT NULL, " +
         "NAME TEXT NOT NULL)");
-    sqLiteDatabase.execSQL("CREATE TABLE CLASSES " +
+    sqLiteDatabase.execSQL("CREATE TABLE COURSES " +
         "(ID INTEGER PRIMARY KEY NOT NULL, " +
-        "CLASSNAME TEXT NOT NULL, " +
+        "COURSENAME TEXT NOT NULL, " +
         "PROFUSERNAME TEXT NOT NULL, " +
         "ARCHIVED INTEGER NOT NULL)");
-    sqLiteDatabase.execSQL("CREATE TABLE STUDENTCLASSLINKS " +
+    sqLiteDatabase.execSQL("CREATE TABLE STUDENTCOURSELINKS " +
         "(ID INTEGER PRIMARY KEY NOT NULL, " +
         "STUDENTUSERNAME TEXT NOT NULL," +
-        "CLASSNAME TEXT NOT NULL)");
+        "COURSENAME TEXT NOT NULL)");
   }
 
   @Override
@@ -59,13 +59,13 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   /**
    * @param due must be in format "yyyy-MM-dd HH:mm:ss"
    */
-  public void insertAssignment(String assignmentName, String due, String className) {
+  public void insertAssignment(String assignmentName, String due, String courseName) {
     SQLiteDatabase sqliteDatabase = this.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
     contentValues.put("ASSIGNMENTNAME", assignmentName);
-    contentValues.put("CLASSNAME", className);
+    contentValues.put("COURSENAME", courseName);
     contentValues.put("DUE", due);
-    sqliteDatabase.insert("ASSIGNMENTCLASSLINKS", null, contentValues);
+    sqliteDatabase.insert("ASSIGNMENTCOURSELINKS", null, contentValues);
   }
 
   /**
@@ -94,47 +94,47 @@ public class DatabaseDriver extends SQLiteOpenHelper {
 
 
 
-  // CLASSES STUFF
+  // COURSES STUFF STUFF
   // INSERT
-  public void insertClass(String name, String profUsername) {
+  public void insertCourse(String name, String profUsername) {
     SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
-    contentValues.put("CLASSNAME", name);
+    contentValues.put("COURSENAME", name);
     contentValues.put("PROFUSERNAME", profUsername);
     contentValues.put("ARCHIVED", 0);
-    sqLiteDatabase.insert("CLASSES", null, contentValues);
+    sqLiteDatabase.insert("COURSES", null, contentValues);
   }
 
-  public long insertStudentToClass(String className, String studentUsername) {
+  public long insertStudentToCourse(String courseName, String studentUsername) {
     SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
     contentValues.put("STUDENTUSERNAME", studentUsername);
-    contentValues.put("CLASSNAME", className);
-    return sqLiteDatabase.insert("STUDENTCLASSLINKS", null, contentValues);
+    contentValues.put("COURSENAME", courseName);
+    return sqLiteDatabase.insert("STUDENTCOURSELINKS", null, contentValues);
   }
 
   // UPDATE
-  public boolean archiveClass(String className) {
+  public boolean archiveCourse(String courseName) {
     SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
     contentValues.put("ARCHIVED", 1);
-    return sqLiteDatabase.update("CLASSES", contentValues, "CLASSNAME = ?", new String[]{className})
-        > 0;
+    return sqLiteDatabase.update("COURSES", contentValues, "COURSENAME = ?",
+        new String[]{courseName}) > 0;
   }
 
-  public boolean removeStudentFromClass(String className, String username) {
+  public boolean removeStudentFromCourse(String courseName, String username) {
     SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-    return sqLiteDatabase.delete("STUDENTCLASSLINKS", "CLASSNAME = ? AND STUDENTUSERNAME = ?",
-        new String[]{className, username}) > 0;
+    return sqLiteDatabase.delete("STUDENTCOURSELINKS", "COURSENAME = ? AND STUDENTUSERNAME = ?",
+        new String[]{courseName, username}) > 0;
   }
 
   // SELECT
 
-  public ArrayList<String> getStudentUsernames(String className) {
+  public ArrayList<String> getStudentUsernames(String courseName) {
     ArrayList<String> usernames = new ArrayList<>();
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-    Cursor cursor = sqLiteDatabase.rawQuery("SELECT STUDENTUSERNAME FROM STUDENTCLASSLINKS WHERE " +
-        "CLASSNAME = ?", new String[]{className});
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT STUDENTUSERNAME FROM STUDENTCOURSELINKS WHERE " +
+        "COURSENAME = ?", new String[]{courseName});
     while (cursor.moveToNext()) {
       usernames.add(cursor.getString(cursor.getColumnIndex("STUDENTUSERNAME")));
     }
@@ -142,22 +142,22 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     return usernames;
   }
 
-  public ArrayList<String> getStudentClassNames(String username) {
-    ArrayList<String> classNames = new ArrayList<>();
+  public ArrayList<String> getStudentCourseNames(String username) {
+    ArrayList<String> courseNames = new ArrayList<>();
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-    Cursor cursor = sqLiteDatabase.rawQuery("SELECT CLASSNAME FROM STUDENTCLASSLINKS WHERE " +
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT COURSENAME FROM STUDENTCOURSELINKS WHERE " +
         "STUDENTUSERNAME = ?", new String[]{username});
     while (cursor.moveToNext()) {
-      classNames.add(cursor.getString(cursor.getColumnIndex("CLASSNAME")));
+      courseNames.add(cursor.getString(cursor.getColumnIndex("COURSENAME")));
     }
     cursor.close();
-    return classNames;
+    return courseNames;
   }
 
-  public String getProfUsername(String className) {
+  public String getProfUsername(String courseName) {
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-    Cursor cursor = sqLiteDatabase.rawQuery("SELECT PROFUSERNAME FROM CLASSES WHERE CLASSNAME = ?",
-        new String[]{className});
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT PROFUSERNAME FROM COURSES WHERE COURSENAME = ?",
+        new String[]{courseName});
     cursor.moveToFirst();
     String profUserName = cursor.getString(cursor.getColumnIndex("PROFUSERNAME"));
     cursor.close();
@@ -167,10 +167,10 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   public ArrayList<String> getProfCourses(String profUsername) {
     ArrayList<String> profCourses = new ArrayList<>();
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-    Cursor cursor = sqLiteDatabase.rawQuery("SELECT CLASSNAME FROM CLASSES WHERE PROFUSERNAME = ?",
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT COURSENAME FROM COURSEES WHERE PROFUSERNAME = ?",
         new String[]{profUsername});
     while (cursor.moveToNext()) {
-      profCourses.add(cursor.getString(cursor.getColumnIndex("CLASSNAME")));
+      profCourses.add(cursor.getString(cursor.getColumnIndex("COURSENAME")));
     }
     cursor.close();
     return profCourses;
@@ -180,20 +180,20 @@ public class DatabaseDriver extends SQLiteOpenHelper {
    * Checks if a class is archived or not (ie if it is still running this semester)
    * @return true if class isn't archived
    */
-  public boolean classNotArchived(String className) {
+  public boolean courseNotArchived(String courseName) {
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-    Cursor cursor = sqLiteDatabase.rawQuery("SELECT ARCHIVED FROM CLASSES WHERE CLASSNAME = ?",
-        new String[]{className});
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT ARCHIVED FROM COURSES WHERE COURSENAME = ?",
+        new String[]{courseName});
     int archived = cursor.getInt(cursor.getColumnIndex("ARCHIVED"));
     cursor.close();
     return archived == 0;
   }
 
-  public boolean classExists(String className) {
+  public boolean courseExists(String courseName) {
     boolean exists = true;
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-    Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM CLASSES WHERE CLASSNAME = ?",
-        new String[]{className});
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM COURSEES WHERE COURSENAME = ?",
+        new String[]{courseName});
     if (cursor.getCount() <= 0) {
       exists = false;
     }

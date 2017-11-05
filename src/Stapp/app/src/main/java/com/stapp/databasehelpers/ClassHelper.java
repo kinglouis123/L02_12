@@ -29,11 +29,11 @@ public class ClassHelper {
     public static void insertClass(String name, String profUsername)
             throws ClassAlreadyExistsException {
         openDatabase();
-        if (databaseDriver.classExists(name)) {
+        if (databaseDriver.courseExists(name)) {
             closeDatabase();
             throw new ClassAlreadyExistsException();
         }
-        databaseDriver.insertClass(name, profUsername);
+        databaseDriver.insertCourse(name, profUsername);
         closeDatabase();
     }
 
@@ -41,7 +41,7 @@ public class ClassHelper {
             throws ClassNotFoundException, StudentAlreadyExistsException {
         openDatabase();
         // Make sure class exists and user is not already in the class
-        if (!databaseDriver.classExists(className)) {
+        if (!databaseDriver.courseExists(className)) {
             closeDatabase();
             throw new ClassNotFoundException();
         }
@@ -50,7 +50,7 @@ public class ClassHelper {
             throw new StudentAlreadyExistsException();
         }
 
-        long id = databaseDriver.insertStudentToClass(className, studentUsername);
+        long id = databaseDriver.insertStudentToCourse(className, studentUsername);
         closeDatabase();
         return id;
     }
@@ -58,12 +58,12 @@ public class ClassHelper {
     public static boolean archiveClass(String className) throws ClassNotFoundException {
         openDatabase();
         // Class already archived
-        if (!databaseDriver.classExists(className)) {
+        if (!databaseDriver.courseExists(className)) {
             closeDatabase();
             throw new ClassNotFoundException();
         }
 
-        boolean updated = databaseDriver.archiveClass(className);
+        boolean updated = databaseDriver.archiveCourse(className);
         closeDatabase();
         return updated;
     }
@@ -76,7 +76,7 @@ public class ClassHelper {
             throw new UserNotFoundException();
         }
 
-        boolean updated = databaseDriver.removeStudentFromClass(className, username);
+        boolean updated = databaseDriver.removeStudentFromCourse(className, username);
         closeDatabase();
         return updated;
     }
@@ -84,7 +84,7 @@ public class ClassHelper {
     public static ArrayList<String> getStudentUsernames(String className)
             throws ClassNotFoundException {
         openDatabase();
-        if (!databaseDriver.classExists(className)) {
+        if (!databaseDriver.courseExists(className)) {
             closeDatabase();
             throw new ClassNotFoundException();
         }
@@ -102,14 +102,14 @@ public class ClassHelper {
             throw new UserNotFoundException();
         }
 
-        ArrayList<String> classNames = databaseDriver.getStudentClassNames(username);
+        ArrayList<String> classNames = databaseDriver.getStudentCourseNames(username);
         closeDatabase();
         return classNames;
     }
 
     public static String getProfUsername(String className) throws ClassNotFoundException {
         openDatabase();
-        if (!databaseDriver.classExists(className)) {
+        if (!databaseDriver.courseExists(className)) {
             closeDatabase();
             throw new ClassNotFoundException();
         }
@@ -133,19 +133,19 @@ public class ClassHelper {
 
     public static boolean classNotArchived(String className) throws ClassNotFoundException {
         openDatabase();
-        if (!databaseDriver.classExists(className)) {
+        if (!databaseDriver.courseExists(className)) {
             closeDatabase();
             throw new ClassNotFoundException();
         }
 
-        boolean notArchived = databaseDriver.classNotArchived(className);
+        boolean notArchived = databaseDriver.courseNotArchived(className);
         closeDatabase();
         return notArchived;
     }
 
     public static boolean classExists(String className) {
         openDatabase();
-        boolean classExists = databaseDriver.classExists(className);
+        boolean classExists = databaseDriver.courseExists(className);
         closeDatabase();
         return classExists;
     }
