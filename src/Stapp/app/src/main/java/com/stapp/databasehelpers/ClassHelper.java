@@ -119,6 +119,18 @@ public class ClassHelper {
         return profName;
     }
 
+    public static ArrayList<String> getProfCourseNames(String username)
+            throws UserNotFoundException {
+        openDatabase();
+        if (!UserHelper.userExists(username)) {
+            throw new UserNotFoundException();
+        }
+
+        ArrayList<String> classes = databaseDriver.getProfCourses(username);
+        closeDatabase();
+        return classes;
+    }
+
     public static boolean classNotArchived(String className) throws ClassNotFoundException {
         openDatabase();
         if (!databaseDriver.classExists(className)) {
