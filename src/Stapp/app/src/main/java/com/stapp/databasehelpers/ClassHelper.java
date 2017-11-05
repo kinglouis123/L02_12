@@ -2,6 +2,9 @@ package com.stapp.databasehelpers;
 
 import com.stapp.database.ContextHelper;
 import com.stapp.database.DatabaseDriver;
+import com.stapp.exceptions.ClassAlreadyExistsException;
+import com.stapp.exceptions.StudentAlreadyExistsException;
+import com.stapp.exceptions.UserNotFoundException;
 
 import java.util.ArrayList;
 
@@ -23,56 +26,106 @@ public class ClassHelper {
         databaseDriver = null;
     }
 
-    public static void insertClass(String name, String profUsername) {
+    public static void insertClass(String name, String profUsername)
+            throws ClassAlreadyExistsException {
         openDatabase();
+        if (databaseDriver.classExists(name)) {
+            closeDatabase();
+            throw new ClassAlreadyExistsException();
+        }
         databaseDriver.insertClass(name, profUsername);
         closeDatabase();
     }
 
-    public static long insertStudentToClass(String className, String studentUsername) {
+    public static long insertStudentToClass(String className, String studentUsername)
+            throws ClassNotFoundException, StudentAlreadyExistsException {
         openDatabase();
+        // Make sure class exists and user is not already in the class
+        if (!databaseDriver.classExists(className)) {
+            closeDatabase();
+            throw new ClassNotFoundException();
+        }
+        if (databaseDriver.getStudentUsernames(className).contains(studentUsername)) {
+            closeDatabase();
+            throw new StudentAlreadyExistsException();
+        }
+
         long id = databaseDriver.insertStudentToClass(className, studentUsername);
         closeDatabase();
         return id;
     }
 
-    public static boolean archiveClass(String className) {
+    public static boolean archiveClass(String className) throws ClassNotFoundException {
         openDatabase();
+        // Class already archived
+        if (!databaseDriver.classExists(className)) {
+            closeDatabase();
+            throw new ClassNotFoundException();
+        }
+
         boolean updated = databaseDriver.archiveClass(className);
         closeDatabase();
         return updated;
     }
 
-    public static boolean removeStudentFromClass(String className, String username) {
+    public static boolean removeStudentFromClass(String className, String username)
+            throws UserNotFoundException {
         openDatabase();
+        if (!databaseDriver.getStudentUsernames(className).contains(username)) {
+            closeDatabase();
+            throw new UserNotFoundException();
+        }
+
         boolean updated = databaseDriver.removeStudentFromClass(className, username);
         closeDatabase();
         return updated;
     }
 
-    public ArrayList<String> getStudentUsernames(String className) {
+    public ArrayList<String> getStudentUsernames(String className)
+            throws ClassNotFoundException {
         openDatabase();
+        if (!databaseDriver.classExists(className)) {
+            closeDatabase();
+            throw new ClassNotFoundException();
+        }
+
         ArrayList<String> usernames = databaseDriver.getStudentUsernames(className);
         closeDatabase();
         return usernames;
     }
 
-    public ArrayList<String> getStudentClassNames(String username) {
+    public ArrayList<String> getStudentClassNames(String username)
+            throws UserNotFoundException {
         openDatabase();
+        if (!databaseDriver.userExists(username)) {
+            closeDatabase();
+            throw new UserNotFoundException();
+        }
+
         ArrayList<String> classNames = databaseDriver.getStudentClassNames(username);
         closeDatabase();
         return classNames;
     }
 
-    public String getProfUsername(String className) {
+    public String getProfUsername(String className) throws ClassNotFoundException {
         openDatabase();
+        if (!databaseDriver.classExists(className)) {
+            closeDatabase();
+            throw new ClassNotFoundException();
+        }
+
         String profName = databaseDriver.getProfUsername(className);
         closeDatabase();
         return profName;
     }
 
-    public boolean classNotArchived(String className) {
+    public boolean classNotArchived(String className) throws ClassNotFoundException {
         openDatabase();
+        if (!databaseDriver.classExists(className)) {
+            closeDatabase();
+            throw new ClassNotFoundException();
+        }
+
         boolean notArchived = databaseDriver.classNotArchived(className);
         closeDatabase();
         return notArchived;
