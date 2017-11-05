@@ -46,4 +46,8 @@ public class Course {
     } catch (UserNotFoundException e) {
     }
   }
+
+  public void makeArchives() throws ClassNotFoundException{
+      ClassHelper.archiveClass(this.courseCode);
+  }
 }
