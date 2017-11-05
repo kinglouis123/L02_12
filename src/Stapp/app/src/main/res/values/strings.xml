@@ -8,4 +8,7 @@
     <string name="Name">Name</string>
     <string name="Instructor">Instructor</string>
     <string name="Student">Student</string>
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 </resources>
