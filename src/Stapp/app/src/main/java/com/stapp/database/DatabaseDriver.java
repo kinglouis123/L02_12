@@ -45,21 +45,20 @@ public class DatabaseDriver extends SQLiteOpenHelper {
         "STUDENTUSERNAME TEXT NOT NULL," +
         "COURSENAME TEXT NOT NULL)");
 
-    sqLiteDatabase.execSQL("CREATE TABLE ASSIGNMENTCLASSLINK" +
-        "( AssignmentID  INTEGER PRIMARY KEY NOT NULL, " +
-        "AssignmentName TEXT," +
-        "classname TEXT," +
-        "Duedate TEXT)" );
+    sqLiteDatabase.execSQL("CREATE TABLE ASSIGNMENTCLASSLINKS " +
+        "(ID INTEGER PRIMARY KEY NOT NULL, " +
+        "ASSIGNMENTNAME TEXT NOT NULL, " +
+        "CLASSNAME TEXT NOT NULL, " +
+        "DUE TEXT NOT NULL)");
 
     sqLiteDatabase.execSQL("CREATE TABLE Questions ( " +
-        "QuestionID INTEGER PRIMARY KEY NOT NULL," +
-        "QuestionName TEXT, " +
-        "QuestionString TEXT," +
-            "Choice1 TEXT, " +
-         "Choice2 TEXT," +
-          "Choice3 TEXT," +
-            "Choice4 TEXT,"+
-            " Correctanswer int )");
+        "ID INTEGER PRIMARY KEY NOT NULL, " +
+        "QUESTION TEXT NOT NULL, " +
+        "CHOICE1 TEXT NOT NULL, " +
+        "CHOICE2 TEXT NOT NULL, " +
+        "CHOICE3 TEXT NOT NULL, " +
+        "CHOICE4 TEXT NOT NULL, "+
+        "CORRECTANSWER TEXT NOT NULL)");
   }
 
   @Override
@@ -105,6 +104,16 @@ public class DatabaseDriver extends SQLiteOpenHelper {
 
   // UPDATE
   // SELECT
+
+  public long getAssignmentId(String assignmentName, String className) {
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT ID FROM ASSIGNMENTCLASSLINKS WHERE " +
+        "ASSIGNMENTNAME = ? AND COURSENAME = ?", new String[]{assignmentName, className});
+    cursor.moveToFirst();
+    int Id = cursor.getInt(cursor.getColumnIndex("ID"));
+    cursor.close();
+    return Id;
+  }
 
 
 
