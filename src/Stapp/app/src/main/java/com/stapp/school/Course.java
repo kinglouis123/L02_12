@@ -50,4 +50,8 @@ public class Course {
   public void makeArchives() throws ClassNotFoundException{
       CourseHelper.archiveCourse(this.courseCode);
   }
+
+  public String toString(){
+    return this.courseCode;
+  };
 }
