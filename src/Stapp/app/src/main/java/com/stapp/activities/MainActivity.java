@@ -11,6 +11,8 @@ import android.widget.EditText;
 import com.stapp.R;
 import com.stapp.Toaster;
 import com.stapp.activities.RegisterActivity;
+import com.stapp.database.DatabaseDriver;
+import com.stapp.database.DatabaseDriverHelper;
 import com.stapp.database.InitializeDatabase;
 import com.stapp.databasehelpers.UserHelper;
 import com.stapp.terminals.LoginTerminal;
@@ -30,6 +32,13 @@ public class MainActivity extends AppCompatActivity {
   protected void showRegisterActivity(View view) {
     Intent intent = new Intent(this, RegisterActivity.class);
     startActivity(intent);
+  }
+
+  protected void resetDatabase(View view) {
+    if (DatabaseDriverHelper.databaseExists()) {
+      DatabaseDriverHelper.reinitializeDatabase();
+      InitializeDatabase.initializeDatabase();
+    }
   }
 
   protected void loginUser(View view) {

@@ -5,6 +5,7 @@ import com.stapp.database.DatabaseDriver;
 import com.stapp.exceptions.ClassAlreadyExistsException;
 import com.stapp.exceptions.StudentAlreadyExistsException;
 import com.stapp.exceptions.UserNotFoundException;
+import com.stapp.school.Assignment;
 
 import java.util.ArrayList;
 
@@ -150,5 +151,11 @@ public class CourseHelper {
         return classExists;
     }
 
+    public static ArrayList<Assignment> getAssignments(String courseName) {
+        openDatabase();
+        ArrayList<Assignment> assignments = databaseDriver.getAssignments(courseName);
+        closeDatabase();
+        return assignments;
+    }
 
 }

@@ -27,12 +27,12 @@ public class DatabaseDriverHelper {
   }
 
   public static boolean databaseExists() {
-    File database = ContextHelper.getStappContext().getDatabasePath("bank.db");
+    File database = ContextHelper.getStappContext().getDatabasePath("database.db");
     return database.exists();
   }
 
   public static boolean deleteDatabase() {
-    File database = ContextHelper.getStappContext().getDatabasePath("bank.db");
+    File database = ContextHelper.getStappContext().getDatabasePath("database.db");
     return database.delete();
   }
 

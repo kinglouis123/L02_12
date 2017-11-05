@@ -3,9 +3,11 @@ package com.stapp.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.stapp.school.Assignment;
 import com.stapp.school.Question;
 import com.stapp.security.PasswordHelpers;
 
@@ -48,15 +50,15 @@ public class DatabaseDriver extends SQLiteOpenHelper {
         "STUDENTUSERNAME TEXT NOT NULL," +
         "COURSENAME TEXT NOT NULL)");
 
-    sqLiteDatabase.execSQL("CREATE TABLE ASSIGNMENTCLASSLINKS " +
+    sqLiteDatabase.execSQL("CREATE TABLE ASSIGNMENTCOURSELINKS " +
         "(ID INTEGER PRIMARY KEY NOT NULL, " +
         "ASSIGNMENTNAME TEXT NOT NULL, " +
-        "CLASSNAME TEXT NOT NULL, " +
+        "COURSE TEXT NOT NULL, " +
         "DUE TEXT NOT NULL)");
 
     sqLiteDatabase.execSQL("CREATE TABLE QUESTIONS " +
         "(ID INTEGER PRIMARY KEY NOT NULL, " +
-        "ASSIGNMENTNAME TEXT NOT NULL, " +
+        "ASSIGNMENTID INTEGER NOT NULL, " +
         "QUESTION TEXT NOT NULL, " +
         "CHOICE1 TEXT NOT NULL, " +
         "CHOICE2 TEXT NOT NULL, " +
@@ -78,12 +80,12 @@ public class DatabaseDriver extends SQLiteOpenHelper {
    * @param correctAnswer must be the same as one of the choices
    * @return question ID in database
    */
-  public long insertMultipleChoiceQuestion(String assignmentName, String question, String choice1,
+  public long insertMultipleChoiceQuestion(int assignmentId, String question, String choice1,
                                            String choice2, String choice3, String choice4,
                                            String correctAnswer) {
     SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
-    contentValues.put("ASSIGNMENTNAME", assignmentName);
+    contentValues.put("ASSIGNMENTID", assignmentId);
     contentValues.put("QUESTION", question);
     contentValues.put("CHOICE1", choice1);
     contentValues.put("CHOICE2", choice2);
@@ -94,6 +96,40 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   }
 
   // SELECT
+
+  public String getQuestionString(int Id) {
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT QUESTION FROM QUESTIONS WHERE ID = ?",
+        new String[]{String.valueOf(Id)});
+    cursor.moveToFirst();
+    String question = cursor.getString(cursor.getColumnIndex("QUESTION"));
+    cursor.close();
+    return question;
+  }
+
+  public ArrayList<String> getChoices(int Id) {
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    ArrayList<String> choices = new ArrayList<>();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM QUESTIONS WHERE ID = ?",
+        new String[]{String.valueOf(Id)});
+    cursor.moveToFirst();
+    choices.add(cursor.getString(cursor.getColumnIndex("CHOICE1")));
+    choices.add(cursor.getString(cursor.getColumnIndex("CHOICE2")));
+    choices.add(cursor.getString(cursor.getColumnIndex("CHOICE3")));
+    choices.add(cursor.getString(cursor.getColumnIndex("CHOICE4")));
+    return choices;
+  }
+
+  public String getAnswer(int Id) {
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT CORRECTANSWER FROM QUESTIONS WHERE ID = ?",
+        new String[]{String.valueOf(Id)});
+    cursor.moveToFirst();
+    String answer = cursor.getString(cursor.getColumnIndex("CORRECTANSWER"));
+    cursor.close();
+    return answer;
+  }
+
 
 
   // ASSIGNMENTS STUFF
@@ -116,20 +152,45 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   // UPDATE
   // SELECT
 
-  public int getAssignmentId(String assignmentName, String className) {
+  public boolean assignmentExists(String assignmentName, String courseName) {
+    boolean exists = true;
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-    Cursor cursor = sqLiteDatabase.rawQuery("SELECT ID FROM ASSIGNMENTCLASSLINKS WHERE " +
-        "ASSIGNMENTNAME = ? AND COURSENAME = ?", new String[]{assignmentName, className});
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM ASSIGNMENTCOURSELINKS WHERE " +
+            "ASSIGNMENTNAME = ? AND COURSENAME = ?", new String[]{assignmentName, courseName});
+    if (cursor.getCount() <= 0) {
+      exists = false;
+    }
+    cursor.close();
+    return exists;
+  }
+
+  public boolean assignmentExists(int assignmentId) {
+    boolean exists = true;
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM ASSIGNMENTCOURSELINKS WHERE ID = ?",
+        new String[]{String.valueOf(assignmentId)});
+    if (cursor.getCount() <= 0) {
+      exists = false;
+    }
+    cursor.close();
+    return exists;
+  }
+
+  public int getAssignmentId(String assignmentName, String courseName) {
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT ID FROM ASSIGNMENTCOURSELINKS WHERE " +
+        "ASSIGNMENTNAME = ? AND COURSENAME = ?", new String[]{assignmentName, courseName});
     cursor.moveToFirst();
     int Id = cursor.getInt(cursor.getColumnIndex("ID"));
     cursor.close();
     return Id;
   }
 
-  public ArrayList<Question> getQuestions(String assignmentName) {
+  public ArrayList<Question> getQuestions(int assignmentId) {
     ArrayList<Question> questions = new ArrayList<>();
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-    Cursor cursor = sqLiteDatabase.rawQuery("SELECT ID FROM QUESTIONS WHERE ASSIGNMENTNAME = ?", new String[]{assignmentName});
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT ID FROM QUESTIONS WHERE " +
+        "ASSIGNMENTID = ?", new String[]{String.valueOf(assignmentId)});
     while (cursor.moveToNext()) {
       questions.add(new Question(cursor.getInt(cursor.getColumnIndex("ID"))));
     }
@@ -169,8 +230,8 @@ public class DatabaseDriver extends SQLiteOpenHelper {
 
   public boolean removeStudentFromCourse(String courseName, String username) {
     SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-    return sqLiteDatabase.delete("STUDENTCOURSELINKS", "COURSENAME = ? AND STUDENTUSERNAME = ?",
-        new String[]{courseName, username}) > 0;
+    return sqLiteDatabase.delete("STUDENTCOURSELINKS", "COURSENAME = ? " +
+            "AND STUDENTUSERNAME = ?", new String[]{courseName, username}) > 0;
   }
 
   // SELECT
@@ -178,8 +239,8 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   public ArrayList<String> getStudentUsernames(String courseName) {
     ArrayList<String> usernames = new ArrayList<>();
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-    Cursor cursor = sqLiteDatabase.rawQuery("SELECT STUDENTUSERNAME FROM STUDENTCOURSELINKS WHERE " +
-        "COURSENAME = ?", new String[]{courseName});
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT STUDENTUSERNAME FROM STUDENTCOURSELINKS " +
+        "WHERE COURSENAME = ?", new String[]{courseName});
     while (cursor.moveToNext()) {
       usernames.add(cursor.getString(cursor.getColumnIndex("STUDENTUSERNAME")));
     }
@@ -190,8 +251,8 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   public ArrayList<String> getStudentCourseNames(String username) {
     ArrayList<String> courseNames = new ArrayList<>();
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-    Cursor cursor = sqLiteDatabase.rawQuery("SELECT COURSENAME FROM STUDENTCOURSELINKS WHERE " +
-        "STUDENTUSERNAME = ?", new String[]{username});
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT COURSENAME FROM STUDENTCOURSELINKS " +
+        "WHERE STUDENTUSERNAME = ?", new String[]{username});
     while (cursor.moveToNext()) {
       courseNames.add(cursor.getString(cursor.getColumnIndex("COURSENAME")));
     }
@@ -201,8 +262,8 @@ public class DatabaseDriver extends SQLiteOpenHelper {
 
   public String getProfUsername(String courseName) {
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-    Cursor cursor = sqLiteDatabase.rawQuery("SELECT PROFUSERNAME FROM COURSES WHERE COURSENAME = ?",
-        new String[]{courseName});
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT PROFUSERNAME FROM COURSES " +
+        "WHERE COURSENAME = ?", new String[]{courseName});
     cursor.moveToFirst();
     String profUserName = cursor.getString(cursor.getColumnIndex("PROFUSERNAME"));
     cursor.close();
@@ -212,8 +273,8 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   public ArrayList<String> getProfCourses(String profUsername) {
     ArrayList<String> profCourses = new ArrayList<>();
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-    Cursor cursor = sqLiteDatabase.rawQuery("SELECT COURSENAME FROM COURSES WHERE PROFUSERNAME = ?",
-        new String[]{profUsername});
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT COURSENAME FROM COURSES WHERE " +
+        "PROFUSERNAME = ?", new String[]{profUsername});
     while (cursor.moveToNext()) {
       profCourses.add(cursor.getString(cursor.getColumnIndex("COURSENAME")));
     }
@@ -227,8 +288,8 @@ public class DatabaseDriver extends SQLiteOpenHelper {
    */
   public boolean courseNotArchived(String courseName) {
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-    Cursor cursor = sqLiteDatabase.rawQuery("SELECT ARCHIVED FROM COURSES WHERE COURSENAME = ?",
-        new String[]{courseName});
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT ARCHIVED FROM COURSES WHERE " +
+        "COURSENAME = ?", new String[]{courseName});
     int archived = cursor.getInt(cursor.getColumnIndex("ARCHIVED"));
     cursor.close();
     return archived == 0;
@@ -244,6 +305,22 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     }
     cursor.close();
     return exists;
+  }
+
+  public ArrayList<Assignment> getAssignments(String courseName) {
+    Assignment assignment;
+    ArrayList<Assignment> assignments = new ArrayList<>();
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT ID FROM " +
+        "ASSIGNMENTCOURSELINKS WHERE COURSENAME = ?", new String[]{courseName});
+    while (cursor.moveToNext()) {
+      assignment = new Assignment(cursor.getInt(cursor.getColumnIndex("ID")));
+      if (assignment.isValidAssignment()) {
+        assignments.add(assignment);
+      }
+    }
+    cursor.close();
+    return assignments;
   }
 
 
@@ -275,7 +352,8 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
     contentValues.put("PASSWORD", password);
-    return sqLiteDatabase.update("USERS", contentValues, "USERNAME = ?", new String[]{username})
+    return sqLiteDatabase.update("USERS", contentValues, "USERNAME = ?",
+        new String[]{username})
         > 0;
   }
 
@@ -283,7 +361,8 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
     contentValues.put("NAME", name);
-    return sqLiteDatabase.update("USERS", contentValues, "USERNAME = ?", new String[]{username})
+    return sqLiteDatabase.update("USERS", contentValues, "USERNAME = ?",
+        new String[]{username})
         > 0;
   }
 
@@ -291,7 +370,8 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
     contentValues.put("ROLE", role);
-    return sqLiteDatabase.update("USERS", contentValues, "USERNAME = ?", new String[]{username})
+    return sqLiteDatabase.update("USERS", contentValues, "USERNAME = ?",
+        new String[]{username})
         > 0;
   }
 

@@ -32,6 +32,26 @@ public class AssignmentHelper {
     return Id;
   }
 
+  public static boolean assignmentExists(String assignmentName, String courseName) {
+    openDatabase();
+    boolean exists = databaseDriver.assignmentExists(assignmentName, courseName);
+    closeDatabase();
+    return exists;
+  }
 
+  public static boolean assignmentExists(int Id) {
+    openDatabase();
+    boolean exists = databaseDriver.assignmentExists(Id);
+    closeDatabase();
+    return exists;
+  }
+
+  public static int createAssignment(String assignmentName, String due, String courseName) {
+    openDatabase();
+    databaseDriver.insertAssignment(assignmentName, due, courseName);
+    int Id = databaseDriver.getAssignmentId(assignmentName, courseName);
+    closeDatabase();
+    return Id;
+  }
 
 }

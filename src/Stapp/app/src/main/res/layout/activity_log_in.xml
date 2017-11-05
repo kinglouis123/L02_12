@@ -48,6 +48,17 @@
             android:onClick="showRegisterActivity"
             android:text="@string/Register"/>
 
+        <Button
+            android:id="@+id/resetDatabaseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button2"
+            android:layout_alignRight="@+id/button2"
+            android:onClick="resetDatabase"
+            android:text="Reset Database"
+
+            />
+
 
     </RelativeLayout>
 
