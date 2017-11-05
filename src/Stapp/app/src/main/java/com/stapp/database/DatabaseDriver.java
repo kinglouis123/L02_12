@@ -5,25 +5,18 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.ListAdapter;
 
-import com.stapp.databasehelpers.UserHelper;
-import com.stapp.exceptions.UserNotFoundException;
 import com.stapp.security.PasswordHelpers;
-import com.stapp.terminals.LoginTerminal;
-import com.stapp.users.Student;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
- * Created by jr on 21/10/17.
+ * Driver for Database
  */
 
 public class DatabaseDriver extends SQLiteOpenHelper {
 
-  private static final int DATABASE_VERSION = 1;
   private static final String DATABASE_NAME = "database.db";
 
   public DatabaseDriver(Context context) {
@@ -42,16 +35,15 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     sqLiteDatabase.execSQL("CREATE TABLE ROLES " +
         "(ID INTEGER PRIMARY KEY NOT NULL, " +
         "NAME TEXT NOT NULL)");
-    sqLiteDatabase.execSQL("CREATE TABLE CLASSES " +
+    sqLiteDatabase.execSQL("CREATE TABLE COURSES " +
         "(ID INTEGER PRIMARY KEY NOT NULL, " +
-        "UNIQUEKEY TEXT NOT NULL, " +
-        "NAME TEXT NOT NULL, " +
+        "COURSENAME TEXT NOT NULL, " +
         "PROFUSERNAME TEXT NOT NULL, " +
         "ARCHIVED INTEGER NOT NULL)");
-    sqLiteDatabase.execSQL("CREATE TABLE STUDENTCLASSLINKS " +
+    sqLiteDatabase.execSQL("CREATE TABLE STUDENTCOURSELINKS " +
         "(ID INTEGER PRIMARY KEY NOT NULL, " +
-        "UNIQUEKEY TEXT NOT NULL" +
-        "STUDENTUSERNAME TEXT NOT NULL");
+        "STUDENTUSERNAME TEXT NOT NULL," +
+        "COURSENAME TEXT NOT NULL)");
   }
 
   @Override
@@ -59,72 +51,154 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     onCreate(sqLiteDatabase);
   }
 
-  // CLASSES STUFF
+
+
+  // ASSIGNMENTS STUFF
   // INSERT
-  public String insertClass(String name, String profUsername) {
-    SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+
+  /**
+   * @param due must be in format "yyyy-MM-dd HH:mm:ss"
+   */
+  public void insertAssignment(String assignmentName, String due, String courseName) {
+    SQLiteDatabase sqliteDatabase = this.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
-    String uniqueKey = PasswordHelpers.passwordHash(name);
-    // create a unique key
-    uniqueKey = uniqueKey.substring(0, Math.min(uniqueKey.length(), 10));
-    contentValues.put("UNIQUEKEY", uniqueKey);
-    contentValues.put("NAME", name);
-    contentValues.put("PROFUSERNAME", profUsername);
-    contentValues.put("ARCHIVED", 0);
-    if (sqLiteDatabase.insert("CLASSES", null, contentValues) > 0) {
-      return uniqueKey;
-    }
-    return null;
+    contentValues.put("ASSIGNMENTNAME", assignmentName);
+    contentValues.put("COURSENAME", courseName);
+    contentValues.put("DUE", due);
+    sqliteDatabase.insert("ASSIGNMENTCOURSELINKS", null, contentValues);
   }
 
-  public long insertStudentToClass(String uniqueKey, String studentUsername) {
+  /**
+   * @param correctAnswer must be the same as one of the choices
+   * @return question ID in database
+   */
+  public long insertMultipleChoiceQuestion(String assignmentName, String question, String choice1,
+                                           String choice2, String choice3, String choice4,
+                                           String correctAnswer) {
     SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
-    contentValues.put("UNIQUEKEY", uniqueKey);
-    contentValues.put("STUDENTUSERNAME", studentUsername);
-    return sqLiteDatabase.insert("STUDENTCLASSLINKS", null, contentValues);
+    contentValues.put("ASSIGNMENTNAME", assignmentName);
+    contentValues.put("QUESTION", question);
+    contentValues.put("CHOICE1", choice1);
+    contentValues.put("CHOICE2", choice2);
+    contentValues.put("CHOICE3", choice3);
+    contentValues.put("CHOICE4", choice4);
+    contentValues.put("CORRECTANSWER", correctAnswer);
+    return sqLiteDatabase.insert("QUESTIONS", null, contentValues);
   }
 
   // UPDATE
-  public boolean archiveClass(String uniqueKey) {
+  // SELECT
+
+
+
+
+
+  // COURSES STUFF STUFF
+  // INSERT
+  public void insertCourse(String name, String profUsername) {
+    SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+    ContentValues contentValues = new ContentValues();
+    contentValues.put("COURSENAME", name);
+    contentValues.put("PROFUSERNAME", profUsername);
+    contentValues.put("ARCHIVED", 0);
+    sqLiteDatabase.insert("COURSES", null, contentValues);
+  }
+
+  public long insertStudentToCourse(String courseName, String studentUsername) {
+    SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+    ContentValues contentValues = new ContentValues();
+    contentValues.put("STUDENTUSERNAME", studentUsername);
+    contentValues.put("COURSENAME", courseName);
+    return sqLiteDatabase.insert("STUDENTCOURSELINKS", null, contentValues);
+  }
+
+  // UPDATE
+  public boolean archiveCourse(String courseName) {
     SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
     contentValues.put("ARCHIVED", 1);
-    return sqLiteDatabase.update("CLASSES", contentValues, "UNIQUEKEY = ?", new String[]{uniqueKey})
-        > 0;
+    return sqLiteDatabase.update("COURSES", contentValues, "COURSENAME = ?",
+        new String[]{courseName}) > 0;
   }
 
-  public boolean removeStudentFromClass(String uniqueKey, String username) {
+  public boolean removeStudentFromCourse(String courseName, String username) {
     SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-    return sqLiteDatabase.delete("STUDENTCLASSLINKS", "UNIQUEKEY = ? AND STUDENTUSERNAME = ?",
-        new String[]{uniqueKey, username}) > 0;
+    return sqLiteDatabase.delete("STUDENTCOURSELINKS", "COURSENAME = ? AND STUDENTUSERNAME = ?",
+        new String[]{courseName, username}) > 0;
   }
 
   // SELECT
-  public String getClassName(String uniqueKey) {
-    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-    Cursor cursor = sqLiteDatabase.rawQuery("SELECT NAME FROM CLASSES WHERE UNIQUEKEY = ?",
-        new String[]{uniqueKey});
 
-  }
-
-  public ArrayList<String> getStudentUsernames(String uniqueKey) {
+  public ArrayList<String> getStudentUsernames(String courseName) {
     ArrayList<String> usernames = new ArrayList<>();
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-    Cursor cursor = sqLiteDatabase.rawQuery("SELECT STUDENTUSERNAME FROM STUDENTCLASSLINKS WHERE " +
-        "UNIQUEKEY = ?", new String[]{uniqueKey});
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT STUDENTUSERNAME FROM STUDENTCOURSELINKS WHERE " +
+        "COURSENAME = ?", new String[]{courseName});
     while (cursor.moveToNext()) {
       usernames.add(cursor.getString(cursor.getColumnIndex("STUDENTUSERNAME")));
     }
+    cursor.close();
     return usernames;
   }
 
-  //TODO this method
-  public ArrayList<String> getStudentClassNames(String username) {
-    ArrayList<String> classNames = new ArrayList<>();
+  public ArrayList<String> getStudentCourseNames(String username) {
+    ArrayList<String> courseNames = new ArrayList<>();
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-    //Cursor cursor = sqLiteDatabase.rawQuery("SELECT ")
-    return classNames;
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT COURSENAME FROM STUDENTCOURSELINKS WHERE " +
+        "STUDENTUSERNAME = ?", new String[]{username});
+    while (cursor.moveToNext()) {
+      courseNames.add(cursor.getString(cursor.getColumnIndex("COURSENAME")));
+    }
+    cursor.close();
+    return courseNames;
+  }
+
+  public String getProfUsername(String courseName) {
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT PROFUSERNAME FROM COURSES WHERE COURSENAME = ?",
+        new String[]{courseName});
+    cursor.moveToFirst();
+    String profUserName = cursor.getString(cursor.getColumnIndex("PROFUSERNAME"));
+    cursor.close();
+    return profUserName;
+  }
+
+  public ArrayList<String> getProfCourses(String profUsername) {
+    ArrayList<String> profCourses = new ArrayList<>();
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT COURSENAME FROM COURSES WHERE PROFUSERNAME = ?",
+        new String[]{profUsername});
+    while (cursor.moveToNext()) {
+      profCourses.add(cursor.getString(cursor.getColumnIndex("COURSENAME")));
+    }
+    cursor.close();
+    return profCourses;
+  }
+
+  /**
+   * Checks if a class is archived or not (ie if it is still running this semester)
+   * @return true if class isn't archived
+   */
+  public boolean courseNotArchived(String courseName) {
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT ARCHIVED FROM COURSES WHERE COURSENAME = ?",
+        new String[]{courseName});
+    int archived = cursor.getInt(cursor.getColumnIndex("ARCHIVED"));
+    cursor.close();
+    return archived == 0;
+  }
+
+  public boolean courseExists(String courseName) {
+    boolean exists = true;
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM COURSES WHERE COURSENAME = ?",
+        new String[]{courseName});
+    if (cursor.getCount() <= 0) {
+      exists = false;
+    }
+    cursor.close();
+    return exists;
   }
 
 
@@ -176,6 +250,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
         > 0;
   }
 
+  // USER STUFF
   // SELECT
 
   public String getRoleNameGivenUsername(String username) {
@@ -227,11 +302,6 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     String value = cursor.getString(cursor.getColumnIndex("NAME"));
     cursor.close();
     return value;
-  }
-
-  public Cursor getUsersDetails() {
-    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-    return sqLiteDatabase.rawQuery("SELECT * FROM USERS", null);
   }
 
   public String getPassword(String username) {

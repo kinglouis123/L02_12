@@ -44,14 +44,22 @@ public class MainActivity extends AppCompatActivity {
       if ((student = LoginTerminal.getStudent(username, password)) == null) {
         Toaster.toastShort("Login failed!");
       } else {
-        Toaster.toastShort("Welcome Student " + student.getName() + "!");
-        Toaster.toastShort("DATABASE ID: " + student.getId());
+        //Toaster.toastShort("Welcome Student " + student.getName() + "!");
+        //Toaster.toastShort("DATABASE ID: " + student.getId());
         // Start Student interface
+        Intent student_intent = new Intent(this, StudentMenu.class);
+        student_intent.putExtra("username", username);
+        student_intent.putExtra("password", password);
+        startActivity(student_intent);
       }
     } else {
       Toaster.toastShort("Welcome Professor " + professor.getName() + "!");
       Toaster.toastShort("DATABASE ID: " + professor.getId());
       // Start Professor interface
+      Intent intent = new Intent(this, ProfessorMenu.class);
+      intent.putExtra("username", username);
+      intent.putExtra("password", password);
+      startActivity(intent);
     }
 
   }
