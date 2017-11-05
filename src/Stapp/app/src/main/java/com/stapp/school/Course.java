@@ -27,8 +27,8 @@ public class Course {
     }
   }
 
-  public void addStudent(String username) throws StudentAlreadyExistsException, ClassNotFoundException {
-    ClassHelper.insertStudentToClass(courseCode, username);
+  public long addStudent(String username) throws StudentAlreadyExistsException, ClassNotFoundException {
+    return ClassHelper.insertStudentToClass(courseCode, username);
   }
 
   public ArrayList<String> getStudentUsernames() {
