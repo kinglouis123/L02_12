@@ -78,4 +78,8 @@ public class Course {
   public void archiveCourse() throws ClassNotFoundException{
       CourseHelper.archiveCourse(this.courseCode);
   }
+
+  public String toString(){
+    return this.courseCode;
+  };
 }
