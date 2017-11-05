@@ -1,6 +1,6 @@
 package com.stapp.users;
 
-import com.stapp.databasehelpers.ClassHelper;
+import com.stapp.databasehelpers.CourseHelper;
 import com.stapp.databasehelpers.UserHelper;
 import com.stapp.exceptions.UserNotFoundException;
 import com.stapp.school.Course;
@@ -25,7 +25,7 @@ public class Student extends User {
 
   public List<Course> getCourses() {
     try {
-      List<String> courseCodes = ClassHelper.getStudentClassNames(this.getUsername());
+      List<String> courseCodes = CourseHelper.getStudentCourseNames(this.getUsername());
       List<Course> courses = new ArrayList<>();
 
       for (String code : courseCodes) {

@@ -1,6 +1,6 @@
 package com.stapp.terminals;
 
-import com.stapp.databasehelpers.ClassHelper;
+import com.stapp.databasehelpers.CourseHelper;
 import com.stapp.exceptions.ClassAlreadyExistsException;
 import com.stapp.school.Course;
 
@@ -16,12 +16,12 @@ public class CourseTerminal {
      * @return the new course
      */
     public static Course createNewCourse(String courseCode, String profUsername) {
-        if (ClassHelper.classExists(courseCode)) {
+        if (CourseHelper.courseExists(courseCode)) {
             return null;
         }
 
         try {
-            ClassHelper.insertClass(courseCode, profUsername);
+            CourseHelper.insertCourse(courseCode, profUsername);
             return new Course(courseCode);
         } catch (ClassAlreadyExistsException e) {
             return null;
@@ -35,7 +35,7 @@ public class CourseTerminal {
      * @return the course
      */
     public static Course getCourse(String courseCode) {
-        if (!ClassHelper.classExists(courseCode)) {
+        if (!CourseHelper.courseExists(courseCode)) {
             return null;
         }
         return new Course(courseCode);

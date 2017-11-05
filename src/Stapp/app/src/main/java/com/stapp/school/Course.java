@@ -2,7 +2,7 @@ package com.stapp.school;
 
 import java.util.ArrayList;
 
-import com.stapp.databasehelpers.ClassHelper;
+import com.stapp.databasehelpers.CourseHelper;
 import com.stapp.exceptions.StudentAlreadyExistsException;
 import com.stapp.exceptions.UserNotFoundException;
 
@@ -21,19 +21,19 @@ public class Course {
 
   public String getProf() {
     try {
-      return ClassHelper.getProfUsername(courseCode);
+      return CourseHelper.getProfUsername(courseCode);
     } catch(ClassNotFoundException e) {
       return null;
     }
   }
 
   public long addStudent(String username) throws StudentAlreadyExistsException, ClassNotFoundException {
-    return ClassHelper.insertStudentToClass(courseCode, username);
+    return CourseHelper.insertStudentToCourse(courseCode, username);
   }
 
   public ArrayList<String> getStudentUsernames() {
     try  {
-      ArrayList<String> studentlist = ClassHelper.getStudentUsernames(courseCode);
+      ArrayList<String> studentlist = CourseHelper.getStudentUsernames(courseCode);
       return studentlist;
     } catch (ClassNotFoundException E) {
       return null;
@@ -42,12 +42,12 @@ public class Course {
 
   public void removeStudent(String username) {
     try {
-      ClassHelper.removeStudentFromClass(courseCode, username);
+      CourseHelper.removeStudentFromCourse(courseCode, username);
     } catch (UserNotFoundException e) {
     }
   }
 
   public void makeArchives() throws ClassNotFoundException{
-      ClassHelper.archiveClass(this.courseCode);
+      CourseHelper.archiveCourse(this.courseCode);
   }
 }

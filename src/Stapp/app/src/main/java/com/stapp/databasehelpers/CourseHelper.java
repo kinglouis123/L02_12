@@ -12,8 +12,8 @@ import java.util.ArrayList;
  * Created by JR on 2017-11-01.
  */
 
-public class ClassHelper {
-    public static DatabaseDriver databaseDriver;
+public class CourseHelper {
+    private static DatabaseDriver databaseDriver;
 
     private static void openDatabase() {
         if (databaseDriver == null) {
@@ -26,7 +26,7 @@ public class ClassHelper {
         databaseDriver = null;
     }
 
-    public static void insertClass(String name, String profUsername)
+    public static void insertCourse(String name, String profUsername)
             throws ClassAlreadyExistsException {
         openDatabase();
         if (databaseDriver.courseExists(name)) {
@@ -37,7 +37,7 @@ public class ClassHelper {
         closeDatabase();
     }
 
-    public static long insertStudentToClass(String className, String studentUsername)
+    public static long insertStudentToCourse(String className, String studentUsername)
             throws ClassNotFoundException, StudentAlreadyExistsException {
         openDatabase();
         // Make sure class exists and user is not already in the class
@@ -55,7 +55,7 @@ public class ClassHelper {
         return id;
     }
 
-    public static boolean archiveClass(String className) throws ClassNotFoundException {
+    public static boolean archiveCourse(String className) throws ClassNotFoundException {
         openDatabase();
         // Class already archived
         if (!databaseDriver.courseExists(className)) {
@@ -68,7 +68,7 @@ public class ClassHelper {
         return updated;
     }
 
-    public static boolean removeStudentFromClass(String className, String username)
+    public static boolean removeStudentFromCourse(String className, String username)
             throws UserNotFoundException {
         openDatabase();
         if (!databaseDriver.getStudentUsernames(className).contains(username)) {
@@ -94,7 +94,7 @@ public class ClassHelper {
         return usernames;
     }
 
-    public static ArrayList<String> getStudentClassNames(String username)
+    public static ArrayList<String> getStudentCourseNames(String username)
             throws UserNotFoundException {
         openDatabase();
         if (!databaseDriver.userExists(username)) {
@@ -143,7 +143,7 @@ public class ClassHelper {
         return notArchived;
     }
 
-    public static boolean classExists(String className) {
+    public static boolean courseExists(String className) {
         openDatabase();
         boolean classExists = databaseDriver.courseExists(className);
         closeDatabase();
