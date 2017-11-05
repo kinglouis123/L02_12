@@ -81,7 +81,7 @@ public class ClassHelper {
         return updated;
     }
 
-    public ArrayList<String> getStudentUsernames(String className)
+    public static ArrayList<String> getStudentUsernames(String className)
             throws ClassNotFoundException {
         openDatabase();
         if (!databaseDriver.classExists(className)) {
@@ -94,7 +94,7 @@ public class ClassHelper {
         return usernames;
     }
 
-    public ArrayList<String> getStudentClassNames(String username)
+    public static ArrayList<String> getStudentClassNames(String username)
             throws UserNotFoundException {
         openDatabase();
         if (!databaseDriver.userExists(username)) {
@@ -107,7 +107,7 @@ public class ClassHelper {
         return classNames;
     }
 
-    public String getProfUsername(String className) throws ClassNotFoundException {
+    public static String getProfUsername(String className) throws ClassNotFoundException {
         openDatabase();
         if (!databaseDriver.classExists(className)) {
             closeDatabase();
@@ -119,7 +119,7 @@ public class ClassHelper {
         return profName;
     }
 
-    public boolean classNotArchived(String className) throws ClassNotFoundException {
+    public static boolean classNotArchived(String className) throws ClassNotFoundException {
         openDatabase();
         if (!databaseDriver.classExists(className)) {
             closeDatabase();
@@ -131,7 +131,7 @@ public class ClassHelper {
         return notArchived;
     }
 
-    public boolean classExists(String className) {
+    public static boolean classExists(String className) {
         openDatabase();
         boolean classExists = databaseDriver.classExists(className);
         closeDatabase();
