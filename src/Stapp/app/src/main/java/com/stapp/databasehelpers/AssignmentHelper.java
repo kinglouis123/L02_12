@@ -56,7 +56,7 @@ public class AssignmentHelper {
     return Id;
   }
 
-  public List<Question> getQuestions(int assignmentId) {
+  public static List<Question> getQuestions(int assignmentId) {
       openDatabase();
       List<Question> questions = databaseDriver.getQuestions(assignmentId);
       closeDatabase();
@@ -71,7 +71,7 @@ public class AssignmentHelper {
    * @param correctIndex the index of the choice in choices that is the correct answer, < 4
    * @return id of the question
    */
-  public long insertMultipleChoiceQuestion(int assignmentId, String question, List<String> choices,
+  public static long insertMultipleChoiceQuestion(int assignmentId, String question, List<String> choices,
                                            int correctIndex) {
       openDatabase();
       if (choices.size() > 4) return -1;
@@ -79,12 +79,5 @@ public class AssignmentHelper {
               choices.get(1), choices.get(2), choices.get(3), choices.get(correctIndex));
       closeDatabase();
       return id;
-  }
-
-  // Alternative for if it's easier on the UI side to provide the string answer rather than index
-  public long insertMultipleChoiceQuestion(int assignmentId, String question, List<String> choices,
-                                           String correctAnswer) {
-      return this.insertMultipleChoiceQuestion(assignmentId, question, choices,
-              choices.indexOf(correctAnswer));
   }
 }
