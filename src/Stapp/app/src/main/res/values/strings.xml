@@ -13,4 +13,6 @@
     <string name="close">Close</string>
     <string name="my_classes">My Classes</string>
     <string name="title_activity_course">Course</string>
+    <string name="join">Join</string>
+    <string name="course_code">Course code</string>
 </resources>

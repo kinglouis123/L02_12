@@ -59,5 +59,11 @@ public class StudentMenu extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void showJoinCourseActivity (View view){
+        Intent intent = new Intent(this, JoinCourseActivity.class);
+        intent.putExtra("username", student.getUsername());
+        startActivity(intent);
+    }
+
 
 }
