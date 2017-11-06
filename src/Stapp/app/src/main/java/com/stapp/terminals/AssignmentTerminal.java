@@ -16,7 +16,7 @@ public class AssignmentTerminal {
     return null;
   }
 
-  public Assignment getAssignment(int id) {
+  public static Assignment getAssignment(int id) {
     Assignment assignment = new Assignment(id);
     if (assignment.isValidAssignment()) {
       return assignment;

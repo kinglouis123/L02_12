@@ -1,6 +1,7 @@
 package com.stapp.school;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.stapp.database.DatabaseDriver;
 import com.stapp.databasehelpers.CourseHelper;
@@ -81,5 +82,9 @@ public class Course {
 
   public String toString(){
     return this.courseCode;
-  };
+  }
+
+  public List<Assignment> getAssignments() {
+      return CourseHelper.getAssignments(courseCode);
+  }
 }

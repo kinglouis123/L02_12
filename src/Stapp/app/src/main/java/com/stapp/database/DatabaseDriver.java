@@ -147,6 +147,15 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     sqliteDatabase.insert("ASSIGNMENTCOURSELINKS", null, contentValues);
   }
 
+  public String getAssignmentDueDate(String assignmentName, String courseName) {
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT DUE FROM ASSIGNMENTCOURSELINKS WHERE " +
+        "ASSIGNMENTNAME = ? AND COURSENAME = ?", new String[]{assignmentName, courseName});
+    cursor.moveToFirst();
+    String dueDate = cursor.getString(cursor.getColumnIndex("DUE"));
+    cursor.close();
+    return dueDate;
+  }
 
 
   // UPDATE
