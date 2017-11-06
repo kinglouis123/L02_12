@@ -2,9 +2,11 @@ package com.stapp.databasehelpers;
 
 import com.stapp.database.ContextHelper;
 import com.stapp.database.DatabaseDriver;
+import com.stapp.school.Question;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by rahulkumar1998 on 2017-11-05.
@@ -54,4 +56,35 @@ public class AssignmentHelper {
     return Id;
   }
 
+  public List<Question> getQuestions(int assignmentId) {
+      openDatabase();
+      List<Question> questions = databaseDriver.getQuestions(assignmentId);
+      closeDatabase();
+      return questions;
+  }
+
+  /**
+   * Insert a multiple choice question into the database
+   * @param assignmentId
+   * @param question the question to put
+   * @param choices length <= 4, 4 choices only
+   * @param correctIndex the index of the choice in choices that is the correct answer, < 4
+   * @return id of the question
+   */
+  public long insertMultipleChoiceQuestion(int assignmentId, String question, List<String> choices,
+                                           int correctIndex) {
+      openDatabase();
+      if (choices.size() > 4) return -1;
+      long id = databaseDriver.insertMultipleChoiceQuestion(assignmentId, question, choices.get(0),
+              choices.get(1), choices.get(2), choices.get(3), choices.get(correctIndex));
+      closeDatabase();
+      return id;
+  }
+
+  // Alternative for if it's easier on the UI side to provide the string answer rather than index
+  public long insertMultipleChoiceQuestion(int assignmentId, String question, List<String> choices,
+                                           String correctAnswer) {
+      return this.insertMultipleChoiceQuestion(assignmentId, question, choices,
+              choices.indexOf(correctAnswer));
+  }
 }
