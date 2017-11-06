@@ -16,16 +16,11 @@ public class CourseTerminal {
      * @return the new course
      */
     public static Course createNewCourse(String courseCode, String profUsername) {
-        if (CourseHelper.courseExists(courseCode)) {
-            return null;
-        }
-
-        try {
-            CourseHelper.insertCourse(courseCode, profUsername);
-            return new Course(courseCode);
-        } catch (ClassAlreadyExistsException e) {
-            return null;
-        }
+      Course course = new Course(courseCode, profUsername);
+      if (course.isValidCourse()) {
+        return course;
+      }
+      return null;
     }
 
     /**
@@ -35,9 +30,10 @@ public class CourseTerminal {
      * @return the course
      */
     public static Course getCourse(String courseCode) {
-        if (!CourseHelper.courseExists(courseCode)) {
-            return null;
+        Course course = new Course(courseCode);
+        if (course.isValidCourse()) {
+          return course;
         }
-        return new Course(courseCode);
+        return null;
     }
 }
