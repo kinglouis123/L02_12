@@ -37,14 +37,17 @@ public class DatabaseDriver extends SQLiteOpenHelper {
         "NAME TEXT NOT NULL, " +
         "PASSWORD TEXT NOT NULL, " +
         "ROLE INTEGER NOT NULL)");
+
     sqLiteDatabase.execSQL("CREATE TABLE ROLES " +
         "(ID INTEGER PRIMARY KEY NOT NULL, " +
         "NAME TEXT NOT NULL)");
+
     sqLiteDatabase.execSQL("CREATE TABLE COURSES " +
         "(ID INTEGER PRIMARY KEY NOT NULL, " +
         "COURSENAME TEXT NOT NULL, " +
         "PROFUSERNAME TEXT NOT NULL, " +
         "ARCHIVED INTEGER NOT NULL)");
+
     sqLiteDatabase.execSQL("CREATE TABLE STUDENTCOURSELINKS " +
         "(ID INTEGER PRIMARY KEY NOT NULL, " +
         "STUDENTUSERNAME TEXT NOT NULL," +
@@ -65,6 +68,13 @@ public class DatabaseDriver extends SQLiteOpenHelper {
         "CHOICE3 TEXT NOT NULL, " +
         "CHOICE4 TEXT NOT NULL, "+
         "CORRECTANSWER TEXT NOT NULL)");
+
+    sqLiteDatabase.execSQL("CREATE TABLE ASSIGNMENTSTUDENTLINKS " +
+        "(STUDENTUSERNAME TEXT NOT NULL, " +
+        "ASSIGNMENTID INTEGER NOT NULL, " +
+        "TIMESATTEMPTED INTEGER NOT NULL, " +
+        "LATESTGRADE TEXT NOT NULL, " +
+        "LATESTATTEMPTTIME TEXT NOT NULL)");
   }
 
   @Override
