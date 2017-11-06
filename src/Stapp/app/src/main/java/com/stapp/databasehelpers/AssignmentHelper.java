@@ -34,6 +34,14 @@ public class AssignmentHelper {
     return Id;
   }
 
+  public static String getAssignmentDueDate(String assignmentName, String className) {
+    openDatabase();
+    String dueDate = databaseDriver.getAssignmentDueDate(assignmentName, className);
+    closeDatabase();
+    return dueDate;
+  }
+
+
   public static boolean assignmentExists(String assignmentName, String courseName) {
     openDatabase();
     boolean exists = databaseDriver.assignmentExists(assignmentName, courseName);

@@ -5,4 +5,5 @@ package com.stapp.terminals;
  */
 
 public class QuestionTerminal {
+
 }
