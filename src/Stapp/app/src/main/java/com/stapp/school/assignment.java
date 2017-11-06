@@ -40,11 +40,12 @@ public class Assignment {
    * Creates a new multiple choice question for the assignment.
    * @param choices size() <= 4
    * @param correctIndex index of the correct answer in the choices list
-   * @return true if question is inserted
+   * @return the question object, null if not successful
    */
-  public boolean insertMultipleChoiceQuestion(String question, List<String> choices, int correctIndex) {
+  public Question insertMultipleChoiceQuestion(String question, List<String> choices, int correctIndex) {
       long id = AssignmentHelper.insertMultipleChoiceQuestion(this.id, question, choices, correctIndex);
-      return id != -1;
+      if (id == -1) return null;
+      return new Question((int)id);
   }
 
   public String getDueDate() {
