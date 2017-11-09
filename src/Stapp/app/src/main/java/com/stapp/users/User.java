@@ -64,6 +64,10 @@ public class User {
 
   // SELECTORS
 
+  public String getUsername() {
+    return this.username;
+  }
+
   public String getName() {
     try {
       return UserHelper.getName(username);

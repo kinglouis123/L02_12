@@ -11,6 +11,8 @@ import android.widget.EditText;
 import com.stapp.R;
 import com.stapp.Toaster;
 import com.stapp.activities.RegisterActivity;
+import com.stapp.database.DatabaseDriver;
+import com.stapp.database.DatabaseDriverHelper;
 import com.stapp.database.InitializeDatabase;
 import com.stapp.databasehelpers.UserHelper;
 import com.stapp.terminals.LoginTerminal;
@@ -32,6 +34,13 @@ public class MainActivity extends AppCompatActivity {
     startActivity(intent);
   }
 
+  protected void resetDatabase(View view) {
+    if (DatabaseDriverHelper.databaseExists()) {
+      DatabaseDriverHelper.reinitializeDatabase();
+      InitializeDatabase.initializeDatabase();
+    }
+  }
+
   protected void loginUser(View view) {
 
     String username = ((EditText) findViewById(R.id.editTextUsernameSignIn)).getText().toString();
@@ -44,14 +53,22 @@ public class MainActivity extends AppCompatActivity {
       if ((student = LoginTerminal.getStudent(username, password)) == null) {
         Toaster.toastShort("Login failed!");
       } else {
-        Toaster.toastShort("Welcome Student " + student.getName() + "!");
-        Toaster.toastShort("DATABASE ID: " + student.getId());
+        //Toaster.toastShort("Welcome Student " + student.getName() + "!");
+        //Toaster.toastShort("DATABASE ID: " + student.getId());
         // Start Student interface
+        Intent student_intent = new Intent(this, StudentMenu.class);
+        student_intent.putExtra("username", username);
+        student_intent.putExtra("password", password);
+        startActivity(student_intent);
       }
     } else {
       Toaster.toastShort("Welcome Professor " + professor.getName() + "!");
       Toaster.toastShort("DATABASE ID: " + professor.getId());
       // Start Professor interface
+      Intent intent = new Intent(this, ProfessorMenu.class);
+      intent.putExtra("username", username);
+      intent.putExtra("password", password);
+      startActivity(intent);
     }
 
   }

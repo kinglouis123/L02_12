@@ -1,11 +1,18 @@
 <resources>
-  <string name="app_name">Stapp</string>
-  <string name="Username">Username</string>
-  <string name="Password">Password</string>
-  <string name="LogIn">Log In</string>
-  <string name="Register">Register</string>
-  <string name="Confirm">Confirm Password</string>
-  <string name="Name">Name</string>
-  <string name="Instructor">Instructor</string>
-  <string name="Student">Student</string>
+    <string name="app_name">Stapp</string>
+    <string name="Username">Username</string>
+    <string name="Password">Password</string>
+    <string name="LogIn">Log In</string>
+    <string name="Register">Register</string>
+    <string name="Confirm">Confirm Password</string>
+    <string name="Name">Name</string>
+    <string name="Instructor">Instructor</string>
+    <string name="Student">Student</string>
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="my_classes">My Classes</string>
+    <string name="title_activity_course">Course</string>
+    <string name="join">Join</string>
+    <string name="course_code">Course code</string>
 </resources>

@@ -12,6 +12,7 @@ import com.stapp.databasehelpers.UserHelper;
 import com.stapp.terminals.LoginTerminal;
 import com.stapp.users.Professor;
 import com.stapp.users.Student;
+import com.stapp.users.User;
 
 /**
  * Created by jr on 23/10/17.
@@ -34,34 +35,29 @@ public class RegisterActivity extends AppCompatActivity {
       RadioGroup userTypes = (RadioGroup) findViewById(R.id.RegisterRadioGroup);
       int userType = userTypes.getCheckedRadioButtonId();
 
-      // Student
-      if (userType == R.id.radioButton) {
-        Student student = LoginTerminal.newStudent(username.getText().toString(),
-            name.getText().toString(), password.getText().toString());
+      User user = null;
 
-        if (student == null) {
-          Toaster.toastShort("A student of the same username is the already registered!");
-        }
-
-        else {
-          Toaster.toastShort("Successfully registered");
-          finish();
-        }
+      switch (userType) {
+        // Student
+        case R.id.radioButton:
+          user = LoginTerminal.newStudent(username.getText().toString(),
+              name.getText().toString(), password.getText().toString());
+          break;
+        // Professor
+        case R.id.radioButton2:
+          user = LoginTerminal.newProfessor(username.getText().toString(),
+              name.getText().toString(), password.getText().toString());
+          break;
       }
 
-      // Professor
-      else if (userType == R.id.radioButton2) {
-        Professor professor = LoginTerminal.newProfessor(username.getText().toString(),
-            name.getText().toString(), password.getText().toString());
+      // User already registered
+      if (user == null) {
+        Toaster.toastShort("A user of the same username is already registered!");
+      }
 
-        if (professor == null) {
-          Toaster.toastShort("A professor of the same username is the already registered!");
-        }
-
-        else {
-          Toaster.toastShort("Successfully registered");
-          finish();
-        }
+      else {
+        Toaster.toastShort("Successfully registered!");
+        finish();
       }
     }
 
