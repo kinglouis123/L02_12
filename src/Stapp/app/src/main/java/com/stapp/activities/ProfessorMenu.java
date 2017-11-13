@@ -65,9 +65,12 @@ public class ProfessorMenu extends AppCompatActivity {
     }
 
     //Courses List OnClick Navigation
-        protected void showCourseActivity(View view) {
+    protected void showCourseActivity(View view) {
         Intent intent = new Intent (this, CourseDisplay.class);
-        //intent.putExtra("course code",view.toString());
+        String course_code = new String();
+        TextView tv = findViewById(R.id.course_code);
+        course_code = tv.getText().toString();
+        intent.putExtra("course code",view.toString());
         startActivity(intent);
 
     }

@@ -52,6 +52,10 @@ public class Assignment {
       return AssignmentHelper.getAssignmentDueDate(assignmentName, courseName);
   }
 
+  public String getAssignmentName(){
+      return this.assignmentName;
+  }
+
   public List<Question> getQuestions() {
       return AssignmentHelper.getQuestions(this.id);
   }
