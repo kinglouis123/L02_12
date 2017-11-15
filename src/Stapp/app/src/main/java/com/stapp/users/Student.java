@@ -1,8 +1,10 @@
 package com.stapp.users;
 
+import com.stapp.databasehelpers.AssignmentHelper;
 import com.stapp.databasehelpers.CourseHelper;
 import com.stapp.databasehelpers.UserHelper;
 import com.stapp.exceptions.UserNotFoundException;
+import com.stapp.school.Assignment;
 import com.stapp.school.Course;
 import com.stapp.terminals.CourseTerminal;
 
@@ -34,7 +36,6 @@ public class Student extends User {
           courses.add(curr);
         }
       }
-
       return courses;
     } catch (UserNotFoundException e) {
       // Should be impossible since Student object already exists
@@ -42,4 +43,7 @@ public class Student extends User {
     }
   }
 
+  public ArrayList<Assignment> getAssignments() {
+    return AssignmentHelper.getAssignmentsOfStudent(this.getUsername());
+  }
 }

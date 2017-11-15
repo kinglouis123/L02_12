@@ -59,4 +59,12 @@ public class Assignment {
   public List<Question> getQuestions() {
       return AssignmentHelper.getQuestions(this.id);
   }
+
+  public boolean isReleased() {
+    return AssignmentHelper.assignmentIsReleased(this.id);
+  }
+
+  public boolean release() {
+    return AssignmentHelper.releaseAssignment(this.id);
+  }
 }

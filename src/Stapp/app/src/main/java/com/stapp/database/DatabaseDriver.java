@@ -57,7 +57,8 @@ public class DatabaseDriver extends SQLiteOpenHelper {
         "(ID INTEGER PRIMARY KEY NOT NULL, " +
         "ASSIGNMENTNAME TEXT NOT NULL, " +
         "COURSE TEXT NOT NULL, " +
-        "DUE TEXT NOT NULL)");
+        "DUE TEXT NOT NULL, " +
+        "RELEASED INTEGER NOT NULL)");
 
     sqLiteDatabase.execSQL("CREATE TABLE QUESTIONS " +
         "(ID INTEGER PRIMARY KEY NOT NULL, " +
@@ -66,7 +67,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
         "CHOICE1 TEXT NOT NULL, " +
         "CHOICE2 TEXT NOT NULL, " +
         "CHOICE3 TEXT NOT NULL, " +
-        "CHOICE4 TEXT NOT NULL, "+
+        "CHOICE4 TEXT NOT NULL, " +
         "CORRECTANSWER TEXT NOT NULL)");
 
     sqLiteDatabase.execSQL("CREATE TABLE ASSIGNMENTSTUDENTLINKS " +
@@ -80,6 +81,27 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   @Override
   public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
     onCreate(sqLiteDatabase);
+  }
+
+
+  // ASSIGNMENT STUDENT LINK STUFF
+
+  // SELECT
+
+  public ArrayList<Assignment> getAssignmentsOfStudent(String username) {
+    ArrayList<Assignment> assignments = new ArrayList<>();
+    Assignment assignment;
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT ASSIGNMENTID FROM " +
+        "ASSIGNMENTSTUDENTLINKS WHERE STUDENTUSERNAME = ?", new String[]{username});
+    while (cursor.moveToNext()) {
+      assignment = new Assignment(cursor.getInt(cursor.getColumnIndex("ASSIGNMENTID")));
+      if (assignment.isValidAssignment() && assignment.isReleased()) {
+        assignments.add(assignment);
+      }
+    }
+    cursor.close();
+    return assignments;
   }
 
 
@@ -154,6 +176,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     contentValues.put("ASSIGNMENTNAME", assignmentName);
     contentValues.put("COURSENAME", courseName);
     contentValues.put("DUE", due);
+    contentValues.put("RELEASED", 0);
     sqliteDatabase.insert("ASSIGNMENTCOURSELINKS", null, contentValues);
   }
 
@@ -167,9 +190,27 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     return dueDate;
   }
 
-
   // UPDATE
+
+  public boolean releaseAssignment(int assignmentId) {
+    SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+    ContentValues contentValues = new ContentValues();
+    contentValues.put("RELEASED", 1);
+    return sqLiteDatabase.update("ASSIGNMENTCOURSELINKS", contentValues, "ID = ?",
+        new String[]{String.valueOf(assignmentId)}) > 0;
+  }
+
   // SELECT
+
+  public boolean assignmentIsReleased(int assignmentId) {
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT RELEASED FROM ASSIGNMENTCOURSELINKS " +
+        "WHERE ID = ?", new String[]{String.valueOf(assignmentId)});
+    cursor.moveToFirst();
+    boolean result = (cursor.getInt(cursor.getColumnIndex("RELEASED")) == 1);
+    cursor.close();
+    return result;
+  }
 
   public boolean assignmentExists(String assignmentName, String courseName) {
     boolean exists = true;
@@ -326,7 +367,8 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     return exists;
   }
 
-  public ArrayList<Assignment> getAssignments(String courseName) {
+
+  public ArrayList<Assignment> getAssignmentsOfCourse(String courseName) {
     Assignment assignment;
     ArrayList<Assignment> assignments = new ArrayList<>();
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();

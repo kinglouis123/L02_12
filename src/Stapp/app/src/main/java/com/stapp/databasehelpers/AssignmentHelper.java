@@ -2,8 +2,10 @@ package com.stapp.databasehelpers;
 
 import com.stapp.database.ContextHelper;
 import com.stapp.database.DatabaseDriver;
+import com.stapp.school.Assignment;
 import com.stapp.school.Question;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -88,4 +90,26 @@ public class AssignmentHelper {
       closeDatabase();
       return id;
   }
+
+  public static boolean assignmentIsReleased(int assignmentId) {
+    openDatabase();
+    boolean result = databaseDriver.assignmentIsReleased(assignmentId);
+    closeDatabase();
+    return result;
+  }
+
+  public static boolean releaseAssignment(int assignmentId) {
+    openDatabase();
+    boolean result = databaseDriver.releaseAssignment(assignmentId);
+    closeDatabase();
+    return result;
+  }
+
+  public static ArrayList<Assignment> getAssignmentsOfStudent(String username) {
+    openDatabase();
+    ArrayList<Assignment> assignments = databaseDriver.getAssignmentsOfStudent(username);
+    closeDatabase();
+    return assignments;
+  }
+
 }
