@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import com.stapp.Other.RVAssignmentAdapter;
 import com.stapp.R;
 import com.stapp.school.Assignment;
+import com.stapp.school.Course;
 import com.stapp.terminals.CourseTerminal;
 
 import java.util.List;
@@ -36,8 +37,11 @@ public class StudentCourseDisplay extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         assignmentRecycler.setLayoutManager(llm);
 
+        // Get course
+        Course course = CourseTerminal.getCourse(course_code);
+
         // Generate list of assignements
-        List<Assignment> assignments = CourseTerminal.getAssignments(course_code);
+        List<Assignment> assignments = course.getAssignments();
 
         //Adapter to populate Recycler with courses
         RVAssignmentAdapter adapter = new RVAssignmentAdapter(assignments);

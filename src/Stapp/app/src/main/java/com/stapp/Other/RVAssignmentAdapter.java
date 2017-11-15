@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.stapp.R;
 import com.stapp.school.Assignment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,7 +32,7 @@ public class RVAssignmentAdapter extends RecyclerView.Adapter<RVAssignmentAdapte
 
     }
 
-    List<Assignment> assignments;
+    List<Assignment> assignments = new ArrayList<>();
 
     public RVAssignmentAdapter(List<Assignment> assignments){
         this.assignments = assignments;

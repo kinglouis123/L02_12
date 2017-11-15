@@ -373,7 +373,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     ArrayList<Assignment> assignments = new ArrayList<>();
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
     Cursor cursor = sqLiteDatabase.rawQuery("SELECT ID FROM " +
-        "ASSIGNMENTCOURSELINKS WHERE COURSENAME = ?", new String[]{courseName});
+        "ASSIGNMENTCOURSELINKS WHERE COURSE = ?", new String[]{courseName});
     while (cursor.moveToNext()) {
       assignment = new Assignment(cursor.getInt(cursor.getColumnIndex("ID")));
       if (assignment.isValidAssignment()) {
