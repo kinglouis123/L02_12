@@ -23,6 +23,7 @@
         <activity android:name=".activities.ProfessorMenu" />
         <activity android:name=".activities.CreateClass" />
         <activity android:name=".activities.StudentMenu" />
+        <activity android:name=".activities.JoinCourseActivity" />
         <activity
             android:name=".activities.CourseDisplay"
             android:label="@string/title_activity_course"
