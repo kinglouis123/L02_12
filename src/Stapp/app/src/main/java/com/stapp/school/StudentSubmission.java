@@ -2,7 +2,9 @@ package com.stapp.school;
 
 import com.stapp.terminals.AssignmentTerminal;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by rahulkumar1998 on 2017-11-16.
@@ -51,8 +53,37 @@ public class StudentSubmission {
     return numerator + "/" + denominator;
   }
 
-  // TODO
-  public void submitAssignment() {
+  public boolean submitAssignment() {
+    boolean success = false;
+    Calendar calendar = Calendar.getInstance();
+    calendar.add(Calendar.DATE, 1);
+    // formatted to the form YYYY-MM-DD
+    SimpleDateFormat formatting = new SimpleDateFormat("yyyy-MM-dd");
+    String submitDate = formatting.format(calendar.getTime());
+    String dueDate = assignment.getDueDate();
 
+    if (withinDueDate(submitDate, dueDate)) {
+      // TODO : submit
+      success = true;
+    }
+    return success;
+  }
+
+  /**
+   * Checks if the submit date is <= due date.
+   */
+  private boolean withinDueDate(String submitDate, String dueDate) {
+    String[] submitDateSplit= submitDate.split("-");
+    String[] dueDateSplit = dueDate.split("-");
+
+    int submitYear = Integer.parseInt(submitDateSplit[0]);
+    int submitMonth = Integer.parseInt(submitDateSplit[1]);
+    int submitDay = Integer.parseInt(submitDateSplit[2]);
+
+    int dueYear = Integer.parseInt(dueDateSplit[0]);
+    int dueMonth = Integer.parseInt(dueDateSplit[1]);
+    int dueDay = Integer.parseInt(dueDateSplit[2]);
+
+    return ((submitYear <= dueYear) && (submitMonth <= dueMonth) && (submitDay <= dueDay));
   }
 }

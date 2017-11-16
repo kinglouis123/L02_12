@@ -168,7 +168,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   // INSERT
 
   /**
-   * @param due must be in format "yyyy-MM-dd HH:mm:ss"
+   * @param due must be in format "YYYY-MM-DD"
    */
   public void insertAssignment(String assignmentName, String due, String courseName) {
     SQLiteDatabase sqliteDatabase = this.getWritableDatabase();
