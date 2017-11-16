@@ -1,5 +1,6 @@
 package com.stapp.school;
 
+import com.stapp.databasehelpers.AssignmentHelper;
 import com.stapp.terminals.AssignmentTerminal;
 
 import java.text.SimpleDateFormat;
@@ -14,6 +15,7 @@ public class StudentSubmission {
 
   private String studentUsername;
   private Assignment assignment;
+  private int assignmentId;
   private ArrayList<Question> questions;
   private Question currentQuestion;
   private int currentQuestionIndex = 0;
@@ -22,6 +24,7 @@ public class StudentSubmission {
 
   public StudentSubmission(String studentUsername, int assignmentId) {
     this.studentUsername = studentUsername;
+    this.assignmentId = assignmentId;
     this.assignment = AssignmentTerminal.getAssignment(assignmentId);
     this.questions = (ArrayList<Question>) assignment.getQuestions();
     this.denominator = questions.size();
@@ -63,7 +66,7 @@ public class StudentSubmission {
     String dueDate = assignment.getDueDate();
 
     if (withinDueDate(submitDate, dueDate)) {
-      // TODO : submit
+      AssignmentHelper.submitAssignment(studentUsername, assignmentId, getCurrentMark(), submitDate);
       success = true;
     }
     return success;

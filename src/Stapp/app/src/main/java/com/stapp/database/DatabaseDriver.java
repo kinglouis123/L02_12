@@ -73,9 +73,9 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     sqLiteDatabase.execSQL("CREATE TABLE ASSIGNMENTSTUDENTLINKS " +
         "(STUDENTUSERNAME TEXT NOT NULL, " +
         "ASSIGNMENTID INTEGER NOT NULL, " +
-        "TIMESATTEMPTED INTEGER NOT NULL, " +
         "LATESTGRADE TEXT NOT NULL, " +
-        "LATESTATTEMPTTIME TEXT NOT NULL)");
+        "LATESTATTEMPTTIME TEXT NOT NULL, " +
+        "TIMESATTEMPTED INTEGER NOT NULL)");
   }
 
   @Override
@@ -86,7 +86,55 @@ public class DatabaseDriver extends SQLiteOpenHelper {
 
   // ASSIGNMENT STUDENT LINK STUFF
 
+  // INSERT
+
+  public void submitAssignment(String username, int assignmentId, String grade, String time) {
+    ContentValues contentValues = new ContentValues();
+    contentValues.put("STUDENTUSERNAME", username);
+    contentValues.put("ASSIGNMENTID", assignmentId);
+    contentValues.put("LATESTGRADE", grade);
+    contentValues.put("LATESTATTEMPTTIME", time);
+    if (studentAssignmentLinkExists(username, assignmentId)) {
+      updateSubmission(username, assignmentId, contentValues);
+      return;
+    }
+    SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+    contentValues.put("TIMESATTEMPTED", 0);
+    sqLiteDatabase.insert("ASSIGNMENTSTUDENTLINKS", null, contentValues);
+  }
+
+  // UPDATE
+
+  private void updateSubmission(String username, int assignmentId, ContentValues contentValues) {
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT TIMESATTEMPTED FROM " +
+            "ASSIGNMENTSTUDENTLINKS WHERE STUDENTUSERNAME = ? AND ASSIGNMENTID = ?",
+        new String[]{username, String.valueOf(assignmentId)});
+    cursor.moveToFirst();
+    int timesAttempted = cursor.getInt(cursor.getColumnIndex("TIMESATTEMPTED"));
+    timesAttempted += 1;
+    sqLiteDatabase.close();
+    sqLiteDatabase = this.getWritableDatabase();
+    contentValues.put("TIMESATTEMPTED", timesAttempted);
+    sqLiteDatabase.update("ASSIGNMENTSTUDENTLINKS", contentValues,
+        "STUDENTUSERNAME = ? AND ASSIGNMENTID = ?",
+        new String[]{username, String.valueOf(assignmentId)});
+  }
+
   // SELECT
+
+  public boolean studentAssignmentLinkExists(String username, int assignmentId) {
+    boolean exists = true;
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM ASSIGNMENTSTUDENTLINKS WHERE " +
+        "STUDENTUSERNAME = ? AND ASSIGNMENTID = ?", new String[]{username,
+        String.valueOf(assignmentId)});
+    if (cursor.getCount() <= 0) {
+      exists = false;
+    }
+    cursor.close();
+    return exists;
+  }
 
   public ArrayList<Assignment> getAssignmentsOfStudent(String username) {
     ArrayList<Assignment> assignments = new ArrayList<>();

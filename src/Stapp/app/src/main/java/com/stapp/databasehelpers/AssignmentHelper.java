@@ -112,4 +112,9 @@ public class AssignmentHelper {
     return assignments;
   }
 
+  public static void submitAssignment(String username, int assignmentId, String grade, String time) {
+    openDatabase();
+    databaseDriver.submitAssignment(username, assignmentId, grade, time);
+    closeDatabase();
+  }
 }
