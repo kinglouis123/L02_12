@@ -119,9 +119,24 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     sqLiteDatabase.update("ASSIGNMENTSTUDENTLINKS", contentValues,
         "STUDENTUSERNAME = ? AND ASSIGNMENTID = ?",
         new String[]{username, String.valueOf(assignmentId)});
+    cursor.close();
   }
 
   // SELECT
+
+  public String getGrade(String username, int assignmentId) {
+    if (studentAssignmentLinkExists(username, assignmentId)) {
+      SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+      Cursor cursor = sqLiteDatabase.rawQuery("SELECT LATESTGRADE FROM " +
+          "ASSIGNMENTSTUDENTLINKS WHERE STUDENTUSERNAME = ? AND ASSIGNMENTID = ?",
+          new String[]{username, String.valueOf(assignmentId)});
+      cursor.moveToFirst();
+      String grade = cursor.getString(cursor.getColumnIndex("LATESTGRADE"));
+      cursor.close();
+      return grade;
+    }
+    return "(Not Attempted)";
+  }
 
   public boolean studentAssignmentLinkExists(String username, int assignmentId) {
     boolean exists = true;

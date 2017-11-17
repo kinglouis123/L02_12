@@ -46,4 +46,8 @@ public class Student extends User {
   public ArrayList<Assignment> getAssignments() {
     return AssignmentHelper.getAssignmentsOfStudent(this.getUsername());
   }
+
+  public String getGrade(int assignmentId) {
+    return AssignmentHelper.getGrade(this.getUsername(), assignmentId);
+  }
 }

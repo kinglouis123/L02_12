@@ -117,4 +117,11 @@ public class AssignmentHelper {
     databaseDriver.submitAssignment(username, assignmentId, grade, time);
     closeDatabase();
   }
+
+  public static String getGrade(String username, int assignmentId) {
+    openDatabase();
+    String grade = databaseDriver.getGrade(username, assignmentId);
+    closeDatabase();
+    return grade;
+  }
 }
