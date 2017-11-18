@@ -8,4 +8,55 @@
     tools:context="com.stapp.activities.CreateNewAssignment"
     tools:showIn="@layout/activity_create_new_assignment">
 
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+        android:id="@id/CreateAssignmentName"
+        android:hint="@string/assignment_title"
+	/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Due Date(yyyy-mm-dd):"></TextView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@id/CreateAssignmentDueDateYear"
+            android:hint="@string/yyyy"
+            android:inputType="number"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@id/CreateAssignmentDueDateMonth"
+            android:hint="@string/mm"
+            android:inputType="number"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@id/CreateAssignmentDueDateDay"
+            android:hint="dd"
+            android:inputType="number"/>
+
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick=""
+        android:text="Add Questions"/>
+
+</LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
