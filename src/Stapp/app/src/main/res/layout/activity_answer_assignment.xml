@@ -42,7 +42,8 @@
         android:layout_height="52dp"
         android:text="Next question"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="447dp" />
+        tools:layout_editor_absoluteY="447dp"
+        android:onClick="answerCurrentQuestion"/>
 
 
 </android.support.constraint.ConstraintLayout>

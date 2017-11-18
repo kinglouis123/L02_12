@@ -12,6 +12,7 @@ import com.stapp.R;
 import com.stapp.Toaster;
 import com.stapp.school.Question;
 import com.stapp.school.StudentSubmission;
+import com.stapp.terminals.StudentSubmissionTerminal;
 
 import java.util.List;
 
@@ -34,7 +35,11 @@ public class AnswerAssignmentActivity extends AppCompatActivity {
         }
 
         // Get submission object to be used for answering questions, start assignment
-        this.submission = new StudentSubmission(studentUsername, assignmentId);
+        this.submission = StudentSubmissionTerminal.startNewSubmission(studentUsername, assignmentId);
+        if (this.submission == null) {
+            Toaster.toastShort("Sorry, the due date for this assignment has passed..");
+            finish();
+        }
         this.displayNextQuestion(this.submission.getNextQuestion());
     }
 
@@ -43,16 +48,15 @@ public class AnswerAssignmentActivity extends AppCompatActivity {
      * @param nextQuestion question to be displayed
      */
     protected void displayNextQuestion(Question nextQuestion) {
-        Question currentQuestion = submission.getNextQuestion();
         // Display question
-        String questionText = currentQuestion.getQuestionString();
+        String questionText = nextQuestion.getQuestionString();
         TextView questionView = findViewById(R.id.questionText);
         questionView.setText(questionText);
 
         // Display answers
         RadioGroup answerGroup = findViewById(R.id.answerGroup);
         // Add all answers
-        List<String> answers = currentQuestion.getChoices();
+        List<String> answers = nextQuestion.getChoices();
         for (String answer : answers) {
             RadioButton choice = new RadioButton(this);
             choice.setText(answer);
@@ -66,7 +70,11 @@ public class AnswerAssignmentActivity extends AppCompatActivity {
         // End of the assignment
         // Call AssignmentResultsActivity after finishing questions, pass in results through intent
         if (nextQuestion == null) {
-            this.submission.submitAssignment();
+            boolean success = this.submission.submitAssignment();
+            if (!success) {
+                Toaster.toastShort("Sorry, the due date for this assignment has passed..");
+                finish();
+            }
             Intent intent = new Intent(this, AssignmentResultsActivity.class);
             intent.putExtra("marks", this.submission.getCurrentMark());
             finish();
