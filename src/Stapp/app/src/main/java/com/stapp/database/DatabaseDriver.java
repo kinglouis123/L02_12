@@ -56,7 +56,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     sqLiteDatabase.execSQL("CREATE TABLE ASSIGNMENTCOURSELINKS " +
         "(ID INTEGER PRIMARY KEY NOT NULL, " +
         "ASSIGNMENTNAME TEXT NOT NULL, " +
-        "COURSE TEXT NOT NULL, " +
+        "COURSENAME TEXT NOT NULL, " +
         "DUE TEXT NOT NULL, " +
         "RELEASED INTEGER NOT NULL)");
 
@@ -437,7 +437,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     ArrayList<Assignment> assignments = new ArrayList<>();
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
     Cursor cursor = sqLiteDatabase.rawQuery("SELECT ID FROM " +
-        "ASSIGNMENTCOURSELINKS WHERE COURSE = ?", new String[]{courseName});
+        "ASSIGNMENTCOURSELINKS WHERE COURSENAME = ?", new String[]{courseName});
     while (cursor.moveToNext()) {
       assignment = new Assignment(cursor.getInt(cursor.getColumnIndex("ID")));
       if (assignment.isValidAssignment()) {

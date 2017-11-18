@@ -395,8 +395,8 @@ public class DatabaseDriverTest {
 
         db.insertCourse(course, prof);
 
-        db.insertAssignment(a1, "2017-01-01", course);
-        db.insertAssignment(a2, "2017-01-01", course);
+        db.insertAssignment(a1, "2018-01-01", course);
+        db.insertAssignment(a2, "2018-01-01", course);
 
         ArrayList<Assignment> assignments = db.getAssignmentsOfCourse(course);
         assertEquals(2, assignments.size());
