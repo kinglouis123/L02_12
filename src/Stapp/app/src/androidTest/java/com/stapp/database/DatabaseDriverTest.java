@@ -428,9 +428,30 @@ public class DatabaseDriverTest {
         assertEquals(due, db.getAssignmentDueDate(name, course));
     }
 
-    // QUESTION TESTS
-    // INSERT
-    // SELECT
+    // QUESTION TEST
+    @Test
+    public void testInsertMultipleChoiceQuestion() {
+        String assignment = generateRandomString();
+        String course = generateRandomString();
+        String question = generateRandomString();
+        String c1 = generateRandomString();
+        String c2 = generateRandomString();
+        String c3 = generateRandomString();
+        String c4 = generateRandomString();
+        String ans = c2;
+
+        db.insertAssignment(assignment, "2018-01-01", course);
+        int id = db.getAssignmentId(assignment, course);
+
+        int qId = (int) db.insertMultipleChoiceQuestion(id, question, c1, c2, c3, c4, ans);
+
+        ArrayList<String> choices = db.getChoices(qId);
+
+        assertTrue(choices.contains(c1) && choices.contains(c1)
+                && choices.contains(c1) && choices.contains(c1));
+        assertEquals(question, db.getQuestionString(qId));
+        assertEquals(ans, db.getAnswer(qId));
+    }
 
     // ASSIGNMENT SUBMISSION TESTS
     // INSERT
