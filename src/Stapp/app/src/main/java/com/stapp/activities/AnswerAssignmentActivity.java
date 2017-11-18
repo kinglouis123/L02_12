@@ -48,16 +48,15 @@ public class AnswerAssignmentActivity extends AppCompatActivity {
      * @param nextQuestion question to be displayed
      */
     protected void displayNextQuestion(Question nextQuestion) {
-        Question currentQuestion = submission.getNextQuestion();
         // Display question
-        String questionText = currentQuestion.getQuestionString();
+        String questionText = nextQuestion.getQuestionString();
         TextView questionView = findViewById(R.id.questionText);
         questionView.setText(questionText);
 
         // Display answers
         RadioGroup answerGroup = findViewById(R.id.answerGroup);
         // Add all answers
-        List<String> answers = currentQuestion.getChoices();
+        List<String> answers = nextQuestion.getChoices();
         for (String answer : answers) {
             RadioButton choice = new RadioButton(this);
             choice.setText(answer);
