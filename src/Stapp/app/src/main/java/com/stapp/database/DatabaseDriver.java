@@ -474,6 +474,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
 
   public boolean updatePassword(String password, String username) {
     SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+    password = PasswordHelpers.passwordHash(password);
     ContentValues contentValues = new ContentValues();
     contentValues.put("PASSWORD", password);
     return sqLiteDatabase.update("USERS", contentValues, "USERNAME = ?",
