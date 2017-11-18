@@ -3,9 +3,11 @@ package com.stapp.school;
 import com.stapp.databasehelpers.AssignmentHelper;
 import com.stapp.terminals.AssignmentTerminal;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by rahulkumar1998 on 2017-11-16.
@@ -65,7 +67,7 @@ public class StudentSubmission {
     String submitDate = formatting.format(calendar.getTime());
     String dueDate = assignment.getDueDate();
 
-    if (withinDueDate(submitDate, dueDate)) {
+    if (withinDueDate(submitDate, dueDate, formatting)) {
       AssignmentHelper.submitAssignment(studentUsername, assignmentId, getCurrentMark(), submitDate);
       success = true;
     }
@@ -75,18 +77,13 @@ public class StudentSubmission {
   /**
    * Checks if the submit date is <= due date.
    */
-  private boolean withinDueDate(String submitDate, String dueDate) {
-    String[] submitDateSplit= submitDate.split("-");
-    String[] dueDateSplit = dueDate.split("-");
-
-    int submitYear = Integer.parseInt(submitDateSplit[0]);
-    int submitMonth = Integer.parseInt(submitDateSplit[1]);
-    int submitDay = Integer.parseInt(submitDateSplit[2]);
-
-    int dueYear = Integer.parseInt(dueDateSplit[0]);
-    int dueMonth = Integer.parseInt(dueDateSplit[1]);
-    int dueDay = Integer.parseInt(dueDateSplit[2]);
-
-    return ((submitYear <= dueYear) && (submitMonth <= dueMonth) && (submitDay <= dueDay));
+  private boolean withinDueDate(String submitDate, String dueDate, SimpleDateFormat formatting) {
+    try {
+      Date submit = formatting.parse(submitDate);
+      Date due = formatting.parse(dueDate);
+      return (submit.compareTo(due) <= 0);
+    } catch (ParseException e) {
+      return false;
+    }
   }
 }
