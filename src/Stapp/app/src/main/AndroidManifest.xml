@@ -50,7 +50,8 @@
             android:label="@string/title_activity_student_course_display"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.AnswerAssignmentActivity" />
-        <activity android:name=".activities.AssignmentResultsActivity"></activity>
+        <activity android:name=".activities.AssignmentResultsActivity" />
+        <activity android:name=".activities.AddQuestionsActivity"></activity>
     </application>
 
 </manifest>

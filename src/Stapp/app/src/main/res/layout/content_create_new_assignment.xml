@@ -16,7 +16,7 @@
     <EditText
         android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-        android:id="@id/CreateAssignmentName"
+        android:id="@+id/CreateAssignmentName"
         android:hint="@string/assignment_title"
 	/>
 
@@ -30,21 +30,21 @@
         android:orientation="horizontal">
 
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@id/CreateAssignmentDueDateYear"
-            android:hint="@string/yyyy"
+            android:id="@+id/CreateAssignmentDueDateYear"
+            android:hint="yyyy"
             android:inputType="number"/>
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@id/CreateAssignmentDueDateMonth"
-            android:hint="@string/mm"
+            android:id="@+id/CreateAssignmentDueDateMonth"
+            android:hint="mm"
             android:inputType="number"/>
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@id/CreateAssignmentDueDateDay"
+            android:id="@+id/CreateAssignmentDueDateDay"
             android:hint="dd"
             android:inputType="number"/>
 
@@ -54,7 +54,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick=""
+        android:onClick="showAddQuestions"
         android:text="Add Questions"/>
 
 </LinearLayout>
