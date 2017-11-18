@@ -66,11 +66,11 @@ public class AnswerAssignmentActivity extends AppCompatActivity {
         // End of the assignment
         // Call AssignmentResultsActivity after finishing questions, pass in results through intent
         if (nextQuestion == null) {
-            // this.submission.submitAssignment();
-            // Intent intent = new Intent(this, AssignmentResultsActivity);
-            // intent.putExtra("marks", this.submission.getCurrentMark());
-            // finish();
-            // startActivity(intent);
+            this.submission.submitAssignment();
+            Intent intent = new Intent(this, AssignmentResultsActivity.class);
+            intent.putExtra("marks", this.submission.getCurrentMark());
+            finish();
+            startActivity(intent);
         }
 
         // Get answer from radio group and submit the answer
