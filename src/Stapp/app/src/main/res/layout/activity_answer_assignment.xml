@@ -21,32 +21,19 @@
         android:layout_width="349dp"
         android:layout_height="193dp"
         android:layout_marginBottom="8dp"
-        android:text="TextView"
+        android:text="Sample question"
         android:textAlignment="center"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/questionGroup"
+        app:layout_constraintBottom_toTopOf="@+id/answerGroup"
         tools:layout_editor_absoluteX="16dp" />
 
     <RadioGroup
-        android:id="@+id/questionGroup"
+        android:id="@+id/answerGroup"
         android:layout_width="349dp"
         android:layout_height="186dp"
         tools:layout_editor_absoluteX="15dp"
         tools:layout_editor_absoluteY="256dp">
 
-        <RadioButton
-            android:id="@+id/radioButton5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="RadioButton" />
-
-        <RadioButton
-            android:id="@+id/radioButton6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="RadioButton" />
     </RadioGroup>
 
     <Button
