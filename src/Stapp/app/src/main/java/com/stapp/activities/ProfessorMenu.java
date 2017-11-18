@@ -75,7 +75,20 @@ public class ProfessorMenu extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        finish();
+        startActivity(this.getIntent());
+    }
+
+}
 
 
 
