@@ -110,20 +110,112 @@ public class DatabaseDriverTest {
         String role = generateRandomString();
         String newRole = generateRandomString();
 
-        db.insertRole(role);
-        db.insertRole(newRole);
+        int roleId = (int) db.insertRole(role);
+        int newRoleId = (int) db.insertRole(newRole);
 
-        int roleId = db.getRoleIdGivenRoleName(role);
-        int newRoleId = db.getRoleIdGivenRoleName(newRole);
 
         db.insertUser(username, name, password, roleId);
         db.updateRole(newRoleId, username);
 
-        assertEquals(db.getRoleIdGivenUsername(username), newRoleId);
+        assertEquals(newRoleId, db.getRoleIdGivenUsername(username));
     }
 
     // SELECT
 
+    @Test
+    public void testGetRoleNameGivenUsername() {
+        String username = generateRandomString();
+        String name = generateRandomString();
+        String password = generateRandomString();
+        String roleName = generateRandomString();
+
+        int roleId = (int) db.insertRole(roleName);
+
+        db.insertUser(username, name, password, roleId);
+
+        assertEquals(roleName, db.getRoleNameGivenUsername(username));
+    }
+
+    @Test
+    public void testGetRoleIdGivenRoleName() {
+        String roleName = generateRandomString();
+
+        int roleId = (int) db.insertRole(roleName);
+
+        assertEquals(roleId, db.getRoleIdGivenRoleName(roleName));
+    }
+
+    @Test
+    public void testGetRoleIdGivenUsername() {
+        String username = generateRandomString();
+        String name = generateRandomString();
+        String password = generateRandomString();
+        String roleName = generateRandomString();
+
+        int roleId = (int) db.insertRole(roleName);
+
+        db.insertUser(username, name, password, roleId);
+
+        assertEquals(roleId, db.getRoleIdGivenUsername(username));
+    }
+
+    @Test
+    public void testGetId() {
+        String username = generateRandomString();
+        String name = generateRandomString();
+        String password = generateRandomString();
+        String roleName = generateRandomString();
+
+        int id = (int) db.insertUser(username, name, password, (int) db.insertRole(roleName));
+        assertEquals(id, db.getId(username));
+    }
+
+    @Test
+    public void testGetName() {
+        String username = generateRandomString();
+        String name = generateRandomString();
+        String password = generateRandomString();
+        String roleName = generateRandomString();
+
+        db.insertUser(username, name, password, (int) db.insertRole(roleName));
+        assertEquals(name, db.getName(username));
+    }
+
+    @Test
+    public void testGetPassword() {
+        String username = generateRandomString();
+        String name = generateRandomString();
+        String password = generateRandomString();
+        String roleName = generateRandomString();
+
+        db.insertUser(username, name, password, (int) db.insertRole(roleName));
+        assertEquals(PasswordHelpers.passwordHash(password), db.getPassword(username));
+    }
+
+    @Test
+    public void testUserExists() {
+        String username = generateRandomString();
+        String name = generateRandomString();
+        String password = generateRandomString();
+        String roleName = generateRandomString();
+
+        db.insertUser(username, name, password, (int) db.insertRole(roleName));
+        assertTrue(db.userExists(username));
+    }
+
+    @Test
+    public void testRoleExistsRoleId() {
+        String roleName = generateRandomString();
+        int roleId = (int) db.insertRole(roleName);
+        assertTrue(db.roleExists(roleId));
+    }
+
+    @Test
+    public void testRoleExistsRoleName() {
+        String roleName = generateRandomString();
+        db.insertRole(roleName);
+        assertTrue(db.roleExists(roleName));
+    }
 
 
     // COURSE TESTS
