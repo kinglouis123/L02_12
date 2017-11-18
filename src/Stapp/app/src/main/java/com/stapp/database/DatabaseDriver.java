@@ -56,7 +56,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     sqLiteDatabase.execSQL("CREATE TABLE ASSIGNMENTCOURSELINKS " +
         "(ID INTEGER PRIMARY KEY NOT NULL, " +
         "ASSIGNMENTNAME TEXT NOT NULL, " +
-        "COURSE TEXT NOT NULL, " +
+        "COURSENAME TEXT NOT NULL, " +
         "DUE TEXT NOT NULL, " +
         "RELEASED INTEGER NOT NULL)");
 
@@ -243,16 +243,6 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     sqliteDatabase.insert("ASSIGNMENTCOURSELINKS", null, contentValues);
   }
 
-  public String getAssignmentDueDate(String assignmentName, String courseName) {
-    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-    Cursor cursor = sqLiteDatabase.rawQuery("SELECT DUE FROM ASSIGNMENTCOURSELINKS WHERE " +
-        "ASSIGNMENTNAME = ? AND COURSENAME = ?", new String[]{assignmentName, courseName});
-    cursor.moveToFirst();
-    String dueDate = cursor.getString(cursor.getColumnIndex("DUE"));
-    cursor.close();
-    return dueDate;
-  }
-
   // UPDATE
 
   public boolean releaseAssignment(int assignmentId) {
@@ -264,6 +254,16 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   }
 
   // SELECT
+
+  public String getAssignmentDueDate(String assignmentName, String courseName) {
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT DUE FROM ASSIGNMENTCOURSELINKS WHERE " +
+            "ASSIGNMENTNAME = ? AND COURSENAME = ?", new String[]{assignmentName, courseName});
+    cursor.moveToFirst();
+    String dueDate = cursor.getString(cursor.getColumnIndex("DUE"));
+    cursor.close();
+    return dueDate;
+  }
 
   public boolean assignmentIsReleased(int assignmentId) {
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
@@ -413,6 +413,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
     Cursor cursor = sqLiteDatabase.rawQuery("SELECT ARCHIVED FROM COURSES WHERE " +
         "COURSENAME = ?", new String[]{courseName});
+    cursor.moveToFirst();
     int archived = cursor.getInt(cursor.getColumnIndex("ARCHIVED"));
     cursor.close();
     return archived == 0;
@@ -436,7 +437,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     ArrayList<Assignment> assignments = new ArrayList<>();
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
     Cursor cursor = sqLiteDatabase.rawQuery("SELECT ID FROM " +
-        "ASSIGNMENTCOURSELINKS WHERE COURSE = ?", new String[]{courseName});
+        "ASSIGNMENTCOURSELINKS WHERE COURSENAME = ?", new String[]{courseName});
     while (cursor.moveToNext()) {
       assignment = new Assignment(cursor.getInt(cursor.getColumnIndex("ID")));
       if (assignment.isValidAssignment()) {
