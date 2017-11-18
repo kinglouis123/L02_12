@@ -27,18 +27,36 @@ public class DatabaseDriverTest {
         this.db.close();
     }
 
-    @Test
-    public void useAppContext() throws Exception {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getTargetContext();
+    // USER TESTS
+    // INSERT
+    // UPDATE
+    // SELECT
 
-        assertEquals("com.stapp", appContext.getPackageName());
-    }
+    // COURSE TESTS
+    // INSERT
+    // UPDATE
+    // SELECT
 
+    // ASSIGNMENT TESTS
+    // INSERT
+    // UPDATE
+    // SELECT
+
+    // QUESTION TESTS
+    // INSERT
+    // SELECT
+
+    // ASSIGNMENT SUBMISSION TESTS
+    // INSERT
+    // UPDATE
+    // SELECT
+
+    /*
     @Test
     public void testInsertUser() throws Exception {
         db.insertUser("user", "name", "password", 1);
         assertEquals("name", db.getName("user"));
     }
+    */
 
 }
