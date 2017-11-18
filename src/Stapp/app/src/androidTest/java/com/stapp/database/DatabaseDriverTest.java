@@ -4,6 +4,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.stapp.school.Assignment;
+import com.stapp.school.Question;
 import com.stapp.security.PasswordHelpers;
 
 import org.junit.After;
@@ -416,6 +417,19 @@ public class DatabaseDriverTest {
 
 
     // UPDATE
+    @Test
+    public void testReleaseAssignment() {
+        // Add assignment first
+        String name = generateRandomString();
+        String due = "1999-12-28";
+        String course = generateRandomString();
+
+        db.insertAssignment(name, due, course);
+        int id = db.getAssignmentId(name, course);
+        boolean success = db.releaseAssignment(id);
+        assertTrue(success && db.assignmentIsReleased(id));
+    }
+
     // SELECT
     @Test
     public void testGetAssignmentDueDate() {
@@ -452,6 +466,70 @@ public class DatabaseDriverTest {
         assertEquals(question, db.getQuestionString(qId));
         assertEquals(ans, db.getAnswer(qId));
     }
+    @Test
+    public void testAssignmentIsReleased() {
+        // Add assignment first
+        String name = generateRandomString();
+        String due = "1999-12-28";
+        String course = generateRandomString();
+        db.insertAssignment(name, due, course);
+
+        int id = (int) db.getAssignmentId(name, course);
+        assertTrue(db.releaseAssignment(id));
+    }
+
+    @Test
+    public void testAssignmentExists() {
+        // Add assignment first
+        String name = generateRandomString();
+        String due = "1999-12-28";
+        String course = generateRandomString();
+        db.insertAssignment(name, due, course);
+        int id = (int) db.getAssignmentId(name, course);
+        assertTrue(db.assignmentExists(id) && db.assignmentExists(name, course));
+    }
+
+    @Test
+    public void testGetAssignmentId() {
+        // Add assignment first
+        String name = generateRandomString();
+        String due = "1999-12-28";
+        String course = generateRandomString();
+        db.insertAssignment(name, due, course);
+        assertNotEquals(-1, db.getAssignmentId(name, course));
+    }
+
+    @Test
+    public void testGetQuestions() {
+        // Insert assignment and some questions
+        // Add assignment first
+        String name = generateRandomString();
+        String due = "1999-12-28";
+        String course = generateRandomString();
+        db.insertAssignment(name, due, course);
+        int id = db.getAssignmentId(name, course);
+
+        // Make up 2 questions
+        List<String> question1 = new ArrayList<>();
+        List<String> question2 = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            question1.add(generateRandomString());
+            question2.add(generateRandomString());
+        }
+
+        db.insertMultipleChoiceQuestion(id, question1.get(0), question1.get(1),
+                question1.get(2), question1.get(3), question1.get(4), question1.get(4));
+        db.insertMultipleChoiceQuestion(id, question2.get(0), question2.get(1),
+                question2.get(2), question2.get(3), question2.get(4), question2.get(4));
+
+        // Get questions
+        List<Question> questions = db.getQuestions(id);
+        assertEquals(2, questions.size());
+    }
+
+    // QUESTION TESTS
+    // INSERT
+    // SELECT
 
     // ASSIGNMENT SUBMISSION TESTS
     // INSERT
