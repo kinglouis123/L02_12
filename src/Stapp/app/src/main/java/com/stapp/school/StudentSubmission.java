@@ -60,11 +60,7 @@ public class StudentSubmission {
 
   public boolean submitAssignment() {
     boolean success = false;
-    Calendar calendar = Calendar.getInstance();
-    calendar.add(Calendar.DATE, 1);
-    // formatted to the form YYYY-MM-DD
-    SimpleDateFormat formatting = new SimpleDateFormat("yyyy-MM-dd");
-    String submitDate = formatting.format(calendar.getTime());
+    String submitDate = AssignmentHelper.getCurrentDate();
     if (assignment.withinDueDate()) {
       AssignmentHelper.submitAssignment(studentUsername, assignmentId, getCurrentMark(), submitDate);
       success = true;

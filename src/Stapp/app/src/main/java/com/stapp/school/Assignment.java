@@ -77,11 +77,8 @@ public class Assignment {
   }
 
   public boolean withinDueDate() {
-    Calendar calendar = Calendar.getInstance();
-    calendar.add(Calendar.DATE, 1);
-    // formatted to the form YYYY-MM-DD
+    String submitDate = AssignmentHelper.getCurrentDate();
     SimpleDateFormat formatting = new SimpleDateFormat("yyyy-MM-dd");
-    String submitDate = formatting.format(calendar.getTime());
     try {
       Date submit = formatting.parse(submitDate);
       Date due = formatting.parse(this.getDueDate());

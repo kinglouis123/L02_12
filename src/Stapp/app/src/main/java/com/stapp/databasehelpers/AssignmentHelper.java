@@ -6,7 +6,9 @@ import com.stapp.school.Assignment;
 import com.stapp.school.Question;
 
 import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -123,5 +125,16 @@ public class AssignmentHelper {
     String grade = databaseDriver.getGrade(username, assignmentId);
     closeDatabase();
     return grade;
+  }
+
+  /**
+   * Returns a String representation of the current date in the appropriate YYYY-MM-DD format.
+   */
+  public static String getCurrentDate() {
+    Calendar calendar = Calendar.getInstance();
+    calendar.add(Calendar.DATE, 1);
+    // formatted to the form YYYY-MM-DD
+    SimpleDateFormat formatting = new SimpleDateFormat("yyyy-MM-dd");
+    return formatting.format(calendar.getTime());
   }
 }
