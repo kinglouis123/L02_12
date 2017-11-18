@@ -2,6 +2,10 @@ package com.stapp.school;
 
 import com.stapp.databasehelpers.AssignmentHelper;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -66,5 +70,24 @@ public class Assignment {
 
   public boolean release() {
     return AssignmentHelper.releaseAssignment(this.id);
+  }
+
+  public int getId() {
+    return this.id;
+  }
+
+  public boolean withinDueDate() {
+    Calendar calendar = Calendar.getInstance();
+    calendar.add(Calendar.DATE, 1);
+    // formatted to the form YYYY-MM-DD
+    SimpleDateFormat formatting = new SimpleDateFormat("yyyy-MM-dd");
+    String submitDate = formatting.format(calendar.getTime());
+    try {
+      Date submit = formatting.parse(submitDate);
+      Date due = formatting.parse(this.getDueDate());
+      return (submit.compareTo(due) <= 0);
+    } catch (ParseException e) {
+      return false;
+    }
   }
 }

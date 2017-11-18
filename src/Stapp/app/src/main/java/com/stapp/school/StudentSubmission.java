@@ -65,25 +65,11 @@ public class StudentSubmission {
     // formatted to the form YYYY-MM-DD
     SimpleDateFormat formatting = new SimpleDateFormat("yyyy-MM-dd");
     String submitDate = formatting.format(calendar.getTime());
-    String dueDate = assignment.getDueDate();
-
-    if (withinDueDate(submitDate, dueDate, formatting)) {
+    if (assignment.withinDueDate()) {
       AssignmentHelper.submitAssignment(studentUsername, assignmentId, getCurrentMark(), submitDate);
       success = true;
     }
     return success;
   }
 
-  /**
-   * Checks if the submit date is <= due date.
-   */
-  private boolean withinDueDate(String submitDate, String dueDate, SimpleDateFormat formatting) {
-    try {
-      Date submit = formatting.parse(submitDate);
-      Date due = formatting.parse(dueDate);
-      return (submit.compareTo(due) <= 0);
-    } catch (ParseException e) {
-      return false;
-    }
-  }
 }
