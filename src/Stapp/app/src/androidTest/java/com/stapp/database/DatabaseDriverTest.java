@@ -52,6 +52,26 @@ public class DatabaseDriverTest {
 
     // USER TESTS
     // INSERT
+    public void testInsertRole() {
+        String randomRole = generateRandomString();
+        db.insertRole(randomRole);
+        assertTrue(db.roleExists(randomRole));
+    }
+
+    public void testInsertUser() {
+        // Insert role beforehand
+        String randomRole = generateRandomString();
+        int roleId = (int) db.insertRole(randomRole);
+
+        String randomUsername = generateRandomString();
+        String randomName = generateRandomString();
+        String randomPass = generateRandomString();
+        db.insertUser(randomUsername, randomName, randomPass, roleId);
+        boolean correctUsername = randomUsername.equals(db.getName("TestUserName"));
+        boolean correctPassword = PasswordHelpers.comparePassword(randomName, db.getPassword("TestUsername"));
+        boolean correctRoleId = roleId == db.getRoleIdGivenUsername(randomUsername);
+        assertTrue(correctPassword && correctRoleId && correctUsername);
+    }
 
     // UPDATE
 
