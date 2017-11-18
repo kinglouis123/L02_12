@@ -413,6 +413,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
     Cursor cursor = sqLiteDatabase.rawQuery("SELECT ARCHIVED FROM COURSES WHERE " +
         "COURSENAME = ?", new String[]{courseName});
+    cursor.moveToFirst();
     int archived = cursor.getInt(cursor.getColumnIndex("ARCHIVED"));
     cursor.close();
     return archived == 0;

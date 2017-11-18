@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.List;
 import java.util.Random;
 
 import static org.junit.Assert.*;
@@ -52,12 +53,14 @@ public class DatabaseDriverTest {
 
     // USER TESTS
     // INSERT
+    @Test
     public void testInsertRole() {
         String randomRole = generateRandomString();
         db.insertRole(randomRole);
         assertTrue(db.roleExists(randomRole));
     }
 
+    @Test
     public void testInsertUser() {
         // Insert role beforehand
         String randomRole = generateRandomString();
@@ -67,8 +70,8 @@ public class DatabaseDriverTest {
         String randomName = generateRandomString();
         String randomPass = generateRandomString();
         db.insertUser(randomUsername, randomName, randomPass, roleId);
-        boolean correctUsername = randomUsername.equals(db.getName("TestUserName"));
-        boolean correctPassword = PasswordHelpers.comparePassword(randomName, db.getPassword("TestUsername"));
+        boolean correctUsername = randomName.equals(db.getName(randomUsername));
+        boolean correctPassword = PasswordHelpers.comparePassword(db.getPassword(randomUsername), randomPass);
         boolean correctRoleId = roleId == db.getRoleIdGivenUsername(randomUsername);
         assertTrue(correctPassword && correctRoleId && correctUsername);
     }
@@ -125,7 +128,52 @@ public class DatabaseDriverTest {
 
     // COURSE TESTS
     // INSERT
+    @Test
+    public void testInsertCourse() {
+        // Insert a professor first
+        String course = generateRandomString();
+        String prof = generateRandomString();
+        db.insertCourse(course, prof);
+        List<String> courses = db.getProfCourses(prof);
+        assertTrue(courses.contains(course));
+    }
+
+    public void testInsertStudentToCourse() {
+        String course = generateRandomString();
+        String student = generateRandomString();
+        String prof = generateRandomString();
+        db.insertCourse(course, prof);
+
+        int id = (int) db.insertStudentToCourse(course, student);
+        List<String> courses = db.getStudentCourseNames(student);
+        assertTrue(courses.contains(course));
+    }
+
     // UPDATE
+    @Test
+    public void testArchiveCourse() {
+        // Insert a course
+        String course = generateRandomString();
+        String prof = generateRandomString();
+        db.insertCourse(course, prof);
+
+        boolean success = db.archiveCourse(course);
+        assertTrue(success && !db.courseNotArchived(course));
+    }
+
+    @Test
+    public void testRemoveStudentFromCourse() {
+        String course = generateRandomString();
+        String student = generateRandomString();
+        String prof = generateRandomString();
+        db.insertCourse(course, prof);
+
+        // Insert student into course
+        db.insertStudentToCourse(course, student);
+        db.removeStudentFromCourse(course, student);
+        assertFalse(db.getStudentCourseNames(student).contains(course));
+
+    }
     // SELECT
 
     // ASSIGNMENT TESTS
