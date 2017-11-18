@@ -36,8 +36,6 @@
             android:name=".activities.CreateNewAssignment"
             android:label="@string/title_activity_create_new_assignment"
             android:theme="@style/AppTheme.NoActionBar" />
-
-
         <activity
             android:name=".StudentAssignment"
             android:label="@string/title_activity_student_assignment">
@@ -50,7 +48,8 @@
         <activity
             android:name=".activities.StudentCourseDisplay"
             android:label="@string/title_activity_student_course_display"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AnswerAssignmentActivity"></activity>
     </application>
 
 </manifest>
