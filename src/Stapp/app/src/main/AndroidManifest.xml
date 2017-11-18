@@ -49,7 +49,7 @@
             android:name=".activities.StudentCourseDisplay"
             android:label="@string/title_activity_student_course_display"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AnswerAssignmentActivity"></activity>
+        <activity android:name=".activities.AnswerAssignmentActivity"></activity>
     </application>
 
 </manifest>

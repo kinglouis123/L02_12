@@ -1,10 +1,12 @@
-package com.stapp;
+package com.stapp.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.stapp.R;
+import com.stapp.Toaster;
 import com.stapp.school.Assignment;
 import com.stapp.school.StudentSubmission;
 import com.stapp.terminals.AssignmentTerminal;
