@@ -10,18 +10,13 @@ import android.widget.TextView;
 
 import com.stapp.R;
 import com.stapp.Toaster;
-import com.stapp.school.Assignment;
 import com.stapp.school.Question;
 import com.stapp.school.StudentSubmission;
-import com.stapp.terminals.AssignmentTerminal;
-import com.stapp.terminals.LoginTerminal;
-import com.stapp.users.Student;
 
 import java.util.List;
 
 public class AnswerAssignmentActivity extends AppCompatActivity {
     private StudentSubmission submission = null;
-    private boolean isFinished = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,14 +66,21 @@ public class AnswerAssignmentActivity extends AppCompatActivity {
         // End of the assignment
         // Call AssignmentResultsActivity after finishing questions, pass in results through intent
         if (nextQuestion == null) {
+            // this.submission.submitAssignment();
             // Intent intent = new Intent(this, AssignmentResultsActivity);
             // intent.putExtra("marks", this.submission.getCurrentMark());
             // finish();
             // startActivity(intent);
         }
 
-        // Clear choices and display next question
+        // Get answer from radio group and submit the answer
         RadioGroup choices = findViewById(R.id.answerGroup);
+        int selectedId = choices.getCheckedRadioButtonId();
+        RadioButton selectedButton = findViewById(selectedId);
+        String answer = selectedButton.getText().toString();
+        this.submission.answerCurrentQuestion(answer);
+
+        // Clear choices and display next question
         choices.removeAllViews();
         this.displayNextQuestion(nextQuestion);
     }
