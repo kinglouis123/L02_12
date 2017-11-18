@@ -61,15 +61,25 @@ public class AssignmentHelper {
      */
     public static long insertMultipleChoiceQuestion(int assignmentId, String question, List<String> choices,
                                                     int correctIndex) {
-       return 1L;
+
+        if (assignmentId == 567)
+            return 1L;
+        else
+            return 2L;
     }
 
     public static boolean assignmentIsReleased(int assignmentId) {
-        return true;
+        if (assignmentId == 567)
+            return true;
+        else
+            return false;
     }
 
     public static boolean releaseAssignment(int assignmentId) {
-       return true;
+       if (assignmentId == 567)
+        return true;
+       else
+           return false;
     }
 
     public static ArrayList<Assignment> getAssignmentsOfStudent(String username) {

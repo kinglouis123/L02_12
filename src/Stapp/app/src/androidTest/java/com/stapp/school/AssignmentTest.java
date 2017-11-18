@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-
+import java.util.*;
 /**
  * Created by wenboma on 2017-11-18.
  */
@@ -36,7 +36,11 @@ public class AssignmentTest {
 
     @Test
     public void insertMultipleChoiceQuestion() throws Exception {
-       assertTrue(true);
+        List<String> choices = new ArrayList<String>();
+        choices.add("apple");
+        choices.add("peach");
+        Question pick = assignlong.insertMultipleChoiceQuestion("how?",choices,2);
+       assertTrue(pick.getChoices().get(0).equals("apple"));
     }
 
     @Test
@@ -46,22 +50,23 @@ public class AssignmentTest {
 
     @Test
     public void getAssignmentName() throws Exception {
-        assertTrue(true);
+        assertEquals(assignlong.getAssignmentName(),"a01");
     }
 
     @Test
     public void getQuestions() throws Exception {
-        assertTrue(true);
+        List <Question> q = assignlong.getQuestions();
+        assertEquals(q.get(0).getChoices().get(0),"apple");
     }
 
     @Test
     public void isReleased() throws Exception {
-        assertTrue(true);
+        assertTrue(assignlong.isReleased());
     }
 
     @Test
     public void release() throws Exception {
-        assertTrue(true);
+        assertTrue(assignlong.release());
     }
 
     @Test
