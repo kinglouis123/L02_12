@@ -13,10 +13,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import com.stapp.Other.RVAdapter;
+import com.stapp.Other.RVCourseAdapter;
 import com.stapp.R;
 import com.stapp.school.Course;
 import com.stapp.terminals.LoginTerminal;
@@ -65,7 +64,7 @@ public class StudentMenu extends AppCompatActivity {
         List<Course> courses = student.getCourses();
 
         //Adapter to populate Recycler with courses
-        RVAdapter adapter = new RVAdapter(courses);
+        RVCourseAdapter adapter = new RVCourseAdapter(courses);
         coursesRecycler.setAdapter(adapter);
 
     }
