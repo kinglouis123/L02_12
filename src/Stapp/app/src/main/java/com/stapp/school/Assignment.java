@@ -22,6 +22,8 @@ public class Assignment {
   public Assignment(int id) {
     if (AssignmentHelper.assignmentExists(id)) {
       this.id = id;
+      this.assignmentName = AssignmentHelper.getAssignmentName(id);
+      this.courseName = AssignmentHelper.getCourseCode(id);
       validAssignment = true;
     }
   }
@@ -89,7 +91,7 @@ public class Assignment {
   }
 
   public String getCourseCode() {
-    return AssignmentHelper.getCourseCode(this.id);
+    return this.courseName;
   }
 
 }
