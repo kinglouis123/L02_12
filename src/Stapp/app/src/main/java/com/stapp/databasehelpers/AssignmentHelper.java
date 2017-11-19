@@ -114,13 +114,6 @@ public class AssignmentHelper {
     return assignments;
   }
 
-  public static ArrayList<Assignment> getSubmissionsOfStudent(String username, String courseCode) {
-    openDatabase();
-    ArrayList<Assignment> submissions = databaseDriver.getSubmissionsOfStudent(username, courseCode);
-    closeDatabase();
-    return submissions;
-  }
-
   public static void submitAssignment(String username, int assignmentId, String grade, String time) {
     openDatabase();
     databaseDriver.submitAssignment(username, assignmentId, grade, time);
@@ -150,5 +143,12 @@ public class AssignmentHelper {
     String course = databaseDriver.getCourseCode(assignmentId);
     closeDatabase();
     return course;
+  }
+
+  public static String getAssignmentName(int assignmentId) {
+    openDatabase();
+    String name = databaseDriver.getAssignmentName(assignmentId);
+    closeDatabase();
+    return name;
   }
 }

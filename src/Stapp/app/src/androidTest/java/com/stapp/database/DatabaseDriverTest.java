@@ -513,6 +513,16 @@ public class DatabaseDriverTest {
         assertEquals(course, db.getCourseCode(db.getAssignmentId(assignment, course)));
     }
 
+    @Test
+    public void testGetAssignmentName() {
+        String assignment = generateRandomString();
+        String course = generateRandomString();
+
+        db.insertAssignment(assignment, "2018-01-01", course);
+
+        assertEquals(assignment, db.getAssignmentName(db.getAssignmentId(assignment, course)));
+    }
+
     // QUESTION TEST
     @Test
     public void testInsertMultipleChoiceQuestion() {
@@ -597,36 +607,6 @@ public class DatabaseDriverTest {
     }
 
     @Test
-    public void testGetSubmissionsOfStudent() {
-        String username = generateRandomString();
-        String course = generateRandomString();
-        String a1 = generateRandomString();
-        String a2 = generateRandomString();
-        String prof = generateRandomString();
-
-        db.insertCourse(course, prof);
-
-        db.insertStudentToCourse(course, username);
-
-        db.insertAssignment(a1, "2018-02-02", course);
-        db.insertAssignment(a2, "2019-01-01", course);
-
-        int a1id = db.getAssignmentId(a1, course);
-        int a2id = db.getAssignmentId(a2, course);
-
-        db.submitAssignment(username, a1id, "10/10", "2012-03-04");
-        db.submitAssignment(username, a2id, "8/10", "2012-03-04");
-
-        ArrayList<Assignment> submissions = db.getSubmissionsOfStudent(username, course);
-
-        Assignment assignment1 = submissions.get(0);
-        Assignment assignment2 = submissions.get(1);
-
-        assertEquals(a1, assignment1.getAssignmentName());
-        assertEquals(a2, assignment2.getAssignmentName());
-    }
-
-    @Test
     public void testGetAssignmentsOfStudent() {
         String username = generateRandomString();
         String course = generateRandomString();
@@ -635,6 +615,7 @@ public class DatabaseDriverTest {
         String a2 = generateRandomString();
 
         db.insertStudentToCourse(course, username);
+        db.insertStudentToCourse(course2, username);
 
         db.insertAssignment(a1, "2018-02-02", course);
         db.insertAssignment(a2, "2019-01-01", course2);

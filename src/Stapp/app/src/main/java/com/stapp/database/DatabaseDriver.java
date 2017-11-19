@@ -160,23 +160,6 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     return assignments;
   }
 
-  public ArrayList<Assignment> getSubmissionsOfStudent(String username, String courseCode) {
-    ArrayList<Assignment> assignments = new ArrayList<>();
-    Assignment assignment;
-    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-    Cursor cursor = sqLiteDatabase.rawQuery("SELECT ASSIGNMENTID FROM " +
-        "ASSIGNMENTSTUDENTLINKS WHERE STUDENTUSERNAME = ?", new String[]{username});
-    while (cursor.moveToNext()) {
-      assignment = new Assignment(cursor.getInt(cursor.getColumnIndex("ASSIGNMENTID")));
-      if (assignment.getCourseCode().equals(courseCode)) {
-        assignments.add(assignment);
-      }
-    }
-    cursor.close();
-    return assignments;
-  }
-
-
   // QUESTIONS STUFF
   // INSERT
 
@@ -263,6 +246,16 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   }
 
   // SELECT
+
+  public String getAssignmentName(int assignmentId) {
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT ASSIGNMENTNAME FROM " +
+        "ASSIGNMENTCOURSELINKS WHERE ID = ?", new String[]{String.valueOf(assignmentId)});
+    cursor.moveToFirst();
+    String name = cursor.getString(cursor.getColumnIndex("ASSIGNMENTNAME"));
+    cursor.close();
+    return name;
+  }
 
   public String getAssignmentDueDate(String assignmentName, String courseName) {
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
