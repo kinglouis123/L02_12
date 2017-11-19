@@ -153,13 +153,22 @@ public class DatabaseDriver extends SQLiteOpenHelper {
 
   public ArrayList<Assignment> getAssignmentsOfStudent(String username) {
     ArrayList<Assignment> assignments = new ArrayList<>();
+    ArrayList<String> courses = this.getStudentCourseNames(username);
+    for (String course : courses) {
+      assignments.addAll(this.getAssignmentsOfCourse(course));
+    }
+    return assignments;
+  }
+
+  public ArrayList<Assignment> getSubmissionsOfStudent(String username, String courseCode) {
+    ArrayList<Assignment> assignments = new ArrayList<>();
     Assignment assignment;
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
     Cursor cursor = sqLiteDatabase.rawQuery("SELECT ASSIGNMENTID FROM " +
         "ASSIGNMENTSTUDENTLINKS WHERE STUDENTUSERNAME = ?", new String[]{username});
     while (cursor.moveToNext()) {
       assignment = new Assignment(cursor.getInt(cursor.getColumnIndex("ASSIGNMENTID")));
-      if (assignment.isValidAssignment() && assignment.isReleased()) {
+      if (assignment.getCourseCode().equals(courseCode)) {
         assignments.add(assignment);
       }
     }
@@ -319,6 +328,16 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     }
     cursor.close();
     return questions;
+  }
+
+  public String getCourseCode(int assignmentId) {
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT COURSENAME FROM ASSIGNMENTCOURSELINKS " +
+        "WHERE ID = ?", new String[]{String.valueOf(assignmentId)});
+    cursor.moveToFirst();
+    String courseCode = cursor.getString(cursor.getColumnIndex("COURSENAME"));
+    cursor.close();
+    return courseCode;
   }
 
 

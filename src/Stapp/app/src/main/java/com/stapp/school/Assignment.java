@@ -87,4 +87,9 @@ public class Assignment {
       return false;
     }
   }
+
+  public String getCourseCode() {
+    return AssignmentHelper.getCourseCode(this.id);
+  }
+
 }

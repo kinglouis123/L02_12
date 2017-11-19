@@ -43,6 +43,10 @@ public class Student extends User {
     }
   }
 
+  public ArrayList<Assignment> getSubmissionsOfStudent(String courseCode) {
+    return AssignmentHelper.getSubmissionsOfStudent(this.getUsername(), courseCode);
+  }
+
   public ArrayList<Assignment> getAssignments() {
     return AssignmentHelper.getAssignmentsOfStudent(this.getUsername());
   }

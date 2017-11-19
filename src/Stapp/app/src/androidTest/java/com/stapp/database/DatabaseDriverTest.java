@@ -442,30 +442,6 @@ public class DatabaseDriverTest {
         assertEquals(due, db.getAssignmentDueDate(name, course));
     }
 
-    // QUESTION TEST
-    @Test
-    public void testInsertMultipleChoiceQuestion() {
-        String assignment = generateRandomString();
-        String course = generateRandomString();
-        String question = generateRandomString();
-        String c1 = generateRandomString();
-        String c2 = generateRandomString();
-        String c3 = generateRandomString();
-        String c4 = generateRandomString();
-        String ans = c2;
-
-        db.insertAssignment(assignment, "2018-01-01", course);
-        int id = db.getAssignmentId(assignment, course);
-
-        int qId = (int) db.insertMultipleChoiceQuestion(id, question, c1, c2, c3, c4, ans);
-
-        ArrayList<String> choices = db.getChoices(qId);
-
-        assertTrue(choices.contains(c1) && choices.contains(c1)
-                && choices.contains(c1) && choices.contains(c1));
-        assertEquals(question, db.getQuestionString(qId));
-        assertEquals(ans, db.getAnswer(qId));
-    }
     @Test
     public void testAssignmentIsReleased() {
         // Add assignment first
@@ -527,14 +503,150 @@ public class DatabaseDriverTest {
         assertEquals(2, questions.size());
     }
 
-    // QUESTION TESTS
-    // INSERT
-    // SELECT
+    @Test
+    public void testGetCourseCode() {
+        String assignment = generateRandomString();
+        String course = generateRandomString();
+
+        db.insertAssignment(assignment, "2018-01-01", course);
+
+        assertEquals(course, db.getCourseCode(db.getAssignmentId(assignment, course)));
+    }
+
+    // QUESTION TEST
+    @Test
+    public void testInsertMultipleChoiceQuestion() {
+        String assignment = generateRandomString();
+        String course = generateRandomString();
+        String question = generateRandomString();
+        String c1 = generateRandomString();
+        String c2 = generateRandomString();
+        String c3 = generateRandomString();
+        String c4 = generateRandomString();
+        String ans = c2;
+
+        db.insertAssignment(assignment, "2018-01-01", course);
+        int id = db.getAssignmentId(assignment, course);
+
+        int qId = (int) db.insertMultipleChoiceQuestion(id, question, c1, c2, c3, c4, ans);
+
+        ArrayList<String> choices = db.getChoices(qId);
+
+        assertTrue(choices.contains(c1) && choices.contains(c1)
+            && choices.contains(c1) && choices.contains(c1));
+        assertEquals(question, db.getQuestionString(qId));
+        assertEquals(ans, db.getAnswer(qId));
+    }
 
     // ASSIGNMENT SUBMISSION TESTS
     // INSERT
+    @Test
+    public void testSubmitAssignment() {
+        String assignmentName = generateRandomString();
+        String courseName = generateRandomString();
+        String username = generateRandomString();
+        String grade = "10/400";
+        db.insertAssignment(assignmentName, "2018-01-01", courseName);
+        db.submitAssignment(username, db.getAssignmentId(assignmentName, courseName),
+            grade, "2017-01-01");
+        assertEquals(grade, db.getGrade(username, db.getAssignmentId(assignmentName, courseName)));
+    }
+
     // UPDATE
+    @Test
+    public void testUpdateSubmission() {
+        String assignmentName = generateRandomString();
+        String courseName = generateRandomString();
+        String username = generateRandomString();
+        String grade = "10/400";
+        String newGrade = "20/400";
+        db.insertAssignment(assignmentName, "2018-01-01", courseName);
+        db.submitAssignment(username, db.getAssignmentId(assignmentName, courseName),
+            grade, "2017-01-01");
+        db.submitAssignment(username, db.getAssignmentId(assignmentName, courseName),
+            newGrade, "2017-01-02");
+        assertEquals(newGrade, db.getGrade(username,
+            db.getAssignmentId(assignmentName, courseName)));
+    }
+
     // SELECT
+    @Test
+    public void testGetGrade() {
+        String assignmentName = generateRandomString();
+        String courseName = generateRandomString();
+        String username = generateRandomString();
+        String grade = "10/20";
+        db.insertAssignment(assignmentName, "2018-01-01", courseName);
+        db.submitAssignment(username, db.getAssignmentId(assignmentName, courseName),
+            grade, "2017-01-01");
+        assertEquals(grade, db.getGrade(username, db.getAssignmentId(assignmentName, courseName)));
+    }
+
+    @Test
+    public void testStudentAssignmentLinkExists() {
+        String username = generateRandomString();
+        String assignment = generateRandomString();
+        String course = generateRandomString();
+
+        db.insertAssignment(assignment, "2018-01-10", course);
+        db.submitAssignment(username, db.getAssignmentId(assignment, course),
+            "10/10", "2017-01-01");
+        assertTrue(db.studentAssignmentLinkExists(username,
+            db.getAssignmentId(assignment, course))
+            && !db.studentAssignmentLinkExists(username, -1));
+    }
+
+    @Test
+    public void testGetSubmissionsOfStudent() {
+        String username = generateRandomString();
+        String course = generateRandomString();
+        String a1 = generateRandomString();
+        String a2 = generateRandomString();
+        String prof = generateRandomString();
+
+        db.insertCourse(course, prof);
+
+        db.insertStudentToCourse(course, username);
+
+        db.insertAssignment(a1, "2018-02-02", course);
+        db.insertAssignment(a2, "2019-01-01", course);
+
+        int a1id = db.getAssignmentId(a1, course);
+        int a2id = db.getAssignmentId(a2, course);
+
+        db.submitAssignment(username, a1id, "10/10", "2012-03-04");
+        db.submitAssignment(username, a2id, "8/10", "2012-03-04");
+
+        ArrayList<Assignment> submissions = db.getSubmissionsOfStudent(username, course);
+
+        Assignment assignment1 = submissions.get(0);
+        Assignment assignment2 = submissions.get(1);
+
+        assertEquals(a1, assignment1.getAssignmentName());
+        assertEquals(a2, assignment2.getAssignmentName());
+    }
+
+    @Test
+    public void testGetAssignmentsOfStudent() {
+        String username = generateRandomString();
+        String course = generateRandomString();
+        String course2 = generateRandomString();
+        String a1 = generateRandomString();
+        String a2 = generateRandomString();
+
+        db.insertStudentToCourse(course, username);
+
+        db.insertAssignment(a1, "2018-02-02", course);
+        db.insertAssignment(a2, "2019-01-01", course2);
+
+        ArrayList<Assignment> assignments = db.getAssignmentsOfStudent(username);
+
+        Assignment assignment1 = assignments.get(0);
+        Assignment assignment2 = assignments.get(1);
+
+        assertEquals(a1, assignment1.getAssignmentName());
+        assertEquals(a2, assignment2.getAssignmentName());
+    }
 
     /*
     @Test

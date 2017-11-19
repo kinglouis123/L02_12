@@ -114,6 +114,13 @@ public class AssignmentHelper {
     return assignments;
   }
 
+  public static ArrayList<Assignment> getSubmissionsOfStudent(String username, String courseCode) {
+    openDatabase();
+    ArrayList<Assignment> submissions = databaseDriver.getSubmissionsOfStudent(username, courseCode);
+    closeDatabase();
+    return submissions;
+  }
+
   public static void submitAssignment(String username, int assignmentId, String grade, String time) {
     openDatabase();
     databaseDriver.submitAssignment(username, assignmentId, grade, time);
@@ -136,5 +143,12 @@ public class AssignmentHelper {
     // formatted to the form YYYY-MM-DD
     SimpleDateFormat formatting = new SimpleDateFormat("yyyy-MM-dd");
     return formatting.format(calendar.getTime());
+  }
+
+  public static String getCourseCode(int assignmentId) {
+    openDatabase();
+    String course = databaseDriver.getCourseCode(assignmentId);
+    closeDatabase();
+    return course;
   }
 }
