@@ -31,7 +31,6 @@ public class AddQuestionsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         assignment_id = intent.getIntExtra("assignment_id", 0);
 
-
     }
 
     protected void AddNewQuestions(View view) {
@@ -45,6 +44,7 @@ public class AddQuestionsActivity extends AppCompatActivity {
         answer3 = ((EditText) findViewById(R.id.AddQuestions_editText3)).getText().toString();
         answer4 = ((EditText) findViewById(R.id.AddQuestions_editText4)).getText().toString();
 
+        // Check if a radio button is pressed and also all the answers are entered
         if (rGroup.getCheckedRadioButtonId() == -1 || answer1.matches("") || answer2.matches("") ||
                 answer3.matches("") || answer4.matches("")) {
 
@@ -82,9 +82,16 @@ public class AddQuestionsActivity extends AppCompatActivity {
 
             Toaster.toastShort("Question successfully created!");
 
-
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
         }
 
     }
+
+    protected void Finish(View view) {
+        finish();
+    }
+
 
 }

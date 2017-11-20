@@ -34,19 +34,22 @@
             android:layout_height="wrap_content"
             android:id="@+id/CreateAssignmentDueDateYear"
             android:hint="yyyy"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:maxLength="4"/>
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/CreateAssignmentDueDateMonth"
             android:hint="mm"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:maxLength="2"/>
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/CreateAssignmentDueDateDay"
             android:hint="dd"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:maxLength="2"/>
 
 
     </LinearLayout>
