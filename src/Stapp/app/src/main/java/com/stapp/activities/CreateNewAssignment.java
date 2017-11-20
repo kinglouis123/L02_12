@@ -46,14 +46,17 @@ public class CreateNewAssignment extends AppCompatActivity {
             return;
         }
 
+        if (year.length() != 4 || month.length() != 2 || day.length() != 2) {
+            Toaster.toastShort("Please fill in the dates in yyyy-MM-dd format");
+            return;
+        }
+
         //create the duedate string format "yyyy-mm-dd"
-        duedate = year.substring(0, 3)+"-"+month.substring(0,1)+"-"+day.substring(0,1);
+        duedate = year.substring(0, 4)+"-"+month.substring(0,2)+"-"+day.substring(0,2);
         assignment = AssignmentTerminal.createNewAssignment(name, duedate, course_code);
         if(assignment == null){
             Toaster.toastShort("Invalid due date or the assignment already exist!");
         } else {
-            assignment = AssignmentTerminal.createNewAssignment(name, duedate, course_code);
-
             //get the assignment id for the intent.
             int assignment_id = assignment.getId();
 
