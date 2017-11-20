@@ -8,29 +8,30 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/welcomeMessage"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textSize="24sp" />
 
         <Button
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Join a new class"
-            android:onClick="showJoinCourseActivity"/>
+            android:layout_weight="0"
+            android:onClick="showJoinCourseActivity"
+            android:text="Join a new class" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/student_course_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
-
+            android:layout_height="match_parent"
+            android:layout_weight="1"></android.support.v7.widget.RecyclerView>
     </LinearLayout>
 
     <android.support.design.widget.NavigationView
