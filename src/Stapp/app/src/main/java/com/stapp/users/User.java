@@ -123,13 +123,4 @@ public class User {
     return false;
   }
 
-  public boolean updateRole(String roleName) {
-    try {
-      return UserHelper.updateRole(roleName, username);
-    } catch (UserNotFoundException e) {
-      // Shouldn't happen
-    }
-    return false;
-  }
-
 }
