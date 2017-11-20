@@ -26,7 +26,12 @@ public class Course {
   public Course(String courseCode) {
     if (CourseHelper.courseExists(courseCode)) {
       this.courseCode = courseCode;
-      this.validCourse = true;
+      try {
+        if (CourseHelper.classNotArchived(courseCode)) {
+          this.validCourse = true;
+        }
+      } catch (ClassNotFoundException e) {
+      }
     }
   }
 
@@ -78,6 +83,7 @@ public class Course {
 
   public void archiveCourse() throws ClassNotFoundException{
       CourseHelper.archiveCourse(this.courseCode);
+      this.validCourse = false;
   }
 
   public String toString(){
