@@ -24,7 +24,7 @@ public class CreateNewAssignment extends AppCompatActivity {
 		setSupportActionBar(toolbar);
 
 		Intent intent = getIntent();
-		course_code = intent.getStringExtra("course_code");
+		course_code = intent.getStringExtra("course code");
 
 	}
 
@@ -59,6 +59,7 @@ public class CreateNewAssignment extends AppCompatActivity {
         } else {
             //get the assignment id for the intent.
             int assignment_id = assignment.getId();
+            assignment.release();
 
             Intent addQuestions_intent = new Intent(this, AddQuestionsActivity.class);
 

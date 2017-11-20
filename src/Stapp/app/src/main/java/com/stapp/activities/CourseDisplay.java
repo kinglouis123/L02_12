@@ -36,7 +36,7 @@ public class CourseDisplay extends AppCompatActivity {
     public void showNewAssignment(View view){
         //for the new assignment button onClick
         Intent intent = new Intent(this, CreateNewAssignment.class);
-        intent.putExtra("course_code", course_code);
+        intent.putExtra("course code", course_code);
 	
 	//start the new Activity
 	startActivity(intent); 

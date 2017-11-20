@@ -63,7 +63,7 @@ public class ProfessorMenu extends AppCompatActivity {
         String course_code = new String();
         TextView tv = findViewById(R.id.course_code);
         course_code = tv.getText().toString();
-        intent.putExtra("course code",view.toString());
+        intent.putExtra("course code", course_code);
         startActivity(intent);
 
     }
