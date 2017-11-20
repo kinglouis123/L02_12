@@ -18,7 +18,6 @@ import static org.junit.Assert.*;
  */
 public class QuestionTest {
 
-  private String profUsername;
   private String courseName;
   private String assignmentName;
   private String question;
@@ -52,7 +51,6 @@ public class QuestionTest {
   }
 
   private void generateNewAssignment() {
-    profUsername = generateRandomString();
     courseName = generateRandomString();
     assignmentName = generateRandomString();
     assignment = AssignmentTerminal.createNewAssignment(assignmentName,
