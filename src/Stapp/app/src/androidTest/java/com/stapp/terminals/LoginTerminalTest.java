@@ -96,5 +96,4 @@ public class LoginTerminalTest {
     String pass = generateRandomString();
     assertNotNull(LoginTerminal.newStudent(student, generateRandomString(), pass));
   }
-
 }
