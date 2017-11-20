@@ -42,19 +42,59 @@ public class LoginTerminalTest {
   }
 
   @Test
-  public void getProfessor() throws Exception {
+  public void getExistingProfessor() throws Exception {
+    String prof = generateRandomString();
+    String pass = generateRandomString();
+    LoginTerminal.newProfessor(prof, generateRandomString(), pass);
+    assertNotNull(LoginTerminal.getProfessor(prof, pass));
   }
 
   @Test
-  public void getStudent() throws Exception {
+  public void getNonExistentProfessor() throws Exception {
+    assertNull(LoginTerminal.getProfessor(generateRandomString(), generateRandomString()));
   }
 
   @Test
-  public void newProfessor() throws Exception {
+  public void getExistingStudent() throws Exception {
+    String student = generateRandomString();
+    String pass = generateRandomString();
+    LoginTerminal.newStudent(student, generateRandomString(), pass);
+    assertNotNull(LoginTerminal.getStudent(student, pass));
   }
 
   @Test
-  public void newStudent() throws Exception {
+  public void getNonExistentStudent() throws Exception {
+    assertNull(LoginTerminal.getStudent(generateRandomString(), generateRandomString()));
+  }
+
+  @Test
+  public void createExistingProfessor() throws Exception {
+    String prof = generateRandomString();
+    String pass = generateRandomString();
+    LoginTerminal.newProfessor(prof, generateRandomString(), pass);
+    assertNull(LoginTerminal.newProfessor(prof, generateRandomString() ,pass));
+  }
+
+  @Test
+  public void createNonExistentProfessor() throws Exception {
+    String prof = generateRandomString();
+    String pass = generateRandomString();
+    assertNotNull(LoginTerminal.newProfessor(prof, generateRandomString(), pass));
+  }
+
+  @Test
+  public void createExistingStudent() throws Exception {
+    String student = generateRandomString();
+    String pass = generateRandomString();
+    LoginTerminal.newStudent(student, generateRandomString(), pass);
+    assertNull(LoginTerminal.newStudent(student, generateRandomString() ,pass));
+  }
+
+  @Test
+  public void createNonExistentStudent() throws Exception {
+    String student = generateRandomString();
+    String pass = generateRandomString();
+    assertNotNull(LoginTerminal.newStudent(student, generateRandomString(), pass));
   }
 
 }
