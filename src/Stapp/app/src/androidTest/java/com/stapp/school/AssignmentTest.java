@@ -17,7 +17,7 @@ public class AssignmentTest {
 
     private int id = 1;
     private String assignmentname;
-    private String due = "2017-11-30";
+    private String due = "2018-11-30";
     private String coursename = "cscc01h3";
     private Assignment assignfal;
     private Assignment assignlong;
@@ -26,7 +26,7 @@ public class AssignmentTest {
     public void setUp() throws Exception {
         this.assignmentname = "a01";
         assignlong = new Assignment(this.assignmentname,this.due,this.coursename);
-        assignfal = new Assignment("a01","2017-09-01","ENGA01H3");
+        assignfal = new Assignment("a01","2020-09-01","ENGA01H3");
         List<String> choices = new ArrayList<String>();
         choices.add("apple");
         choices.add("peach");
@@ -61,7 +61,7 @@ public class AssignmentTest {
 */
     @Test
     public void getDueDate() throws Exception {
-        assertEquals(assignlong.getDueDate(),"2017-11-30");
+        assertEquals(assignlong.getDueDate(),"2018-11-30");
     }
 
     @Test

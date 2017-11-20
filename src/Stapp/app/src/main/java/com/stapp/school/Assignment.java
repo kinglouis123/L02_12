@@ -18,18 +18,21 @@ public class Assignment {
   private boolean validAssignment = false;
   private String assignmentName;
   private String courseName;
+  private String dueDate;
 
   public Assignment(int id) {
     if (AssignmentHelper.assignmentExists(id)) {
       this.id = id;
       this.assignmentName = AssignmentHelper.getAssignmentName(id);
       this.courseName = AssignmentHelper.getCourseCode(id);
+      this.dueDate = AssignmentHelper.getAssignmentDueDate(assignmentName, courseName);
       validAssignment = true;
     }
   }
 
   public Assignment(String assignmentName, String due, String courseName) {
-    if (!AssignmentHelper.assignmentExists(assignmentName, courseName)) {
+    this.dueDate = due;
+    if (!AssignmentHelper.assignmentExists(assignmentName, courseName) && withinDueDate()) {
       AssignmentHelper.createAssignment(assignmentName, due, courseName);
       this.id = AssignmentHelper.getAssignmentId(assignmentName, courseName);
       this.assignmentName = assignmentName;
@@ -55,7 +58,7 @@ public class Assignment {
   }
 
   public String getDueDate() {
-      return AssignmentHelper.getAssignmentDueDate(assignmentName, courseName);
+      return this.dueDate;
   }
 
   public String getAssignmentName(){

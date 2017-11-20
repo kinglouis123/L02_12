@@ -141,10 +141,7 @@ public class StudentSubmissionTest {
     generateNewAssignment();
     assignment = AssignmentTerminal.createNewAssignment(generateRandomString(),
         "2000-01-01", courseName);
-    assignment.insertMultipleChoiceQuestion(question, choices, 1);
-    assignment.insertMultipleChoiceQuestion(question2, choices2, 2);
-    StudentSubmission studentSubmission = new StudentSubmission(student, assignment.getId());
-    assertFalse(studentSubmission.submitAssignment());
+    assertNull(assignment);
   }
 
 }

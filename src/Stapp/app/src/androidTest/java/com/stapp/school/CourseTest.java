@@ -195,7 +195,7 @@ public class CourseTest {
     String coursename = generateRandomString();
     LoginTerminal.newProfessor(username, name, pass);
     Course course = CourseTerminal.createNewCourse(coursename, username);
-    AssignmentTerminal.createNewAssignment(a1, "2017-03-04", coursename);
+    AssignmentTerminal.createNewAssignment(a1, "2018-03-04", coursename);
     AssignmentTerminal.createNewAssignment(a2, "2019-04-02", coursename);
     ArrayList<Assignment> assignments = (ArrayList) course.getAssignments();
     Assignment assignment1 = assignments.get(0);

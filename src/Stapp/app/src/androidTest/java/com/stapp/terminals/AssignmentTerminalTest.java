@@ -66,7 +66,7 @@ public class AssignmentTerminalTest {
 
         // Check that inserting an assignment works
         String assignmentName = generateRandomString();
-        String due = "1999-12-28";
+        String due = "2019-12-28";
         Assignment assignment = AssignmentTerminal.createNewAssignment(name, due, courseName);
 
         boolean correctName = name.equals(assignment.getAssignmentName());
@@ -94,7 +94,7 @@ public class AssignmentTerminalTest {
 
         // Check that inserting an assignment works
         String assignmentName = generateRandomString();
-        String due = "1999-12-28";
+        String due = "2020-12-28";
         Assignment a = AssignmentTerminal.createNewAssignment(assignmentName, due, courseName);
         int id = a.getId();
 
