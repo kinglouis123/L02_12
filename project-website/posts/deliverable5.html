@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Project Deliverable #5 | CSCC01: Code Manglers</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+    rel='stylesheet' type='text/css'>
+
+  <!-- Custom styles for this template -->
+  <link href="../css/clean-blog.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="../index.html">CSCC01: Code Manglers</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="../index.html">Home</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('../img/user-story.jpg');">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Project Deliverable #5</h1>
+            <h2 class="subheading">Sprint #4</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Post Content -->
+  <article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+
+         
+          <!-- Table of Contents -->
+          <div id="toc_container">
+            <p class="toc_title">Contents</p>
+            <ul class="toc_list">
+              <li><a href="#sprintbacklog">1 Sprint Plan</a></li>
+              <li><a href="#burndown">2 Burndown Chart</a></li>
+              <li><a href="#stories">3 User Stories/Personas</a></li>
+              <li><a href="#report">4 Sprint Report</a></li>
+              <li><a href="#snapshots">5 Taskboard Snapshots</a></li>
+              <li><a href="#verification">6 Verification</a></li>
+              <li><a href="#validation">7 Verification</a></li>
+              <li><a href="#strategy">8 Code Review Strategy</a></li>
+              <li><a href="#summary">9 Code Review Summary</a></li>
+              <li><a href="#meeting">10 Code Review Debrief Meeting</a></li>
+            </ul>
+          </ul>
+          </div>
+
+		  <h3 id="sprintbacklog">Sprint Plan</h3>
+		  <hr>
+		  <p>Here are the user stories/tasks we plan to finish for this sprint:</p>
+		  <img class="img-fluid" src="../img/sprint3/tasks-after.png" alt="Before sprint execution" />
+		  <p>Tasks labelled with red signifies the tasks we plan to finish.</p>
+		  <p>Here's our sprint plan/story point assignment:</p>
+		  <img class="img-fluid" src="../img/sprint4/plan.png" alt="" />
+
+		  <br>
+		  <h3 id="burndown">Burndown Chart</h3>
+
+		  <hr>
+		  <img class="img-fluid" src="../img/sprint4/burndown.png" alt="Burndown Chart" />
+
+		  <br>
+		  <h3 id="stories">User Stories/Personas</h3>
+		  <hr>
+ 		  <p>We did not update our user stories for this sprint since we finished all the
+		  leftover tasks from the last sprint. User stories can be seen <a href="deliverable2.html">here.</a></p> 
+		  <h3 id="report">Sprint Report</h3>
+		  <hr>
+		  <p>Most of this sprint was dedicated towards completing leftover tasks from
+		  sprint 3 and testing our application. We started out the sprint by fixing bugs
+		  introduced by automatically generated Android code. We then moved on to 
+		  completing the student submission backend, which was notable because
+		  we needed to go back and refactor some broken database code which took time
+		  out of completing our other tasks. At the same time the UI layout for
+		  creating assignments and answering assignments was being developed, which
+		  was hooked up to the backend after solving a few bugs.</p>
+		  <p>For this sprint we continued to split the developer roles between
+		  backend/frontend. We added some tasks to address testing requirements,
+		  which was coded using JUnit. We greatly underestimated how long it
+		  takes to thoroughly test, since testing 1 class took about 5 hours.</p>
+		  
+
+		  <p></p>
+		  <br>
+		  <h3 id="snapshots">Taskboard Snapshots</h3>
+		  <hr>
+		  <p>Before sprint execution:</p>
+		  <img class="img-fluid" src="../img/sprint3/tasks-after.png" alt="Before sprint execution" />
+		  <p>After sprint execution:</p>
+		  <img class="img-fluid" src="../img/sprint4/tasks-after.png" alt="After sprint execution" />
+		  <p>Tasks labelled with green are done.</p>
+		  <p>Tasks labelled with yellow are in progress.</p>
+		  <p>Tasks labelled with red are not done.</p>
+
+          <h3 id="verification">Verification</h3>
+          <hr>
+		  <p>For unit testing, we used the JUnit 4 testing framework. To run our tests, open the
+		  Stapp folder with Android Studio. After it is done loading, open the "app->java->com.stapp (androidTest)" folder.
+		  Then, right click on the "com.stapp (androidTest)" folder in the project explorer, and click the "Run tests in com.stapp" option.
+		  </p>
+		  <p>Then, choose a target device. You will need to connect an Android phone or use a virtual Android phone to run the tests. After choosing
+		  a device, all the unit tests should run. You can see the results of the unit tests at the bottom of the Android Studio window.</p>
+          <h3 id="validation">Validation</h3>
+          <hr>
+		  <p>For each UI-related task we completed for this sprint, we validated each one by writing reproducible steps with the expected result.</p>
+		  <h4>T23: After opening a course from a list of courses, need to be able to view a list of assignments</h4>
+		  <ol>
+		    <li>Login as a professor (you can use username: nick, password: nick)</li>
+		    <li>Add a new course using the Add Course button</li>
+		    <li>Input the course code "CSCA08" and press done</li>
+		    <li>Back at the professor home page, you will see CSCA08 as a course</li>
+		  </ol>
+
+          <h3 id="strategy">Code Review Strategy</h3>
+          <hr>
+		  <ul>
+		  	<li>Each person should read another person's code (not your own code!)</li>
+		  	<li>Note what we should stop doing and start doing.</li>
+		  	<li>After each method, write down what you think could be improved.</li>
+		  	<li>After each class, try to summarize your notes into 1-3 points that can be expanded on during the meeting.</li>
+		  	<li>Don't single out people or be insensitive about your code being criticized. It should be a learning experience.</li>
+		  	<li>Don't take a code review personally. It's just code!</li>
+		  	<li>Use the Github commit log to easily see other people's code at a glance.</li>
+		  </ul>
+          <h3 id="summary">Code Review Summary</h3>
+          <hr>
+		  <p>J.R.'s points:</p>
+		  <ul>
+		  	<li>Code style needs to be consistent. In some files, 2-space tabs are used instead of 4-space tabs. </li>
+		  	<li>We need to keep our code lines short. Especially in the DatabaseDriver class, lines should be kept under 80 characters long.</li>
+			<li>This can be solved with linting software, to automatically employ Google style guide.</li>
+		  </ul>
+		  
+		  <p>Harry(HaoYue)'s points:</p> 
+		  <ul>
+			<li>Basic fundamentals of Object Oriented Programming were used correctly: Polymorphism, Inheritance, Interface, Encapsulation/Visibility, etc.</li>
+			<li>Front-end and back-end codes are separated, in a way that's not confusing.</li>
+			<li>Related functions and methods are grouped in the same package, making it very easy to navigate.</li>
+			<li>Overall good organization and well structured packages, every package has its purpose and it is separated in a way that's easily distinguishable in terms of functions.</li>
+			<li>File and package naming convention inconsistencies. </li>
+		  	<li>XML file organization, activity vs. content XML files. </li>
+		  </ul>
+		  
+		  <p>Rahul's points:</p>
+		  <ul>
+		  	<li>Maintain good coding practices!</li>
+		  	<li>Make sure to use javadocs for methods that have a complicated algorithm.</li>
+		  	<li>Naming should follow camelCase for consistent style.</li>
+		  	<li>Classes do work as intended but you should try to keep formatting consistent with the other classes.</li>
+		  	<li>Inline comments would be useful for some important lines to make sure we understand what you've written.</li>
+		  </ul>
+			
+		  <p>Wen Bo's Points:</p>
+			<ul>
+			<li>We should adopt the Strategy Design Pattern</li>
+			<li>The helper function can be fused with the regular class</li>
+			<li>make use of interface so we can do mock testing</li>
+			<li>certain method is impossible to test because we didn't implement Strategy Design Pattern</li>
+			<li>Should make a release that can be shown to the client i.e Sohee Kang sooner</li>
+			</ul>
+
+		  <p> Richard's Points</p>
+			<ul>
+			<li>All static strings should be coded in res/strings.xml for good coding practice</li>
+			<li>Any instances of floating action buttons should be removed as they are unused and auto-generated</li>
+			<li>The Recyclers should display thier contents more clearly, and as more obviously click-able</li>
+			<li>Layout student_menu_activity.xml needs to be restructured to align the Recycler properly</li>
+			<li>The Assignment creation should use a DatePicker widget for selecting due dates</li>
+			</ul>
+          <h3 id="meeting">Code Review Debrief Meeting</h3>
+          <hr>
+		  <video controls="controls" class="img-responsive" src="../img/sprint4/video.mp4" />
+
+
+        </div>
+      </div>
+    </div>
+  </article>
+  <hr>
+</body>
+</html>
