@@ -28,4 +28,7 @@ public class Question {
     return QuestionHelper.getAnswer(Id);
   }
 
+  public int getId() {
+    return Id;
+  }
 }
