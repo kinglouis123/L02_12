@@ -64,7 +64,7 @@
                 android:inputType="textMultiLine" />
 
             <RadioGroup
-                android:id="@+id/radioGroup"
+                android:id="@+id/AddQuestions_radioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="185dp"
                 android:orientation="vertical">
@@ -101,39 +101,41 @@
 
             </RadioGroup>
 
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="400dp">
+
+                <Button
+                    android:id="@+id/AddNewQuestions"
+                    android:layout_width="157dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:onClick="AddNewQuestions"
+                    android:text="Add New Question"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/Finish"
+                    app:layout_constraintEnd_toStartOf="@+id/Finish"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <Button
+                    android:id="@+id/Finish"
+                    android:layout_width="193dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="48dp"
+                    android:text="Finish"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/AddNewQuestions" />
+            </android.support.constraint.ConstraintLayout>
+
 
         </RelativeLayout>
 
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="400dp">
-
-        <Button
-            android:id="@+id/AddNewQuestions"
-            android:layout_width="181dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_weight="1"
-            android:text="Add New Question"
-            android:onClick="AddNewQuestions"
-            tools:layout_editor_absoluteY="378dp" />
-
-        <Button
-            android:id="@+id/Finish"
-            android:layout_width="178dp"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/button3"
-            android:layout_weight="1"
-            android:text="Finish"
-            tools:layout_editor_absoluteX="228dp"
-            tools:layout_editor_absoluteY="419dp" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

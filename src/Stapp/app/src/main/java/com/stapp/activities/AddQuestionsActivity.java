@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.stapp.R;
+import com.stapp.Toaster;
 import com.stapp.school.Assignment;
 import com.stapp.terminals.AssignmentTerminal;
 
@@ -34,8 +36,8 @@ public class AddQuestionsActivity extends AppCompatActivity {
 
     protected void AddNewQuestions(View view) {
 
+        RadioGroup rGroup = (RadioGroup) findViewById(R.id.AddQuestions_radioGroup);
 
-        boolean checked = ((RadioButton) view).isChecked();
 
         question = ((EditText) findViewById(R.id.Question_string)).getText().toString();
         answer1 = ((EditText) findViewById(R.id.AddQuestions_editText1)).getText().toString();
@@ -43,34 +45,28 @@ public class AddQuestionsActivity extends AppCompatActivity {
         answer3 = ((EditText) findViewById(R.id.AddQuestions_editText3)).getText().toString();
         answer4 = ((EditText) findViewById(R.id.AddQuestions_editText4)).getText().toString();
 
-        if (!checked || answer1.matches("") || answer2.matches("") ||
+        if (rGroup.getCheckedRadioButtonId() == -1 || answer1.matches("") || answer2.matches("") ||
                 answer3.matches("") || answer4.matches("")) {
 
-            Toast.makeText(this,
-                    "Please fill in the question/answer box and check the correct answer",
-                    Toast.LENGTH_SHORT);
+            Toaster.toastShort("Please fill in the question/answer box and check the correct answer");
 
         } else {
 
-            switch (view.getId()) {
+            switch (rGroup.getCheckedRadioButtonId()) {
 
                 case R.id.AddQuestions_radioButton1:
-                    if (checked)
                         correct_index = 0;
                     break;
 
                 case R.id.AddQuestions_radioButton2:
-                    if (checked)
                         correct_index = 1;
                     break;
 
                 case R.id.AddQuestions_radioButton3:
-                    if (checked)
                         correct_index = 2;
                     break;
 
                 case R.id.AddQuestions_radioButton4:
-                    if (checked)
                         correct_index = 3;
                     break;
 
@@ -84,9 +80,7 @@ public class AddQuestionsActivity extends AppCompatActivity {
 
             assignment.insertMultipleChoiceQuestion(question, ChoiceList, correct_index);
 
-            Toast.makeText(this,
-                    "Question successfully created!",
-                    Toast.LENGTH_SHORT);
+            Toaster.toastShort("Question successfully created!");
 
 
         }
