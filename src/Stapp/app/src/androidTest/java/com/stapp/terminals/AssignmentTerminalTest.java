@@ -2,6 +2,8 @@ package com.stapp.terminals;
 
 import android.support.test.runner.AndroidJUnit4;
 
+import com.stapp.database.DatabaseDriverHelper;
+import com.stapp.database.InitializeDatabase;
 import com.stapp.school.Assignment;
 import com.stapp.school.Course;
 
@@ -21,11 +23,14 @@ import static org.junit.Assert.*;
 public class AssignmentTerminalTest {
     @Before
     public void setUp() throws Exception {
+        InitializeDatabase.initializeDatabase();
     }
 
     @After
     public void tearDown() throws Exception {
+        DatabaseDriverHelper.reinitializeDatabase();
     }
+
 
     /**
      * Random string generator.
