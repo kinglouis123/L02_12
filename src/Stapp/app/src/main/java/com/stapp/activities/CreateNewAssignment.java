@@ -2,13 +2,11 @@ package com.stapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.stapp.databasehelpers.AssignmentHelper;
+import com.stapp.Toaster;
 import com.stapp.school.Assignment;
 import com.stapp.terminals.AssignmentTerminal;
 
@@ -28,40 +26,53 @@ public class CreateNewAssignment extends AppCompatActivity {
 		Intent intent = getIntent();
 		course_code = intent.getStringExtra("course_code");
 
-
 	}
 
     protected void showAddQuestions(View view){
-	Intent intent = new Intent(this, AddQuestionsActivity.class);
 
-	//get the assignment info from the edit texts
-	String year;
-	String month;
-	String day;
-	String name;
-	Assignment assignment;
-	
-	name = ((EditText)findViewById(R.id.CreateAssignmentName)).getText().toString();
-	year = ((EditText)findViewById(R.id.CreateAssignmentDueDateYear)).getText().toString();
-	month = ((EditText)findViewById(R.id.CreateAssignmentDueDateMonth)).getText().toString();
-	day = ((EditText)findViewById(R.id.CreateAssignmentDueDateDay)).getText().toString();
+        //get the assignment info from the edit texts
+        String year, month, day, name, duedate;
+        Assignment assignment;
 
-	//create the duedate string format "yyyy-mm-dd"
-	
-	String duedate;
-	duedate = year.substring(0, 3)+"-"+month.substring(0,1)+"-"+day.substring(0,1);
+        name = ((EditText)findViewById(R.id.CreateAssignmentName)).getText().toString();
+        year = ((EditText)findViewById(R.id.CreateAssignmentDueDateYear)).getText().toString();
+        month = ((EditText)findViewById(R.id.CreateAssignmentDueDateMonth)).getText().toString();
+        day = ((EditText)findViewById(R.id.CreateAssignmentDueDateDay)).getText().toString();
 
-	//create the new Assignment
-	assignment = AssignmentTerminal.createNewAssignment(name, duedate, course_code);
-	
-	//get the assignment id for the intent. 
-	int assignment_id = AssignmentHelper.getAssignmentId(name, course_code);
-	intent.putExtra("assignment_id", assignment_id);
-	
-	//start the new activity
-	startActivity(intent);
+        //check if all the required fields are entered
+        if (name.matches("") || year.matches("") ||
+                month.matches("") || day.matches("")) {
+            Toaster.toastShort("Please fill in all the required fields!");
+            return;
+        }
 
-	
+        if (year.length() != 4 || month.length() != 2 || day.length() != 2) {
+            Toaster.toastShort("Please fill in the dates in yyyy-MM-dd format");
+            return;
+        }
+
+        //create the duedate string format "yyyy-mm-dd"
+        duedate = year.substring(0, 4)+"-"+month.substring(0,2)+"-"+day.substring(0,2);
+        assignment = AssignmentTerminal.createNewAssignment(name, duedate, course_code);
+        if(assignment == null){
+            Toaster.toastShort("Invalid due date or the assignment already exist!");
+        } else {
+            //get the assignment id for the intent.
+            int assignment_id = assignment.getId();
+
+            Intent addQuestions_intent = new Intent(this, AddQuestionsActivity.class);
+
+            addQuestions_intent.putExtra("assignment_id", assignment_id);
+            //start the new activity
+            startActivity(addQuestions_intent);
+        }
     }
+
+	@Override
+	public void onRestart() {
+		super.onRestart();
+		finish();
+		startActivity(this.getIntent());
+	}
 
 }
