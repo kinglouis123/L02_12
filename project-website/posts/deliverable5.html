@@ -103,11 +103,25 @@
 		  <hr>
  		  <p>We did not update our user stories for this sprint since we finished all the
 		  leftover tasks from the last sprint. User stories can be seen <a href="deliverable2.html">here.</a></p> 
-		  <h3 id="report">Sprint Report</h4>
+		  <h3 id="report">Sprint Report</h3>
 		  <hr>
+		  <p>Most of this sprint was dedicated towards completing leftover tasks from
+		  sprint 3 and testing our application. We started out the sprint by fixing bugs
+		  introduced by automatically generated Android code. We then moved on to 
+		  completing the student submission backend, which was notable because
+		  we needed to go back and refactor some broken database code which took time
+		  out of completing our other tasks. At the same time the UI layout for
+		  creating assignments and answering assignments was being developed, which
+		  was hooked up to the backend after solving a few bugs.</p>
+		  <p>For this sprint we continued to split the developer roles between
+		  backend/frontend. We added some tasks to address testing requirements,
+		  which was coded using JUnit. We greatly underestimated how long it
+		  takes to thoroughly test, since testing 1 class took about 5 hours.</p>
+		  
+
 		  <p></p>
 		  <br>
-		  <h3 id="snapshots">Taskboard Snapshots</h4>
+		  <h3 id="snapshots">Taskboard Snapshots</h3>
 		  <hr>
 		  <p>Before sprint execution:</p>
 		  <img class="img-fluid" src="../img/sprint3/tasks-after.png" alt="Before sprint execution" />
@@ -137,6 +151,13 @@
           <hr>
           <h3 id="summary">Code Review Summary</h3>
           <hr>
+		  <p>J.R.'s points:</p>
+		  <ul>
+		  	<li>Code style needs to be consistent. In some files, 2-space tabs are used instead of 4-space tabs. </li>
+		  	<li>We need to keep our code lines short. Especially in the DatabaseDriver class, lines should be kept under 80 characters long.</li>
+			<li>This can be solved with linting software, to automatically employ Google style guide.</li>
+		  </ul>
+
           <h3 id="meeting">Code Review Debrief Meeting</h3>
           <hr>
 		  <video controls="controls" class="img-responsive" src="../img/sprint4/video.mp4" />
