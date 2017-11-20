@@ -39,16 +39,17 @@ public class CreateNewAssignment extends AppCompatActivity {
         month = ((EditText)findViewById(R.id.CreateAssignmentDueDateMonth)).getText().toString();
         day = ((EditText)findViewById(R.id.CreateAssignmentDueDateDay)).getText().toString();
 
-        //create the duedate string format "yyyy-mm-dd"
-        duedate = year.substring(0, 3)+"-"+month.substring(0,1)+"-"+day.substring(0,1);
-
-
         //check if all the required fields are entered
         if (name.matches("") || year.matches("") ||
                 month.matches("") || day.matches("")) {
-
             Toaster.toastShort("Please fill in all the required fields!");
-        } else if((assignment = AssignmentTerminal.createNewAssignment(name, duedate, course_code)) == null){
+            return;
+        }
+
+        //create the duedate string format "yyyy-mm-dd"
+        duedate = year.substring(0, 3)+"-"+month.substring(0,1)+"-"+day.substring(0,1);
+        assignment = AssignmentTerminal.createNewAssignment(name, duedate, course_code);
+        if(assignment == null){
             Toaster.toastShort("Invalid due date or the assignment already exist!");
         } else {
             assignment = AssignmentTerminal.createNewAssignment(name, duedate, course_code);
