@@ -39,13 +39,4 @@ public class CourseTerminal {
         }
         return null;
     }
-
-    /**
-     * Generate a list of Assignments associated with the given courseCode from the database.
-     * @param courseCode
-     * @return the list of courses
-     */
-    public static List<Assignment> getAssignments(String courseCode){
-        return null; // To be implemented
-    }
 }
