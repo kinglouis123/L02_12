@@ -4,31 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.stapp.activities.CreateClass">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.stapp.activities.StudentCourseDisplay"
+    tools:showIn="@layout/activity_student_course_display">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
-
-
-
-        <EditText
-            android:id="@+id/CreateClassName"
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:inputType="textPersonName"
-            android:hint="Class name" />
-
-        <Button
-        android:id="@+id/CreateClassConfirm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:onClick="createClass"
-        android:text="Create Class"
-        android:layout_marginTop="15dp" />
+            android:id="@+id/student_assignment_list"></android.support.v7.widget.RecyclerView>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

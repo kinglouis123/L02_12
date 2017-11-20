@@ -56,8 +56,9 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     sqLiteDatabase.execSQL("CREATE TABLE ASSIGNMENTCOURSELINKS " +
         "(ID INTEGER PRIMARY KEY NOT NULL, " +
         "ASSIGNMENTNAME TEXT NOT NULL, " +
-        "COURSE TEXT NOT NULL, " +
-        "DUE TEXT NOT NULL)");
+        "COURSENAME TEXT NOT NULL, " +
+        "DUE TEXT NOT NULL, " +
+        "RELEASED INTEGER NOT NULL)");
 
     sqLiteDatabase.execSQL("CREATE TABLE QUESTIONS " +
         "(ID INTEGER PRIMARY KEY NOT NULL, " +
@@ -66,15 +67,15 @@ public class DatabaseDriver extends SQLiteOpenHelper {
         "CHOICE1 TEXT NOT NULL, " +
         "CHOICE2 TEXT NOT NULL, " +
         "CHOICE3 TEXT NOT NULL, " +
-        "CHOICE4 TEXT NOT NULL, "+
+        "CHOICE4 TEXT NOT NULL, " +
         "CORRECTANSWER TEXT NOT NULL)");
 
     sqLiteDatabase.execSQL("CREATE TABLE ASSIGNMENTSTUDENTLINKS " +
         "(STUDENTUSERNAME TEXT NOT NULL, " +
         "ASSIGNMENTID INTEGER NOT NULL, " +
-        "TIMESATTEMPTED INTEGER NOT NULL, " +
         "LATESTGRADE TEXT NOT NULL, " +
-        "LATESTATTEMPTTIME TEXT NOT NULL)");
+        "LATESTATTEMPTTIME TEXT NOT NULL, " +
+        "TIMESATTEMPTED INTEGER NOT NULL)");
   }
 
   @Override
@@ -82,6 +83,82 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     onCreate(sqLiteDatabase);
   }
 
+
+  // ASSIGNMENT STUDENT LINK STUFF
+
+  // INSERT
+
+  public void submitAssignment(String username, int assignmentId, String grade, String time) {
+    ContentValues contentValues = new ContentValues();
+    contentValues.put("STUDENTUSERNAME", username);
+    contentValues.put("ASSIGNMENTID", assignmentId);
+    contentValues.put("LATESTGRADE", grade);
+    contentValues.put("LATESTATTEMPTTIME", time);
+    if (studentAssignmentLinkExists(username, assignmentId)) {
+      updateSubmission(username, assignmentId, contentValues);
+      return;
+    }
+    SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+    contentValues.put("TIMESATTEMPTED", 0);
+    sqLiteDatabase.insert("ASSIGNMENTSTUDENTLINKS", null, contentValues);
+  }
+
+  // UPDATE
+
+  private void updateSubmission(String username, int assignmentId, ContentValues contentValues) {
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT TIMESATTEMPTED FROM " +
+            "ASSIGNMENTSTUDENTLINKS WHERE STUDENTUSERNAME = ? AND ASSIGNMENTID = ?",
+        new String[]{username, String.valueOf(assignmentId)});
+    cursor.moveToFirst();
+    int timesAttempted = cursor.getInt(cursor.getColumnIndex("TIMESATTEMPTED"));
+    timesAttempted += 1;
+    sqLiteDatabase.close();
+    sqLiteDatabase = this.getWritableDatabase();
+    contentValues.put("TIMESATTEMPTED", timesAttempted);
+    sqLiteDatabase.update("ASSIGNMENTSTUDENTLINKS", contentValues,
+        "STUDENTUSERNAME = ? AND ASSIGNMENTID = ?",
+        new String[]{username, String.valueOf(assignmentId)});
+    cursor.close();
+  }
+
+  // SELECT
+
+  public String getGrade(String username, int assignmentId) {
+    if (studentAssignmentLinkExists(username, assignmentId)) {
+      SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+      Cursor cursor = sqLiteDatabase.rawQuery("SELECT LATESTGRADE FROM " +
+          "ASSIGNMENTSTUDENTLINKS WHERE STUDENTUSERNAME = ? AND ASSIGNMENTID = ?",
+          new String[]{username, String.valueOf(assignmentId)});
+      cursor.moveToFirst();
+      String grade = cursor.getString(cursor.getColumnIndex("LATESTGRADE"));
+      cursor.close();
+      return grade;
+    }
+    return "(Not Attempted)";
+  }
+
+  public boolean studentAssignmentLinkExists(String username, int assignmentId) {
+    boolean exists = true;
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM ASSIGNMENTSTUDENTLINKS WHERE " +
+        "STUDENTUSERNAME = ? AND ASSIGNMENTID = ?", new String[]{username,
+        String.valueOf(assignmentId)});
+    if (cursor.getCount() <= 0) {
+      exists = false;
+    }
+    cursor.close();
+    return exists;
+  }
+
+  public ArrayList<Assignment> getAssignmentsOfStudent(String username) {
+    ArrayList<Assignment> assignments = new ArrayList<>();
+    ArrayList<String> courses = this.getStudentCourseNames(username);
+    for (String course : courses) {
+      assignments.addAll(this.getAssignmentsOfCourse(course));
+    }
+    return assignments;
+  }
 
   // QUESTIONS STUFF
   // INSERT
@@ -146,7 +223,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
   // INSERT
 
   /**
-   * @param due must be in format "yyyy-MM-dd HH:mm:ss"
+   * @param due must be in format "YYYY-MM-DD"
    */
   public void insertAssignment(String assignmentName, String due, String courseName) {
     SQLiteDatabase sqliteDatabase = this.getWritableDatabase();
@@ -154,22 +231,51 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     contentValues.put("ASSIGNMENTNAME", assignmentName);
     contentValues.put("COURSENAME", courseName);
     contentValues.put("DUE", due);
+    contentValues.put("RELEASED", 0);
     sqliteDatabase.insert("ASSIGNMENTCOURSELINKS", null, contentValues);
+  }
+
+  // UPDATE
+
+  public boolean releaseAssignment(int assignmentId) {
+    SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+    ContentValues contentValues = new ContentValues();
+    contentValues.put("RELEASED", 1);
+    return sqLiteDatabase.update("ASSIGNMENTCOURSELINKS", contentValues, "ID = ?",
+        new String[]{String.valueOf(assignmentId)}) > 0;
+  }
+
+  // SELECT
+
+  public String getAssignmentName(int assignmentId) {
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT ASSIGNMENTNAME FROM " +
+        "ASSIGNMENTCOURSELINKS WHERE ID = ?", new String[]{String.valueOf(assignmentId)});
+    cursor.moveToFirst();
+    String name = cursor.getString(cursor.getColumnIndex("ASSIGNMENTNAME"));
+    cursor.close();
+    return name;
   }
 
   public String getAssignmentDueDate(String assignmentName, String courseName) {
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
     Cursor cursor = sqLiteDatabase.rawQuery("SELECT DUE FROM ASSIGNMENTCOURSELINKS WHERE " +
-        "ASSIGNMENTNAME = ? AND COURSENAME = ?", new String[]{assignmentName, courseName});
+            "ASSIGNMENTNAME = ? AND COURSENAME = ?", new String[]{assignmentName, courseName});
     cursor.moveToFirst();
     String dueDate = cursor.getString(cursor.getColumnIndex("DUE"));
     cursor.close();
     return dueDate;
   }
 
-
-  // UPDATE
-  // SELECT
+  public boolean assignmentIsReleased(int assignmentId) {
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT RELEASED FROM ASSIGNMENTCOURSELINKS " +
+        "WHERE ID = ?", new String[]{String.valueOf(assignmentId)});
+    cursor.moveToFirst();
+    boolean result = (cursor.getInt(cursor.getColumnIndex("RELEASED")) == 1);
+    cursor.close();
+    return result;
+  }
 
   public boolean assignmentExists(String assignmentName, String courseName) {
     boolean exists = true;
@@ -215,6 +321,16 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     }
     cursor.close();
     return questions;
+  }
+
+  public String getCourseCode(int assignmentId) {
+    SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    Cursor cursor = sqLiteDatabase.rawQuery("SELECT COURSENAME FROM ASSIGNMENTCOURSELINKS " +
+        "WHERE ID = ?", new String[]{String.valueOf(assignmentId)});
+    cursor.moveToFirst();
+    String courseCode = cursor.getString(cursor.getColumnIndex("COURSENAME"));
+    cursor.close();
+    return courseCode;
   }
 
 
@@ -309,6 +425,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
     Cursor cursor = sqLiteDatabase.rawQuery("SELECT ARCHIVED FROM COURSES WHERE " +
         "COURSENAME = ?", new String[]{courseName});
+    cursor.moveToFirst();
     int archived = cursor.getInt(cursor.getColumnIndex("ARCHIVED"));
     cursor.close();
     return archived == 0;
@@ -326,7 +443,8 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     return exists;
   }
 
-  public ArrayList<Assignment> getAssignments(String courseName) {
+
+  public ArrayList<Assignment> getAssignmentsOfCourse(String courseName) {
     Assignment assignment;
     ArrayList<Assignment> assignments = new ArrayList<>();
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
@@ -369,6 +487,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
 
   public boolean updatePassword(String password, String username) {
     SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+    password = PasswordHelpers.passwordHash(password);
     ContentValues contentValues = new ContentValues();
     contentValues.put("PASSWORD", password);
     return sqLiteDatabase.update("USERS", contentValues, "USERNAME = ?",

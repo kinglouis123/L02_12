@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.stapp">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <application
         android:name=".database.ContextHelper"
         android:allowBackup="true"
@@ -20,11 +22,36 @@
         <activity android:name=".activities.RegisterActivity" />
         <activity android:name=".activities.ProfessorMenu" />
         <activity android:name=".activities.CreateClass" />
-        <activity android:name=".activities.StudentMenu"></activity>
+        <activity android:name=".activities.StudentMenu" />
+        <activity android:name=".activities.JoinCourseActivity" />
         <activity
             android:name=".activities.CourseDisplay"
             android:label="@string/title_activity_course"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.ShowOldAssignments"
+            android:label="@string/title_activity_show_old_assignments"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.CreateNewAssignment"
+            android:label="@string/title_activity_create_new_assignment"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".StudentAssignment"
+            android:label="@string/title_activity_student_assignment">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.StudentCourseDisplay"
+            android:label="@string/title_activity_student_course_display"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.AnswerAssignmentActivity" />
+        <activity android:name=".activities.AssignmentResultsActivity" />
+        <activity android:name=".activities.AddQuestionsActivity"></activity>
     </application>
 
 </manifest>

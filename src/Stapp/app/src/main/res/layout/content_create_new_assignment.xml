@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.stapp.activities.CreateNewAssignment"
+    tools:showIn="@layout/activity_create_new_assignment">
+
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+        android:id="@+id/CreateAssignmentName"
+        android:hint="@string/assignment_title"
+	/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Due Date(yyyy-mm-dd):"></TextView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/CreateAssignmentDueDateYear"
+            android:hint="yyyy"
+            android:inputType="number"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/CreateAssignmentDueDateMonth"
+            android:hint="mm"
+            android:inputType="number"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/CreateAssignmentDueDateDay"
+            android:hint="dd"
+            android:inputType="number"/>
+
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="showAddQuestions"
+        android:text="Add Questions"/>
+
+</LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

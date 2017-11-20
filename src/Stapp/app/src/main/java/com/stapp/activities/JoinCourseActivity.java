@@ -25,8 +25,6 @@ public class JoinCourseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_course);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         //get the username passed from the previous activity
         Intent intent = getIntent();
@@ -37,8 +35,19 @@ public class JoinCourseActivity extends AppCompatActivity {
         String coursecode = ((EditText) findViewById(R.id.course_code_edit)).getText().toString();
         Course course = CourseTerminal.getCourse(coursecode);
 
+
+
         try {
-            course.addStudent(username);
+            if (course != null) {
+                if (course.isValidCourse()) {
+                    course.addStudent(username);
+                } else {
+                    Toaster.toastShort("Class does not exist.");
+                }
+            } else {
+                Toaster.toastShort("Class does not exist.");
+            }
+
         }
         catch (ClassNotFoundException err){
             Toaster.toastShort("Class does not exist.");

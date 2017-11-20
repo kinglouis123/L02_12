@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.stapp.activities.AddQuestionsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/Question_string"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter the question here"
+            android:inputType="textPersonName" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/AddQuestions_editText3"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/AddQuestions_editText2"
+                android:layout_weight="1"
+                android:hint="Answer 3"
+                android:inputType="textMultiLine" />
+
+            <EditText
+                android:id="@+id/AddQuestions_editText1"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_weight="1"
+                android:hint="Answer 1"
+                android:inputType="textMultiLine" />
+
+            <EditText
+                android:id="@+id/AddQuestions_editText4"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/AddQuestions_editText3"
+                android:layout_weight="1"
+                android:hint="Answer 4" />
+
+            <EditText
+                android:id="@+id/AddQuestions_editText2"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/AddQuestions_editText1"
+                android:layout_weight="1"
+                android:hint="Answer 2"
+                android:inputType="textMultiLine" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="185dp"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/AddQuestions_radioButton1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/AddQuestions_editText1"
+                    android:layout_alignTop="@+id/AddQuestions_editText1"
+                    android:layout_toLeftOf="@+id/AddQuestions_editText1"
+                    android:layout_weight="1" />
+
+                <RadioButton
+                    android:id="@+id/AddQuestions_radioButton2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/AddQuestions_editText2"
+                    android:layout_weight="1" />
+
+                <RadioButton
+                    android:id="@+id/AddQuestions_radioButton3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/AddQuestions_editText3"
+                    android:layout_weight="1" />
+
+                <RadioButton
+                    android:id="@+id/AddQuestions_radioButton4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/AddQuestions_editText4"
+                    android:layout_weight="1" />
+
+            </RadioGroup>
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="400dp">
+
+        <Button
+            android:id="@+id/AddNewQuestions"
+            android:layout_width="181dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_weight="1"
+            android:text="Add New Question"
+            android:onClick="AddNewQuestions"
+            tools:layout_editor_absoluteY="378dp" />
+
+        <Button
+            android:id="@+id/Finish"
+            android:layout_width="178dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/button3"
+            android:layout_weight="1"
+            android:text="Finish"
+            tools:layout_editor_absoluteX="228dp"
+            tools:layout_editor_absoluteY="419dp" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

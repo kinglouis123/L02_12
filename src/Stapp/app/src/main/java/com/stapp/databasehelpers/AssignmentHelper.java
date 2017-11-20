@@ -2,9 +2,13 @@ package com.stapp.databasehelpers;
 
 import com.stapp.database.ContextHelper;
 import com.stapp.database.DatabaseDriver;
+import com.stapp.school.Assignment;
 import com.stapp.school.Question;
 
+import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -87,5 +91,64 @@ public class AssignmentHelper {
               choices.get(1), choices.get(2), choices.get(3), choices.get(correctIndex));
       closeDatabase();
       return id;
+  }
+
+  public static boolean assignmentIsReleased(int assignmentId) {
+    openDatabase();
+    boolean result = databaseDriver.assignmentIsReleased(assignmentId);
+    closeDatabase();
+    return result;
+  }
+
+  public static boolean releaseAssignment(int assignmentId) {
+    openDatabase();
+    boolean result = databaseDriver.releaseAssignment(assignmentId);
+    closeDatabase();
+    return result;
+  }
+
+  public static ArrayList<Assignment> getAssignmentsOfStudent(String username) {
+    openDatabase();
+    ArrayList<Assignment> assignments = databaseDriver.getAssignmentsOfStudent(username);
+    closeDatabase();
+    return assignments;
+  }
+
+  public static void submitAssignment(String username, int assignmentId, String grade, String time) {
+    openDatabase();
+    databaseDriver.submitAssignment(username, assignmentId, grade, time);
+    closeDatabase();
+  }
+
+  public static String getGrade(String username, int assignmentId) {
+    openDatabase();
+    String grade = databaseDriver.getGrade(username, assignmentId);
+    closeDatabase();
+    return grade;
+  }
+
+  /**
+   * Returns a String representation of the current date in the appropriate YYYY-MM-DD format.
+   */
+  public static String getCurrentDate() {
+    Calendar calendar = Calendar.getInstance();
+    calendar.add(Calendar.DATE, 1);
+    // formatted to the form YYYY-MM-DD
+    SimpleDateFormat formatting = new SimpleDateFormat("yyyy-MM-dd");
+    return formatting.format(calendar.getTime());
+  }
+
+  public static String getCourseCode(int assignmentId) {
+    openDatabase();
+    String course = databaseDriver.getCourseCode(assignmentId);
+    closeDatabase();
+    return course;
+  }
+
+  public static String getAssignmentName(int assignmentId) {
+    openDatabase();
+    String name = databaseDriver.getAssignmentName(assignmentId);
+    closeDatabase();
+    return name;
   }
 }

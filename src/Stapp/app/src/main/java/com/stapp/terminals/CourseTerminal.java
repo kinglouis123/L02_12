@@ -2,7 +2,10 @@ package com.stapp.terminals;
 
 import com.stapp.databasehelpers.CourseHelper;
 import com.stapp.exceptions.ClassAlreadyExistsException;
+import com.stapp.school.Assignment;
 import com.stapp.school.Course;
+
+import java.util.List;
 
 /**
  * Created by JR on 2017-11-04.
@@ -35,5 +38,14 @@ public class CourseTerminal {
           return course;
         }
         return null;
+    }
+
+    /**
+     * Generate a list of Assignments associated with the given courseCode from the database.
+     * @param courseCode
+     * @return the list of courses
+     */
+    public static List<Assignment> getAssignments(String courseCode){
+        return null; // To be implemented
     }
 }

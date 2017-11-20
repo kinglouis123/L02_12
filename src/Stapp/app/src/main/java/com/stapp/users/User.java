@@ -14,10 +14,6 @@ public class User {
   private String username;
   private boolean loggedIn = false;
 
-  public static boolean exists(String username) {
-    return UserHelper.userExists(username);
-  }
-
   public boolean isLoggedIn() {
     return loggedIn;
   }

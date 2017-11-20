@@ -2,6 +2,10 @@ package com.stapp.school;
 
 import com.stapp.databasehelpers.AssignmentHelper;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,6 +22,8 @@ public class Assignment {
   public Assignment(int id) {
     if (AssignmentHelper.assignmentExists(id)) {
       this.id = id;
+      this.assignmentName = AssignmentHelper.getAssignmentName(id);
+      this.courseName = AssignmentHelper.getCourseCode(id);
       validAssignment = true;
     }
   }
@@ -52,7 +58,40 @@ public class Assignment {
       return AssignmentHelper.getAssignmentDueDate(assignmentName, courseName);
   }
 
+  public String getAssignmentName(){
+      return this.assignmentName;
+  }
+
   public List<Question> getQuestions() {
       return AssignmentHelper.getQuestions(this.id);
   }
+
+  public boolean isReleased() {
+    return AssignmentHelper.assignmentIsReleased(this.id);
+  }
+
+  public boolean release() {
+    return AssignmentHelper.releaseAssignment(this.id);
+  }
+
+  public int getId() {
+    return this.id;
+  }
+
+  public boolean withinDueDate() {
+    String submitDate = AssignmentHelper.getCurrentDate();
+    SimpleDateFormat formatting = new SimpleDateFormat("yyyy-MM-dd");
+    try {
+      Date submit = formatting.parse(submitDate);
+      Date due = formatting.parse(this.getDueDate());
+      return (submit.compareTo(due) <= 0);
+    } catch (ParseException e) {
+      return false;
+    }
+  }
+
+  public String getCourseCode() {
+    return this.courseName;
+  }
+
 }

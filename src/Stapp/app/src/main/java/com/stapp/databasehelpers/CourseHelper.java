@@ -153,7 +153,7 @@ public class CourseHelper {
 
     public static ArrayList<Assignment> getAssignments(String courseName) {
         openDatabase();
-        ArrayList<Assignment> assignments = databaseDriver.getAssignments(courseName);
+        ArrayList<Assignment> assignments = databaseDriver.getAssignmentsOfCourse(courseName);
         closeDatabase();
         return assignments;
     }

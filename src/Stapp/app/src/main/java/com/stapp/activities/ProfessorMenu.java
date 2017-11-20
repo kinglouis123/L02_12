@@ -5,22 +5,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.stapp.Other.RVAdapter;
+import com.stapp.Other.RVCourseAdapter;
 import com.stapp.R;
-import com.stapp.database.DatabaseDriver;
 import com.stapp.school.Course;
 import com.stapp.terminals.LoginTerminal;
 import com.stapp.users.Professor;
-import com.stapp.database.DatabaseDriver;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProfessorMenu extends AppCompatActivity {
@@ -50,7 +43,7 @@ public class ProfessorMenu extends AppCompatActivity {
         List<Course> courses = professor.getCourses();
 
         //Adapter to populate Recycler with courses
-        RVAdapter adapter = new RVAdapter(courses);
+        RVCourseAdapter adapter = new RVCourseAdapter(courses);
         coursesRecycler.setAdapter(adapter);
 
 
@@ -65,14 +58,30 @@ public class ProfessorMenu extends AppCompatActivity {
     }
 
     //Courses List OnClick Navigation
-        protected void showCourseActivity(View view) {
+    protected void showCourseActivity(View view) {
         Intent intent = new Intent (this, CourseDisplay.class);
-        //intent.putExtra("course code",view.toString());
+        String course_code = new String();
+        TextView tv = findViewById(R.id.course_code);
+        course_code = tv.getText().toString();
+        intent.putExtra("course code",view.toString());
         startActivity(intent);
 
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        finish();
+        startActivity(this.getIntent());
+    }
+
+}
 
 
 

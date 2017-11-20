@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.stapp.activities.AnswerAssignmentActivity">
+
+    <TextView
+        android:id="@+id/questionPrompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Question:"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="140dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <TextView
+        android:id="@+id/questionText"
+        android:layout_width="349dp"
+        android:layout_height="193dp"
+        android:layout_marginBottom="8dp"
+        android:text="Sample question"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/answerGroup"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <RadioGroup
+        android:id="@+id/answerGroup"
+        android:layout_width="349dp"
+        android:layout_height="186dp"
+        tools:layout_editor_absoluteX="15dp"
+        tools:layout_editor_absoluteY="256dp">
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/answerQuestion"
+        android:layout_width="348dp"
+        android:layout_height="52dp"
+        android:text="Next question"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="447dp"
+        android:onClick="answerCurrentQuestion"/>
+
+
+</android.support.constraint.ConstraintLayout>

@@ -22,9 +22,8 @@ import com.stapp.users.User;
 
 public class MainActivity extends AppCompatActivity {
 
-  Student user1 = LoginTerminal.newStudent("nick", "Nick Harrington", "nick");
   Professor prof1 = LoginTerminal.newProfessor("nick", "nicc", "nick");
-  Student student1 = LoginTerminal.newStudent("nick", "nicccc", "nick2");
+  Student student1 = LoginTerminal.newStudent("nick2", "nicccc", "nick2");
   Professor user2 = LoginTerminal.newProfessor("shierry", "Shierry Tans", "shierry");
   Student user3 = LoginTerminal.newStudent("john", "John Doe", "john");
   Professor user4 = LoginTerminal.newProfessor("Kohee", "Kohee Sang", "kohee");
@@ -63,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
       }
     } else {
       Toaster.toastShort("Welcome Professor " + professor.getName() + "!");
-      Toaster.toastShort("DATABASE ID: " + professor.getId());
       // Start Professor interface
       Intent intent = new Intent(this, ProfessorMenu.class);
       intent.putExtra("username", username);

@@ -8,8 +8,8 @@ import com.stapp.school.Assignment;
 
 public class AssignmentTerminal {
 
-  public static Assignment createNewAssignment(String courseCode, String due, String profUsername) {
-    Assignment assignment = new Assignment(courseCode, due, profUsername);
+  public static Assignment createNewAssignment(String assignmentName, String due, String courseCode) {
+    Assignment assignment = new Assignment(assignmentName, due, courseCode);
     if (assignment.isValidAssignment()) {
       return assignment;
     }

@@ -15,7 +15,7 @@ import java.util.List;
  * Created by Richard on 2017-11-05.
  */
 
-public class RVAdapter extends RecyclerView.Adapter<RVAdapter.CourseViewHolder> {
+public class RVCourseAdapter extends RecyclerView.Adapter<RVCourseAdapter.CourseViewHolder> {
 
     public static class CourseViewHolder extends RecyclerView.ViewHolder{
         TextView courseCode;
@@ -31,7 +31,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.CourseViewHolder> 
 
     List<Course> courses;
 
-    public RVAdapter(List<Course> courses){
+    public RVCourseAdapter(List<Course> courses){
         this.courses = courses;
     }
 

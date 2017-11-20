@@ -23,7 +23,7 @@
             android:layout_marginTop="142dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="@string/course_code" />
+            android:hint="@string/course_code" />
 
         <Button
             android:id="@+id/join_course_button"
