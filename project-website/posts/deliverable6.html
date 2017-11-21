@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Project Deliverable #6 | CSCC01: Code Manglers</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+    rel='stylesheet' type='text/css'>
+
+  <!-- Custom styles for this template -->
+  <link href="../css/clean-blog.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="../index.html">CSCC01: Code Manglers</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="../index.html">Home</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('../img/user-story.jpg');">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Project Deliverable #6</h1>
+            <h2 class="subheading">Sprint #5</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Post Content -->
+  <article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+
+         
+          <!-- Table of Contents -->
+          <div id="toc_container">
+            <p class="toc_title">Contents</p>
+            <ul class="toc_list">
+              <li><a href="#sprintbacklog">1 Sprint Plan</a></li>
+              <li><a href="#burndown">2 Burndown Chart</a></li>
+              <li><a href="#stories">3 User Stories/Personas</a></li>
+              <li><a href="#report">4 Sprint Report</a></li>
+              <li><a href="#snapshots">5 Taskboard Snapshots</a></li>
+              <li><a href="#verification">6 Verification</a></li>
+              <li><a href="#validation">7 Verification</a></li>
+              <li><a href="#strategy">8 Code Review Strategy</a></li>
+              <li><a href="#summary">9 Code Review Summary</a></li>
+              <li><a href="#meeting">10 Code Review Debrief Meeting</a></li>
+            </ul>
+          </ul>
+          </div>
+
+		  <h3 id="sprintbacklog">Sprint Plan</h3>
+		  <hr>
+		  <p>Here are the user stories/tasks we plan to finish for this sprint:</p>
+		  <img class="img-fluid" src="../img/sprint4/tasks-after.png" alt="Before sprint execution" />
+		  <p>Tasks labelled with red signifies the tasks we plan to finish.</p>
+		  <p>Here's our sprint plan/story point assignment:</p>
+		  <img class="img-fluid" src="../img/sprint5/plan.png" alt="" />
+
+		  <br>
+		  <h3 id="burndown">Burndown Chart</h3>
+
+		  <hr>
+		  <img class="img-fluid" src="../img/sprint5/burndown.png" alt="Burndown Chart" />
+
+		  <br>
+		  <h3 id="stories">User Stories/Personas</h3>
+		  <hr>
+ 		  <p>User stories can be seen <a href="deliverable2.html">here.</a></p> 
+		  <h3 id="report">Sprint Report</h3>
+		  <hr>
+
+		  <p></p>
+		  <br>
+		  <h3 id="snapshots">Taskboard Snapshots</h3>
+		  <hr>
+		  <p>Before sprint execution:</p>
+		  <img class="img-fluid" src="../img/sprint4/tasks-after.png" alt="Before sprint execution" />
+		  <p>After sprint execution:</p>
+		  <img class="img-fluid" src="../img/sprint5/tasks-after.png" alt="After sprint execution" />
+		  <p>Tasks labelled with green are done.</p>
+		  <p>Tasks labelled with yellow are in progress.</p>
+		  <p>Tasks labelled with red are not done.</p>
+
+          <h3 id="verification">Verification</h3>
+          <hr>
+		  <p>For unit testing, we used the JUnit 4 testing framework. To run our tests, open the
+		  Stapp folder with Android Studio. After it is done loading, open the "app->java->com.stapp (androidTest)" folder.
+		  Then, right click on the "com.stapp (androidTest)" folder in the project explorer, and click the "Run tests in com.stapp" option.
+		  </p>
+		  <p>Then, choose a target device. You will need to connect an Android phone or use a virtual Android phone to run the tests. After choosing
+		  a device, all the unit tests should run. You can see the results of the unit tests at the bottom of the Android Studio window.</p>
+          <h3 id="validation">Validation</h3>
+          <hr>
+		  <p>For each UI-related task we completed for this sprint, we validated each one by writing reproducible steps with the expected result.</p>
+		  <h4>T23: After opening a course from a list of courses, need to be able to view a list of assignments</h4>
+		  <ol>
+		    <li>Login as a professor (you can use username: nick, password: nick)</li>
+		    <li>Add a new course using the Add Course button</li>
+		    <li>Input the course code "CSCA08" and press done</li>
+		    <li>Back at the professor home page, you will see CSCA08 as a course</li>
+		  </ol>
+
+          <h3 id="strategy">Code Review Strategy</h3>
+          <hr>
+          <h3 id="summary">Code Review Summary</h3>
+          <hr>
+          <h3 id="meeting">Code Review Debrief Meeting</h3>
+          <hr>
+
+
+        </div>
+      </div>
+    </div>
+  </article>
+  <hr>
+</body>
+</html>
