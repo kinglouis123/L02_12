@@ -19,8 +19,6 @@ public class CourseDisplay extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         //get the course_title from the Intent
         Intent intent = getIntent();
@@ -45,6 +43,9 @@ public class CourseDisplay extends AppCompatActivity {
     public void showOldAssignments(View view){
         //for the old Assignments button onClick
         Intent intent = new Intent(this,ShowOldAssignments.class);
+        intent.putExtra("course code", course_code);
+
+        startActivity(intent);
     }
 
 }

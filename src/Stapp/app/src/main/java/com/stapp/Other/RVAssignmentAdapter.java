@@ -32,7 +32,7 @@ public class RVAssignmentAdapter extends RecyclerView.Adapter<RVAssignmentAdapte
 
     }
 
-    List<Assignment> assignments = new ArrayList<>();
+    List<Assignment> assignments;
 
     public RVAssignmentAdapter(List<Assignment> assignments){
         this.assignments = assignments;
@@ -45,7 +45,7 @@ public class RVAssignmentAdapter extends RecyclerView.Adapter<RVAssignmentAdapte
 
     @Override
     public AssignmentViewHolder onCreateViewHolder(ViewGroup viewGroup, int i){
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.course_card, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.assignment_card, viewGroup, false);
         AssignmentViewHolder avh = new AssignmentViewHolder(v);
         return avh;
     }
