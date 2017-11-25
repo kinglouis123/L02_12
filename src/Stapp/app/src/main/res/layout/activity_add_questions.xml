@@ -25,6 +25,7 @@
             android:orientation="vertical">
 
             <EditText
+                android:paddingLeft="25dp"
                 android:id="@+id/AddQuestions_editText3"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
@@ -35,6 +36,7 @@
                 android:inputType="textMultiLine" />
 
             <EditText
+                android:paddingLeft="25dp"
                 android:id="@+id/AddQuestions_editText1"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
@@ -45,6 +47,7 @@
                 android:inputType="textMultiLine" />
 
             <EditText
+                android:paddingLeft="25dp"
                 android:id="@+id/AddQuestions_editText4"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
@@ -54,6 +57,7 @@
                 android:hint="@string/Answer_4" />
 
             <EditText
+                android:paddingLeft="25dp"
                 android:id="@+id/AddQuestions_editText2"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
