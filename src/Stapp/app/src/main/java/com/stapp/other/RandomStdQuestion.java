@@ -1,11 +1,15 @@
 package com.stapp.other;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 /**
  * Created by wenboma on 2017-11-25.
  */
 
 public final class RandomStdQuestion implements MultipleChoice {
 
+    NumberFormat formatter = new DecimalFormat("#000.0000");
 
 
     SimpleRandomSampling stds;
@@ -21,11 +25,10 @@ public final class RandomStdQuestion implements MultipleChoice {
 
     @Override
     public String[] choices() {
-        String options[] = {String.valueOf(stds.optionsstandarderror()[0]),
-                String.valueOf(stds.optionsstandarderror()[1]),
-                String.valueOf(stds.optionsstandarderror()[2]),
-                String.valueOf(stds.optionsstandarderror()[3])};
-
+        String options[] = {formatter.format(stds.optionsstandarderror()[0]),
+                formatter.format(stds.optionsstandarderror()[1]),
+                formatter.format(stds.optionsstandarderror()[2]),
+                formatter.format(stds.optionsstandarderror()[3])};
 
         return options;
     }
