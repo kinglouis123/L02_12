@@ -18,9 +18,15 @@ import static org.junit.Assert.*;
  */
 public class UserTest {
 
+  private String name = generateRandomString();
+  private String username = generateRandomString();
+  private String password = generateRandomString();
+  private int roleid = 1;
+  private User bobby;
   @Before
   public void setUp() throws Exception {
     InitializeDatabase.initializeDatabase();
+    this.bobby = new dummyUser(this.username,this.name,this.password,this.roleid);
   }
 
   @After
@@ -45,76 +51,51 @@ public class UserTest {
 
   @Test
   public void isLoggedIn() throws Exception {
-    String name = generateRandomString();
-    String pass = generateRandomString();
-    User user = new User(name, generateRandomString(), pass, 1);
-    assertTrue(user.isLoggedIn());
+
+    assertTrue(bobby.isLoggedIn());
   }
 
   @Test
   public void isNotLoggedIn() throws Exception {
-    String name = generateRandomString();
-    String pass = generateRandomString();
-    new User(name, generateRandomString(), pass, 1);
-    User user = new User(name, generateRandomString());
-    assertFalse(user.isLoggedIn());
+
+    assertFalse(bobby.isLoggedIn());
   }
 
   @Test
   public void getUsername() throws Exception {
-    String name = generateRandomString();
-    String pass = generateRandomString();
-    User user = new User(name, generateRandomString(), pass, 1);
-    assertEquals(name, user.getUsername());
+
+    assertEquals(this.name, bobby.getUsername());
   }
 
   @Test
   public void getName() throws Exception {
-    String username = generateRandomString();
-    String name = generateRandomString();
-    String pass = generateRandomString();
-    User user = new User(username, name, pass, 1);
-    assertEquals(name, user.getName());
+    assertEquals(this.name, bobby.getName());
   }
 
   @Test
   public void getRoleName() throws Exception {
-    String username = generateRandomString();
-    String name = generateRandomString();
-    String pass = generateRandomString();
-    User user = new User(username, name, pass, 1);
-    assertEquals("STUDENT", user.getRoleName());
+    assertEquals("STUDENT", bobby.getRoleName());
   }
 
   @Test
   public void getPassword() throws Exception {
-    String username = generateRandomString();
-    String name = generateRandomString();
-    String pass = generateRandomString();
-    User user = new User(username, name, pass, 1);
-    assertEquals(PasswordHelpers.passwordHash(pass), user.getPassword());
+
+    assertEquals(PasswordHelpers.passwordHash(this.password), bobby.getPassword());
   }
 
   @Test
   public void updatePassword() throws Exception {
-    String username = generateRandomString();
-    String name = generateRandomString();
-    String pass = generateRandomString();
+
     String newPass = generateRandomString();
-    User user = new User(username, name, pass, 1);
-    user.updatePassword(newPass);
-    assertEquals(PasswordHelpers.passwordHash(newPass), user.getPassword());
+    bobby.updatePassword(newPass);
+    assertEquals(PasswordHelpers.passwordHash(newPass), bobby.getPassword());
   }
 
   @Test
   public void updateName() throws Exception {
-    String username = generateRandomString();
-    String name = generateRandomString();
     String newName = generateRandomString();
-    String pass = generateRandomString();
-    User user = new User(username, name, pass, 1);
-    user.updateName(newName);
-    assertEquals(newName, user.getName());
+    bobby.updateName(newName);
+    assertEquals(newName, bobby.getName());
   }
 
 }

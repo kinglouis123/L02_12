@@ -11,18 +11,18 @@ import java.lang.Math;
 public class SimpleRandomSampling {
 
 
-    double[] data = new double[]{169.9758971,164.1584357,167.1129628,163.3224322,162.3884354,166.4317846,166.3842043,162.5836214
+    private double[] data = new double[]{169.9758971,164.1584357,167.1129628,163.3224322,162.3884354,166.4317846,166.3842043,162.5836214
             ,159.493642	,163.5504291,173.7240735,160.6875767,160.5244963,149.422895	,172.7328164,158.7481936,155.4791659
             ,159.0024371,156.0867137,167.885874	,161.0408151,165.2005134,158.1530531,166.7273679,151.0324377,158.5716342
             ,153.0640377,159.5367283,159.1542691,166.8768323,157.4825881,166.0492519,159.146616,158.2862685,165.4316692
             ,162.8359586,158.5905949,168.3016235,152.1625573,170.0540654,173.5969491,162.8963379,160.198864,157.1028056
             ,166.1888196,158.2351521,170.0709883,169.5831076,156.6797415,166.6073285};
 
-    double sample[];
-    int correct[] = new int[3];
+    private double sample[];
+    private int correct[] = new int[3];
 
-    public SimpleRandomSampling(){
-        this.sample = extractsample(10);
+    public SimpleRandomSampling(int samplesize){
+        this.sample = extractsample(samplesize);
     }
 
     public String questiondescription(){
@@ -32,6 +32,10 @@ public class SimpleRandomSampling {
             des += Double.toString(point) + "\n";
         }
         return des;
+    }
+
+    public double[] samplepicked(){
+        return this.sample;
     }
 
     public String questionmean(){

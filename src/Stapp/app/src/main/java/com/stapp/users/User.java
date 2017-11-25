@@ -9,7 +9,7 @@ import com.stapp.security.PasswordHelpers;
  * Created by rahulkumar1998 on 2017-10-22.
  */
 
-public class User {
+public abstract class User {
 
   private String username;
   private boolean loggedIn = false;
