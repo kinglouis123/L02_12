@@ -37,4 +37,9 @@ public class RandomQuestionFactory {
     return newQuestion(question, choices, index);
   }
 
+  //public static HashMap<Object, Object> createNewMeanQuestion()
+  //public static HashMap<Object, Object> createNewVarianceQuestion()
+  //public static HashMap<Object, Object> createNewStandardDeviationQuestion()
+
+
 }
