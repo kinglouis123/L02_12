@@ -21,7 +21,7 @@ public final class RandomMeanQuestion implements MultipleChoice {
 
     @Override
     public String[] choices() {
-        String options[] = {String.valueOf(means.optionsmean()[0]),
+        String options[] = {String.valueOf(Math.round(means.optionsmean()[0])),
                 String.valueOf(means.optionsmean()[1]),
                 String.valueOf(means.optionsmean()[2]),
                 String.valueOf(means.optionsmean()[3])};
