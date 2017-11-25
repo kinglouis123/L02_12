@@ -47,9 +47,9 @@ public class SimpleRandomSampling {
         double options[] = new double[4];
         for (int i = 0; i<options.length;i++){
             if (i == correct[0]){
-                options[i] = samplemean();
+                options[i] = round(samplemean(),4);
             }else{
-                options[i] = Math.round(samplemean() + Math.round(((Math.random()*13) - 5))*10000)/10000;
+                options[i] = round(samplemean() + Math.round(((Math.random()*10) - 5)),4);
             }
         }
         return options;
@@ -64,9 +64,9 @@ public class SimpleRandomSampling {
         double options[] = new double[4];
         for (int i = 0; i<options.length;i++){
             if (i == correct[1]){
-                options[i] = samplevariance();
+                options[i] = round(samplevariance(),4);
             }else{
-                options[i] = Math.round( samplevariance() + Math.round(((Math.random()*12) - 5) )*10000)/10000;
+                options[i] = round( samplevariance() + Math.round(((Math.random()*10) - 5) ),4);
             }
         }
         return options;
@@ -81,9 +81,9 @@ public class SimpleRandomSampling {
         double options[] = new double[4];
         for (int i = 0; i<options.length;i++){
             if (i == correct[2]){
-                options[i] = samplestandarderror();
+                options[i] = round(samplestandarderror(),4);
             }else{
-                options[i] = Math.round(samplestandarderror() + Math.round(((Math.random() * 11) - 5)) * 10000) / 10000;
+                options[i] = round(samplestandarderror() + Math.round(((Math.random() * 10) - 5)),4);
             }
         }
         return options;
@@ -132,7 +132,7 @@ public class SimpleRandomSampling {
             if (elementexist(exclude,select)){
                 i--;
             }else{
-                sampler[i] = Math.round(this.data[select] * 10000)/10000;
+                sampler[i] = round(this.data[select],4);
                 exclude[i] = select;
             }
         }
@@ -143,6 +143,18 @@ public class SimpleRandomSampling {
         for (int i = 0;i<sample.length; i++){
             System.out.println(sample[i]);
         }
+    }
+
+
+    public static double round(double value, int decimalplace) {
+
+        int fac = (int) Math.pow(10, decimalplace);
+
+        value = value * fac;
+
+        int tmp = (int)Math.round(value);
+
+        return (double) tmp / fac;
     }
 
 
