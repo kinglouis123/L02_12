@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.stapp.R;
-import com.stapp.Toaster;
+import com.stapp.other.Toaster;
 import com.stapp.terminals.CourseTerminal;
 
 public class CreateClass extends AppCompatActivity {

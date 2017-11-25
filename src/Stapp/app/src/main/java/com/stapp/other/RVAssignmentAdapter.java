@@ -1,4 +1,4 @@
-package com.stapp.Other;
+package com.stapp.other;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.stapp.R;
 import com.stapp.school.Assignment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

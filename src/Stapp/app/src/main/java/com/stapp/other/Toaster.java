@@ -1,4 +1,4 @@
-package com.stapp;
+package com.stapp.other;
 
 import android.widget.Toast;
 

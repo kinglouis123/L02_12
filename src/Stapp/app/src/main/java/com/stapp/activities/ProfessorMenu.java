@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.stapp.Other.RVCourseAdapter;
+import com.stapp.other.RVCourseAdapter;
 import com.stapp.R;
 import com.stapp.school.Course;
 import com.stapp.terminals.LoginTerminal;

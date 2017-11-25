@@ -9,7 +9,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.stapp.R;
-import com.stapp.Toaster;
+import com.stapp.other.Toaster;
 import com.stapp.school.Question;
 import com.stapp.school.StudentSubmission;
 import com.stapp.terminals.StudentSubmissionTerminal;
