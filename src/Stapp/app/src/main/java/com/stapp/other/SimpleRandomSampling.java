@@ -49,7 +49,7 @@ public class SimpleRandomSampling {
             if (i == correct[0]){
                 options[i] = samplemean();
             }else{
-                options[i] = samplemean() + Math.round(((Math.random()*10) - 5) * 10000)/10000;
+                options[i] = samplemean() + Math.round(((Math.random()*13) - 5) * 1000000)/1000000;
             }
         }
         return options;
@@ -66,7 +66,7 @@ public class SimpleRandomSampling {
             if (i == correct[1]){
                 options[i] = samplevariance();
             }else{
-                options[i] = samplevariance() + Math.round(((Math.random()*10) - 5) * 10000)/10000;
+                options[i] = samplevariance() + Math.round(((Math.random()*12) - 5) * 1000000)/1000000;
             }
         }
         return options;
@@ -83,7 +83,7 @@ public class SimpleRandomSampling {
             if (i == correct[2]){
                 options[i] = samplestandarderror();
             }else{
-                options[i] = samplestandarderror() + Math.round((  (Math.random() * 10) - 5) * 10000)/10000;
+                options[i] = samplestandarderror() + Math.round((  (Math.random() * 11) - 5) * 1000000)/1000000;
             }
         }
         return options;
@@ -132,7 +132,7 @@ public class SimpleRandomSampling {
             if (elementexist(exclude,select)){
                 i--;
             }else{
-                sampler[i] = Math.round(this.data[select]*10000)/10000;
+                sampler[i] = Math.round(this.data[select]*1000000)/1000000;
                 exclude[i] = select;
             }
         }
