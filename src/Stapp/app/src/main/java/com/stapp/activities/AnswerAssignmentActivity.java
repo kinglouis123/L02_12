@@ -69,6 +69,10 @@ public class AnswerAssignmentActivity extends AppCompatActivity {
         // Get answer from radio group and submit the answer
         RadioGroup choices = findViewById(R.id.answerGroup);
         int selectedId = choices.getCheckedRadioButtonId();
+        if (selectedId == -1) {
+            Toaster.toastShort("Please enter a choice");
+            return;
+        }
         RadioButton selectedButton = findViewById(selectedId);
         String answer = selectedButton.getText().toString();
         boolean correct = this.submission.answerCurrentQuestion(answer);
