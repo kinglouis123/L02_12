@@ -132,7 +132,7 @@ public class SimpleRandomSampling {
             if (elementexist(exclude,select)){
                 i--;
             }else{
-                sampler[i] = this.data[select];
+                sampler[i] = Math.round(this.data[select]*10000)/10000;
                 exclude[i] = select;
             }
         }
