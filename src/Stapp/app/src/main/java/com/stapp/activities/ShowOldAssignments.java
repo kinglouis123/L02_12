@@ -39,8 +39,8 @@ public class ShowOldAssignments extends AppCompatActivity {
         List<Assignment> assignments = course.getAssignments();
 
         //Adapter to populate Recycler with courses
-        RVAssignmentAdapter adapter = new RVAssignmentAdapter(assignments);
-        assignmentRecycler.setAdapter(adapter);
+        //RVAssignmentAdapter adapter = new RVAssignmentAdapter(assignments, this);
+        //assignmentRecycler.setAdapter(adapter);
 
 
     }

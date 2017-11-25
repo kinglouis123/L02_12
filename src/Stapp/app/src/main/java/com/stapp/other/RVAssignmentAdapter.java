@@ -19,7 +19,13 @@ import java.util.List;
 
 public class RVAssignmentAdapter extends RecyclerView.Adapter<RVAssignmentAdapter.AssignmentViewHolder> {
 
-    public static class AssignmentViewHolder extends RecyclerView.ViewHolder{
+    private RecyclerViewClickListener mOnClickListener;
+
+    public interface RecyclerViewClickListener {
+         void onListItemClick(int clickedPosition);
+    }
+
+    public class AssignmentViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView assignmentTitle;
         TextView assignmentGrade;
 
@@ -27,7 +33,13 @@ public class RVAssignmentAdapter extends RecyclerView.Adapter<RVAssignmentAdapte
             super(itemView);
             assignmentTitle = (TextView)itemView.findViewById(R.id.assignment_card_title);
             assignmentGrade = (TextView)itemView.findViewById(R.id.assignment_card_grade);
+            itemView.setOnClickListener(this);
+        }
 
+        @Override
+        public void onClick(View view) {
+            int clickedPosition = getAdapterPosition();
+            mOnClickListener.onListItemClick(clickedPosition);
         }
 
 
@@ -36,13 +48,15 @@ public class RVAssignmentAdapter extends RecyclerView.Adapter<RVAssignmentAdapte
     private List<Assignment> assignments;
     private String username;
 
-    public RVAssignmentAdapter(List<Assignment> assignments){
+    public RVAssignmentAdapter(List<Assignment> assignments, RecyclerViewClickListener listener) {
         this.assignments = assignments;
+        mOnClickListener = listener;
     }
 
-    public RVAssignmentAdapter(List<Assignment> assignments, String username){
+    public RVAssignmentAdapter(List<Assignment> assignments, String username, RecyclerViewClickListener listener) {
         this.assignments = assignments;
         this.username = username;
+        mOnClickListener = listener;
     }
 
     @Override

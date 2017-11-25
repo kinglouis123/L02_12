@@ -87,13 +87,14 @@ public class StudentMenu extends AppCompatActivity implements RVCourseAdapter.Re
 
     //Courses List OnClick Navigation
     protected void showCourseActivity(View view) {
+        /*
         Intent intent = new Intent (this, StudentCourseDisplay.class);
         String course_code;
         TextView tv = findViewById(R.id.course_code);
         course_code = tv.getText().toString();
         intent.putExtra("course code", course_code);
         intent.putExtra("username", username);
-        startActivity(intent);
+        startActivity(intent);*/
     }
 
     @Override

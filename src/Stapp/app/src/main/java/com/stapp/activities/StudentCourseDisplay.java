@@ -15,13 +15,17 @@ import com.stapp.school.Course;
 import com.stapp.terminals.AssignmentTerminal;
 import com.stapp.terminals.CourseTerminal;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class StudentCourseDisplay extends AppCompatActivity {
+public class StudentCourseDisplay extends AppCompatActivity implements RVAssignmentAdapter.RecyclerViewClickListener {
 
     private String username;
     private String course_code;
+    private Course course;
+    private List<Assignment> assignments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,18 +46,20 @@ public class StudentCourseDisplay extends AppCompatActivity {
         assignmentRecycler.setLayoutManager(llm);
 
         // Get course
-        Course course = CourseTerminal.getCourse(course_code);
+        course = CourseTerminal.getCourse(course_code);
 
         // Generate list of assignements
-        List<Assignment> assignments = course.getAssignments();
+        assignments = course.getAssignments();
 
         //Adapter to populate Recycler with courses
-        RVAssignmentAdapter adapter = new RVAssignmentAdapter(assignments, username);
+        RVAssignmentAdapter adapter = new RVAssignmentAdapter(assignments, username, this);
         assignmentRecycler.setAdapter(adapter);
 
     }
 
+
     protected void showAssignmentActivity(View view) {
+        /*
         Intent intent = new Intent (this, AnswerAssignmentActivity.class);
         String assignment_title;
         TextView tv = findViewById(R.id.assignment_card_title);
@@ -62,8 +68,25 @@ public class StudentCourseDisplay extends AppCompatActivity {
         intent.putExtra("username", username);
         intent.putExtra("course code", course_code);
         intent.putExtra("assignment id", assignmentId);
-        startActivity(intent);
+        startActivity(intent);*/
 
+    }
+
+    @Override
+    public void onListItemClick(int clickedPosition) {
+        Intent intent = new Intent (this, AnswerAssignmentActivity.class);
+        int assignmentId = assignments.get(clickedPosition).getId();
+        intent.putExtra("username", username);
+        intent.putExtra("course code", course_code);
+        intent.putExtra("assignment id", assignmentId);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        finish();
+        startActivity(this.getIntent());
     }
 
 }

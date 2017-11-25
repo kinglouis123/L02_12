@@ -32,7 +32,15 @@ public class AddQuestionsActivity extends AppCompatActivity {
     }
 
     protected void AddNewQuestions(View view) {
+            addThisQuestion();
 
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
+    }
+
+
+    private boolean addThisQuestion() {
         RadioGroup rGroup = (RadioGroup) findViewById(R.id.AddQuestions_radioGroup);
 
 
@@ -44,28 +52,29 @@ public class AddQuestionsActivity extends AppCompatActivity {
 
         // Check if a radio button is pressed and also all the answers are entered
         if (rGroup.getCheckedRadioButtonId() == -1 || answer1.matches("") || answer2.matches("") ||
-                answer3.matches("") || answer4.matches("")) {
+            answer3.matches("") || answer4.matches("")) {
 
             Toaster.toastShort("Please fill in the question/answer box and check the correct answer");
+            return false;
 
         } else {
 
             switch (rGroup.getCheckedRadioButtonId()) {
 
                 case R.id.AddQuestions_radioButton1:
-                        correct_index = 0;
+                    correct_index = 0;
                     break;
 
                 case R.id.AddQuestions_radioButton2:
-                        correct_index = 1;
+                    correct_index = 1;
                     break;
 
                 case R.id.AddQuestions_radioButton3:
-                        correct_index = 2;
+                    correct_index = 2;
                     break;
 
                 case R.id.AddQuestions_radioButton4:
-                        correct_index = 3;
+                    correct_index = 3;
                     break;
 
             }
@@ -81,16 +90,15 @@ public class AddQuestionsActivity extends AppCompatActivity {
             Integer numberOfQuestions = assignment.getNumberOfQuestions();
 
             Toaster.toastShort("Question successfully created!\n Number of Question(s): " + numberOfQuestions.toString());
+            return true;
 
-            Intent intent = getIntent();
-            finish();
-            startActivity(intent);
         }
-
     }
 
     protected void Finish(View view) {
-        finish();
+        if (addThisQuestion()) {
+            finish();
+        }
     }
 
 
