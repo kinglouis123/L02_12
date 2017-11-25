@@ -53,8 +53,17 @@ public class AddQuestionsActivity extends AppCompatActivity {
             startActivity(intent);
     }
 
+    /**
+     * Clears all the fields in the create question activity.
+     * @param view
+     */
     protected void clearFields(View view) {
-
+        questionEdit.setText("");
+        answer1Edit.setText("");
+        answer2Edit.setText("");
+        answer3Edit.setText("");
+        answer4Edit.setText("");
+        rGroup.clearCheck();
     }
 
     private boolean addThisQuestion() {
