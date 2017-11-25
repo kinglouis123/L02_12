@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 
 import com.stapp.R;
+import com.stapp.other.SimpleRandomSampling;
 import com.stapp.other.Toaster;
 import com.stapp.school.Assignment;
 import com.stapp.terminals.AssignmentTerminal;
@@ -16,10 +17,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddQuestionsActivity extends AppCompatActivity {
+    // Android elements
+    private EditText questionEdit;
+    private EditText answer1Edit;
+    private EditText answer2Edit;
+    private EditText answer3Edit;
+    private EditText answer4Edit;
+    private RadioGroup rGroup;
 
-    String question, answer1, answer2, answer3, answer4;
-    int assignment_id, correct_index;
-    Assignment assignment;
+    private int assignment_id, correct_index;
+    private Assignment assignment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +36,13 @@ public class AddQuestionsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         assignment_id = intent.getIntExtra("assignment_id", 0);
 
+        // Link Android elements
+        questionEdit = findViewById(R.id.Question_string);
+        answer1Edit = findViewById(R.id.AddQuestions_editText1);
+        answer2Edit = findViewById(R.id.AddQuestions_editText2);
+        answer3Edit = findViewById(R.id.AddQuestions_editText3);
+        answer4Edit = findViewById(R.id.AddQuestions_editText4);
+        rGroup = findViewById(R.id.AddQuestions_radioGroup);
     }
 
     protected void AddNewQuestions(View view) {
@@ -39,26 +53,24 @@ public class AddQuestionsActivity extends AppCompatActivity {
             startActivity(intent);
     }
 
+    protected void clearFields(View view) {
+
+    }
 
     private boolean addThisQuestion() {
-        RadioGroup rGroup = (RadioGroup) findViewById(R.id.AddQuestions_radioGroup);
-
-
-        question = ((EditText) findViewById(R.id.Question_string)).getText().toString();
-        answer1 = ((EditText) findViewById(R.id.AddQuestions_editText1)).getText().toString();
-        answer2 = ((EditText) findViewById(R.id.AddQuestions_editText2)).getText().toString();
-        answer3 = ((EditText) findViewById(R.id.AddQuestions_editText3)).getText().toString();
-        answer4 = ((EditText) findViewById(R.id.AddQuestions_editText4)).getText().toString();
+        String question = questionEdit.getText().toString();
+        String answer1 = answer1Edit.getText().toString();
+        String answer2 = answer2Edit.getText().toString();
+        String answer3 = answer3Edit.getText().toString();
+        String answer4 = answer4Edit.getText().toString();
 
         // Check if a radio button is pressed and also all the answers are entered
         if (rGroup.getCheckedRadioButtonId() == -1 || answer1.matches("") || answer2.matches("") ||
             answer3.matches("") || answer4.matches("")) {
-
             Toaster.toastShort("Please fill in the question/answer box and check the correct answer");
             return false;
 
         } else {
-
             switch (rGroup.getCheckedRadioButtonId()) {
 
                 case R.id.AddQuestions_radioButton1:
