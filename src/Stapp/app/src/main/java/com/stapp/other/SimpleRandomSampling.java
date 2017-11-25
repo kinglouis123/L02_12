@@ -49,7 +49,7 @@ public class SimpleRandomSampling {
             if (i == correct[0]){
                 options[i] = samplemean();
             }else{
-                options[i] = samplemean() + (Math.random() * 10) - 5;
+                options[i] = samplemean() + (Math.random() * 100) - 50;
             }
         }
         return options;
