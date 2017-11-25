@@ -4,13 +4,13 @@
     android:layout_height="wrap_content"
     android:padding="16dp"
     android:background="@drawable/custom_border"
+    android:onClick="showCourseActivity"
     >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/course_code"
-                android:onClick="showCourseActivity"
 
                 android:textColor="@android:color/black"
                 />

@@ -48,7 +48,7 @@ public class StudentCourseDisplay extends AppCompatActivity {
         List<Assignment> assignments = course.getAssignments();
 
         //Adapter to populate Recycler with courses
-        RVAssignmentAdapter adapter = new RVAssignmentAdapter(assignments);
+        RVAssignmentAdapter adapter = new RVAssignmentAdapter(assignments, username);
         assignmentRecycler.setAdapter(adapter);
 
     }

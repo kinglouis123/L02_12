@@ -1,6 +1,7 @@
 package com.stapp.school;
 
 import com.stapp.databasehelpers.AssignmentHelper;
+import com.stapp.databasehelpers.UserHelper;
 import com.stapp.terminals.AssignmentTerminal;
 
 import java.text.ParseException;
@@ -21,8 +22,9 @@ public class StudentSubmission {
   private ArrayList<Question> questions;
   private Question currentQuestion;
   private int currentQuestionIndex = 0;
-  private int numerator;
+  private int numerator = -1;
   private int denominator;
+  private String grade;
 
   public StudentSubmission(String studentUsername, int assignmentId) {
     this.studentUsername = studentUsername;
@@ -30,6 +32,7 @@ public class StudentSubmission {
     this.assignment = AssignmentTerminal.getAssignment(assignmentId);
     this.questions = (ArrayList<Question>) assignment.getQuestions();
     this.denominator = questions.size();
+    this.grade = AssignmentHelper.getGrade(studentUsername, assignmentId);
   }
 
   /**
@@ -58,6 +61,9 @@ public class StudentSubmission {
   }
 
   public String getCurrentMark() {
+    if (numerator == -1) {
+      return this.grade;
+    }
     return numerator + "/" + denominator;
   }
 
