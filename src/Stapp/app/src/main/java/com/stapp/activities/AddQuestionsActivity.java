@@ -82,15 +82,15 @@ public class AddQuestionsActivity extends AppCompatActivity {
     }
 
     protected void generateMeanQuestion(View view) {
-        //generateQuestion(RandomQuestionFactory.createNewMeanQuestion());
+        generateQuestion(RandomQuestionFactory.createNewMeanQuestion());
     }
 
     protected void generateStdDeviationQuestion(View view) {
-        //generateQuestion(RandomQuestionFactory.createNewStandardDeviationQuestion());
+        generateQuestion(RandomQuestionFactory.createNewStandardDeviationQuestion());
     }
 
     protected void generateVarianceQuestion(View view) {
-        //generateQuestion(RandomQuestionFactory.createNewVarianceQuestion());
+        generateQuestion(RandomQuestionFactory.createNewVarianceQuestion());
     }
 
     private boolean addThisQuestion() {
