@@ -1,6 +1,7 @@
 package com.stapp.terminals;
 
 import com.stapp.school.Assignment;
+import com.stapp.databasehelpers.AssignmentHelper;
 
 /**
  * Created by rahulkumar1998 on 2017-11-05.
@@ -22,6 +23,11 @@ public class AssignmentTerminal {
       return assignment;
     }
     return null;
+  }
+
+  // Test function
+  public static int getAssignmentId(String assignmentName, String className) {
+    return AssignmentHelper.getAssignmentId(assignmentName, className);
   }
 
 }

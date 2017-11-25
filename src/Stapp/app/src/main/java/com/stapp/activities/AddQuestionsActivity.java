@@ -80,7 +80,9 @@ public class AddQuestionsActivity extends AppCompatActivity {
 
             assignment.insertMultipleChoiceQuestion(question, ChoiceList, correct_index);
 
-            Toaster.toastShort("Question successfully created!");
+            Integer numberOfQuestions = assignment.getNumberOfQuestions();
+
+            Toaster.toastShort("Question successfully created!\n Number of Question(s): " + numberOfQuestions.toString());
 
             Intent intent = getIntent();
             finish();

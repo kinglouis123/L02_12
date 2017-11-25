@@ -28,7 +28,7 @@ public class StudentMenu extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
 
-
+    private String username;
     private Student student = null;
 
     @Override
@@ -45,7 +45,7 @@ public class StudentMenu extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        String username = intent.getStringExtra("username");
+        username = intent.getStringExtra("username");
         String password = intent.getStringExtra("password");
         this.student = LoginTerminal.getStudent(username, password);
         String name = student.getName();
@@ -91,6 +91,7 @@ public class StudentMenu extends AppCompatActivity {
         TextView tv = findViewById(R.id.course_code);
         course_code = tv.getText().toString();
         intent.putExtra("course code", course_code);
+        intent.putExtra("username", username);
         startActivity(intent);
     }
 

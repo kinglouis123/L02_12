@@ -27,7 +27,7 @@ public class AnswerAssignmentActivity extends AppCompatActivity {
         // Get info for student submission object
         Intent intent = getIntent();
         String studentUsername = intent.getStringExtra("username");
-        int assignmentId = intent.getIntExtra("assignment_id", -1);
+        int assignmentId = intent.getIntExtra("assignment id", -1);
 
         if (assignmentId == -1) {
             Toaster.toastShort("Invalid assignment!");

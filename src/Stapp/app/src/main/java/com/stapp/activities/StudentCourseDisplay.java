@@ -6,11 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.TextView;
 
 import com.stapp.Other.RVAssignmentAdapter;
 import com.stapp.R;
 import com.stapp.school.Assignment;
 import com.stapp.school.Course;
+import com.stapp.terminals.AssignmentTerminal;
 import com.stapp.terminals.CourseTerminal;
 
 import java.util.List;
@@ -18,16 +21,18 @@ import java.util.List;
 
 public class StudentCourseDisplay extends AppCompatActivity {
 
+    private String username;
+    private String course_code;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_course_display);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
 
-        String course_code = intent.getStringExtra("course code");
+        course_code = intent.getStringExtra("course code");
+        username = intent.getStringExtra("username");
 
 
         // Recycler for displaying all courses
@@ -47,6 +52,18 @@ public class StudentCourseDisplay extends AppCompatActivity {
         RVAssignmentAdapter adapter = new RVAssignmentAdapter(assignments);
         assignmentRecycler.setAdapter(adapter);
 
+    }
+
+    protected void showAssignmentActivity(View view) {
+        Intent intent = new Intent (this, AnswerAssignmentActivity.class);
+        String assignment_title;
+        TextView tv = findViewById(R.id.assignment_card_title);
+        assignment_title = tv.getText().toString();
+        int assignmentId = AssignmentTerminal.getAssignmentId(assignment_title, course_code);
+        intent.putExtra("username", username);
+        intent.putExtra("course code", course_code);
+        intent.putExtra("assignment id", assignmentId);
+        startActivity(intent);
 
     }
 

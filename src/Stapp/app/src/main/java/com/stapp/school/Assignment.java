@@ -97,4 +97,15 @@ public class Assignment {
     return this.courseName;
   }
 
+
+  public int getId(String assignmentName, String courseName) {
+    return AssignmentHelper.getAssignmentId(assignmentName, courseName);
+  }
+
+  // Test Function
+  public int getNumberOfQuestions() {
+    return this.getQuestions().size();
+  }
+
+
 }
