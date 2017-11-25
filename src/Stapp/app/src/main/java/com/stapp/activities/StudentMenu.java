@@ -15,15 +15,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.stapp.Other.RVAssignmentAdapter;
 import com.stapp.Other.RVCourseAdapter;
 import com.stapp.R;
+import com.stapp.Toaster;
 import com.stapp.school.Course;
 import com.stapp.terminals.LoginTerminal;
 import com.stapp.users.Student;
 
 import java.util.List;
 
-public class StudentMenu extends AppCompatActivity {
+public class StudentMenu extends AppCompatActivity implements RVCourseAdapter.RecyclerViewClickListener {
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
@@ -64,7 +66,7 @@ public class StudentMenu extends AppCompatActivity {
         List<Course> courses = student.getCourses();
 
         //Adapter to populate Recycler with courses
-        RVCourseAdapter adapter = new RVCourseAdapter(courses);
+        RVCourseAdapter adapter = new RVCourseAdapter(courses, this);
         coursesRecycler.setAdapter(adapter);
 
     }
@@ -109,4 +111,8 @@ public class StudentMenu extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onListItemClick(int clickedPosition) {
+        Toaster.toastShort("Item #" + clickedPosition + " clicked");
+    }
 }

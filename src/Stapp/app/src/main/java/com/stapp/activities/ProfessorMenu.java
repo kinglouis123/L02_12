@@ -10,13 +10,14 @@ import android.widget.TextView;
 
 import com.stapp.Other.RVCourseAdapter;
 import com.stapp.R;
+import com.stapp.Toaster;
 import com.stapp.school.Course;
 import com.stapp.terminals.LoginTerminal;
 import com.stapp.users.Professor;
 
 import java.util.List;
 
-public class ProfessorMenu extends AppCompatActivity {
+public class ProfessorMenu extends AppCompatActivity implements RVCourseAdapter.RecyclerViewClickListener {
     private Professor professor = null;
 
     @Override
@@ -43,7 +44,7 @@ public class ProfessorMenu extends AppCompatActivity {
         List<Course> courses = professor.getCourses();
 
         //Adapter to populate Recycler with courses
-        RVCourseAdapter adapter = new RVCourseAdapter(courses);
+        RVCourseAdapter adapter = new RVCourseAdapter(courses, this);
         coursesRecycler.setAdapter(adapter);
 
 
@@ -58,15 +59,17 @@ public class ProfessorMenu extends AppCompatActivity {
     }
 
     //Courses List OnClick Navigation
-    protected void showCourseActivity(View view) {
+ /*   protected void showCourseActivity(View view) {
         Intent intent = new Intent (this, CourseDisplay.class);
-        String course_code = new String();
+        String course_code;
         TextView tv = findViewById(R.id.course_code);
         course_code = tv.getText().toString();
         intent.putExtra("course code", course_code);
+        Toaster.toastShort("The course code is: " + course_code);
         startActivity(intent);
 
-    }
+    } */
+
 
     @Override
     public void onBackPressed() {
@@ -81,6 +84,10 @@ public class ProfessorMenu extends AppCompatActivity {
         startActivity(this.getIntent());
     }
 
+    @Override
+    public void onListItemClick(int clickedPosition) {
+        Toaster.toastShort("Item #" + clickedPosition + " clicked");
+    }
 }
 
 

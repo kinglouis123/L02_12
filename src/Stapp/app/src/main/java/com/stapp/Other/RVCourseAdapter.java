@@ -17,28 +17,47 @@ import java.util.List;
 
 public class RVCourseAdapter extends RecyclerView.Adapter<RVCourseAdapter.CourseViewHolder> {
 
-    public static class CourseViewHolder extends RecyclerView.ViewHolder{
+    //
+    private RecyclerViewClickListener mOnClickListener;
+    List<Course> courses;
+
+    // onClick Listener code interface
+    public interface RecyclerViewClickListener {
+        void onListItemClick(int clickedPosition);
+    }
+
+
+    public class CourseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView courseCode;
 
         CourseViewHolder(View itemView){
             super(itemView);
             courseCode = (TextView)itemView.findViewById(R.id.course_code);
 
+            itemView.setOnClickListener(this);
+
         }
 
+        @Override
+        public void onClick(View view) {
+            int clickedPosition = getAdapterPosition();
+            mOnClickListener.onListItemClick(clickedPosition);
+        }
 
     }
 
-    List<Course> courses;
-
-    public RVCourseAdapter(List<Course> courses){
+    public RVCourseAdapter(List<Course> courses, RecyclerViewClickListener listener){
         this.courses = courses;
+        mOnClickListener = listener;
     }
 
     @Override
     public  int getItemCount(){
         return courses.size();
     }
+
+
+
 
     @Override
     public CourseViewHolder onCreateViewHolder(ViewGroup viewGroup, int i){
