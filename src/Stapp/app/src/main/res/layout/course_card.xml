@@ -12,6 +12,7 @@
                 android:id="@+id/course_code"
                 android:onClick="showCourseActivity"
 
+                android:textColor="@android:color/black"
                 />
 
 </LinearLayout>

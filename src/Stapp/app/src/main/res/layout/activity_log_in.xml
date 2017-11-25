@@ -55,7 +55,7 @@
             android:layout_below="@+id/button2"
             android:layout_alignRight="@+id/button2"
             android:onClick="resetDatabase"
-            android:text="Reset Database"
+            android:text="@string/reset_database"
 
             />
 

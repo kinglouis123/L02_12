@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="textPersonName"
-            android:hint="Class name" />
+            android:hint="@string/course_code" />
 
         <Button
         android:id="@+id/CreateClassConfirm"
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:onClick="createClass"
-        android:text="Create Class"
+        android:text="@string/create_class"
         android:layout_marginTop="15dp" />
     </LinearLayout>
 

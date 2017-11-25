@@ -15,7 +15,7 @@
             android:id="@+id/questionPrompt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Question:"
+            android:text="@string/question_colon"
             android:textSize="24sp"
             android:textStyle="bold"
 
@@ -28,7 +28,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="8dp"
             android:layout_weight="1"
-            android:text="Sample question"
+            android:text="@string/sample_question"
             android:textAlignment="center"
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/answerGroup"
@@ -49,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:onClick="answerCurrentQuestion"
-            android:text="Next question"
+            android:text="@string/next_question"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="447dp" />
     </LinearLayout>
