@@ -10,7 +10,7 @@ import java.text.DecimalFormat;
 public final class RandomMeanQuestion implements MultipleChoice {
 
     SimpleRandomSampling means;
-    NumberFormat formatter = new DecimalFormat("#000.0000");
+    NumberFormat formatter = new DecimalFormat("#0.0000");
 
     public RandomMeanQuestion(int samplesize){
         this.means = new SimpleRandomSampling(samplesize);

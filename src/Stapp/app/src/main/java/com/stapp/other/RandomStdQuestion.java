@@ -9,7 +9,7 @@ import java.text.NumberFormat;
 
 public final class RandomStdQuestion implements MultipleChoice {
 
-    NumberFormat formatter = new DecimalFormat("#000.0000");
+    NumberFormat formatter = new DecimalFormat("#0.0000");
 
 
     SimpleRandomSampling stds;

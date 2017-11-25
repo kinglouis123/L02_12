@@ -11,7 +11,7 @@ public final class RandomVarianceQuestion implements MultipleChoice {
 
 
     SimpleRandomSampling means;
-    NumberFormat formatter = new DecimalFormat("#000.0000");
+    NumberFormat formatter = new DecimalFormat("#0.0000");
 
     public RandomVarianceQuestion(int samplesize){
         this.means = new SimpleRandomSampling(samplesize);
