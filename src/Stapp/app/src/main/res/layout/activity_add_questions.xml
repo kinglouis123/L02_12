@@ -105,6 +105,48 @@
 
             </RadioGroup>
 
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/AddQuestions_editText4">
+
+                <RadioButton
+                    android:id="@+id/add_Custom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="Custom"
+                    android:onClick="clearFields"/>
+
+                <RadioButton
+                    android:id="@+id/add_Mean"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Mean"
+                    android:onClick="generateMeanQuestion"
+                    />
+
+                <RadioButton
+                    android:id="@+id/add_Variance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Variance"
+                    android:onClick="generateVarianceQuestion"/>
+
+                <RadioButton
+                    android:id="@+id/add_SD"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Standard Dev."
+                    android:onClick="generateStdDeviationQuestion"/>
+
+            </RadioGroup>
+
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="wrap_content"
