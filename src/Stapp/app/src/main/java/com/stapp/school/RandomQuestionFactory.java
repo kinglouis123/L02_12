@@ -48,7 +48,7 @@ public class RandomQuestionFactory {
 
   }
   public static HashMap<Object, Object> createNewVarianceQuestion(){
-    MultipleChoice vari = new RandomMeanQuestion(10);
+    MultipleChoice vari = new RandomVarianceQuestion(10);
     String question =  vari.questiondescription();
     ArrayList<String> choices = new ArrayList<>();
     choices.add(vari.choices()[0]);
