@@ -13,12 +13,9 @@ public class RandomQuestionFactory {
 
     HashMap<Object, Object> question = new HashMap<>();
 
-    question.put("QUESTION", "your question string");
-    question.put("CHOICES", new String[]{"c1", "c2", "c3", "c4"});
-
-    int answerIndex = -1;
-
-    question.put("ANSWER", answerIndex);
+    question.put("QUESTION", questionString);
+    question.put("CHOICES", choices);
+    question.put("ANSWER", index);
 
     return question;
   }
