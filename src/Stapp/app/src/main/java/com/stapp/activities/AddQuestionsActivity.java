@@ -5,16 +5,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.stapp.R;
 import com.stapp.other.SimpleRandomSampling;
 import com.stapp.other.Toaster;
 import com.stapp.school.Assignment;
+import com.stapp.school.RandomQuestionFactory;
 import com.stapp.terminals.AssignmentTerminal;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 public class AddQuestionsActivity extends AppCompatActivity {
     // Android elements
@@ -64,6 +68,29 @@ public class AddQuestionsActivity extends AppCompatActivity {
         answer3Edit.setText("");
         answer4Edit.setText("");
         rGroup.clearCheck();
+    }
+
+    protected void generateQuestion(HashMap<Object, Object> question) {
+        questionEdit.setText((String)question.get("QUESTION"));
+        ArrayList<String> choices = (ArrayList) question.get("CHOICES");
+        answer1Edit.setText(choices.get(0));
+        answer2Edit.setText(choices.get(1));
+        answer3Edit.setText(choices.get(2));
+        answer4Edit.setText(choices.get(3));
+        int correctIdx = (int) question.get("ANSWER");
+        ((RadioButton)rGroup.getChildAt(correctIdx)).setChecked(true);
+    }
+
+    protected void generateMeanQuestion(View view) {
+        //generateQuestion(RandomQuestionFactory.createNewMeanQuestion());
+    }
+
+    protected void generateStdDeviationQuestion(View view) {
+        //generateQuestion(RandomQuestionFactory.createNewStandardDeviationQuestion());
+    }
+
+    protected void generateVarianceQuestion(View view) {
+        //generateQuestion(RandomQuestionFactory.createNewVarianceQuestion());
     }
 
     private boolean addThisQuestion() {
