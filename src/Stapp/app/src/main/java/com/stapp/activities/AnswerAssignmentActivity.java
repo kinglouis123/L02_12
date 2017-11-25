@@ -71,7 +71,15 @@ public class AnswerAssignmentActivity extends AppCompatActivity {
         int selectedId = choices.getCheckedRadioButtonId();
         RadioButton selectedButton = findViewById(selectedId);
         String answer = selectedButton.getText().toString();
-        this.submission.answerCurrentQuestion(answer);
+        boolean correct = this.submission.answerCurrentQuestion(answer);
+
+        if (correct) {
+            Toaster.toastShort("Correct answer!");
+        }
+
+        else {
+            Toaster.toastShort("Incorrect answer!");
+        }
 
         Question nextQuestion = this.submission.getNextQuestion();
         // End of the assignment

@@ -22,17 +22,22 @@
             tools:layout_editor_absoluteX="140dp"
             tools:layout_editor_absoluteY="16dp" />
 
-        <TextView
-            android:id="@+id/questionText"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="8dp"
-            android:layout_weight="1"
-            android:text="@string/sample_question"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/answerGroup"
-            tools:layout_editor_absoluteX="16dp" />
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/questionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/sample_question"
+                android:textAlignment="textStart"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/answerGroup"
+                tools:layout_editor_absoluteX="16dp" />
+        </ScrollView>
 
         <RadioGroup
             android:id="@+id/answerGroup"
