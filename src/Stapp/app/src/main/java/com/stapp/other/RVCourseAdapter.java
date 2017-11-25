@@ -1,4 +1,4 @@
-package com.stapp.Other;
+package com.stapp.other;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

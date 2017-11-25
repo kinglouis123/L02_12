@@ -23,7 +23,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Due Date(yyyy-mm-dd):"></TextView>
+        android:text="@string/due_date"></TextView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,21 +33,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/CreateAssignmentDueDateYear"
-            android:hint="yyyy"
+            android:hint="@string/yyyy"
             android:inputType="number"
             android:maxLength="4"/>
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/CreateAssignmentDueDateMonth"
-            android:hint="mm"
+            android:hint="@string/mm"
             android:inputType="number"
             android:maxLength="2"/>
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/CreateAssignmentDueDateDay"
-            android:hint="dd"
+            android:hint="@string/dd"
             android:inputType="number"
             android:maxLength="2"/>
 
@@ -58,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="showAddQuestions"
-        android:text="Add Questions"/>
+        android:text="@string/add_questions"/>
 
 </LinearLayout>
 

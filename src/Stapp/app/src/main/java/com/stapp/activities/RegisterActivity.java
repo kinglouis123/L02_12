@@ -1,17 +1,13 @@
 package com.stapp.activities;
 
 import android.os.Bundle;
-import android.provider.MediaStore.Audio.Radio;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import com.stapp.R;
-import com.stapp.Toaster;
-import com.stapp.databasehelpers.UserHelper;
+import com.stapp.other.Toaster;
 import com.stapp.terminals.LoginTerminal;
-import com.stapp.users.Professor;
-import com.stapp.users.Student;
 import com.stapp.users.User;
 
 /**

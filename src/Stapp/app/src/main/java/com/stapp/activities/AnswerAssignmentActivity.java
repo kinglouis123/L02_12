@@ -9,7 +9,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.stapp.R;
-import com.stapp.Toaster;
+import com.stapp.other.Toaster;
 import com.stapp.school.Question;
 import com.stapp.school.StudentSubmission;
 import com.stapp.terminals.StudentSubmissionTerminal;
@@ -66,6 +66,13 @@ public class AnswerAssignmentActivity extends AppCompatActivity {
 
     // Cycle to the next question, currently students can't go back and change answers
     protected void answerCurrentQuestion(View view) {
+        // Get answer from radio group and submit the answer
+        RadioGroup choices = findViewById(R.id.answerGroup);
+        int selectedId = choices.getCheckedRadioButtonId();
+        RadioButton selectedButton = findViewById(selectedId);
+        String answer = selectedButton.getText().toString();
+        this.submission.answerCurrentQuestion(answer);
+
         Question nextQuestion = this.submission.getNextQuestion();
         // End of the assignment
         // Call AssignmentResultsActivity after finishing questions, pass in results through intent
@@ -81,15 +88,10 @@ public class AnswerAssignmentActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-        // Get answer from radio group and submit the answer
-        RadioGroup choices = findViewById(R.id.answerGroup);
-        int selectedId = choices.getCheckedRadioButtonId();
-        RadioButton selectedButton = findViewById(selectedId);
-        String answer = selectedButton.getText().toString();
-        this.submission.answerCurrentQuestion(answer);
-
-        // Clear choices and display next question
-        choices.removeAllViews();
-        this.displayNextQuestion(nextQuestion);
+        else {
+            // Clear choices and display next question
+            choices.removeAllViews();
+            this.displayNextQuestion(nextQuestion);
+        }
     }
 }

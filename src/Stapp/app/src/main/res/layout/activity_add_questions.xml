@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Enter the question here"
+            android:hint="@string/enter_question"
             android:inputType="textPersonName" />
 
         <RelativeLayout
@@ -31,7 +31,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/AddQuestions_editText2"
                 android:layout_weight="1"
-                android:hint="Answer 3"
+                android:hint="@string/Answer_3"
                 android:inputType="textMultiLine" />
 
             <EditText
@@ -41,7 +41,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_weight="1"
-                android:hint="Answer 1"
+                android:hint="@string/Answer_1"
                 android:inputType="textMultiLine" />
 
             <EditText
@@ -51,7 +51,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/AddQuestions_editText3"
                 android:layout_weight="1"
-                android:hint="Answer 4" />
+                android:hint="@string/Answer_4" />
 
             <EditText
                 android:id="@+id/AddQuestions_editText2"
@@ -60,7 +60,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@id/AddQuestions_editText1"
                 android:layout_weight="1"
-                android:hint="Answer 2"
+                android:hint="@string/Answer_2"
                 android:inputType="textMultiLine" />
 
             <RadioGroup

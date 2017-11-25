@@ -20,6 +20,9 @@ public class Assignment {
   private String courseName;
   private String dueDate;
 
+  /**
+   * Used to GET an existing assignment.
+   */
   public Assignment(int id) {
     if (AssignmentHelper.assignmentExists(id)) {
       this.id = id;
@@ -30,6 +33,9 @@ public class Assignment {
     }
   }
 
+  /**
+   * Used to CREATE a new assignment.
+   */
   public Assignment(String assignmentName, String due, String courseName) {
     this.dueDate = due;
     if (!AssignmentHelper.assignmentExists(assignmentName, courseName) && withinDueDate()) {
@@ -81,6 +87,9 @@ public class Assignment {
     return this.id;
   }
 
+  /**
+   * Checks if assignment is within due date relative to TODAY.
+   */
   public boolean withinDueDate() {
     String submitDate = AssignmentHelper.getCurrentDate();
     SimpleDateFormat formatting = new SimpleDateFormat("yyyy-MM-dd");

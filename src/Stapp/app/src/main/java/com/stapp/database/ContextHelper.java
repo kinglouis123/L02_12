@@ -17,6 +17,9 @@ public class ContextHelper extends Application {
     ContextHelper.context = getApplicationContext();
   }
 
+  /**
+   * @return Context of app to be used to create database objects
+   */
   public static Context getStappContext() {
     return ContextHelper.context;
   }

@@ -17,6 +17,9 @@ public class InitializeDatabase {
     return initializeRolesTable();
   }
 
+  /**
+   * Adds a STUDENT and a PROFESSOR role
+   */
   private static boolean initializeRolesTable() {
     try {
       UserHelper.insertRole("STUDENT");

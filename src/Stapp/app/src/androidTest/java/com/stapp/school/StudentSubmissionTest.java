@@ -82,7 +82,7 @@ public class StudentSubmissionTest {
   public void testConstructor() {
     generateNewAssignment();
     StudentSubmission studentSubmission = new StudentSubmission(student, assignment.getId());
-    assertEquals("0/2", studentSubmission.getCurrentMark());
+    assertEquals("(Not Attempted)", studentSubmission.getCurrentMark());
   }
 
   @Test
@@ -121,7 +121,7 @@ public class StudentSubmissionTest {
   public void getCurrentMark() throws Exception {
     generateNewAssignment();
     StudentSubmission studentSubmission = new StudentSubmission(student, assignment.getId());
-    assertEquals("0/2", studentSubmission.getCurrentMark());
+    assertEquals("(Not Attempted)", studentSubmission.getCurrentMark());
     studentSubmission.getNextQuestion();
     studentSubmission.answerCurrentQuestion(choices.get(1));
     assertEquals("1/2", studentSubmission.getCurrentMark());

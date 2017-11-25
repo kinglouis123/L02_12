@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Well done! You received a mark of:"
+            android:text="@string/mark_of_message"
             android:textAlignment="center"
             android:textSize="20dp" />
 
@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Finish"
+            android:text="@string/finish"
             android:onClick="finishAssignment"/>
     </LinearLayout>
 

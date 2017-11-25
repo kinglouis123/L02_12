@@ -1,4 +1,4 @@
-package com.stapp.Other;
+package com.stapp.other;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,8 +8,9 @@ import android.widget.TextView;
 
 import com.stapp.R;
 import com.stapp.school.Assignment;
+import com.stapp.school.StudentSubmission;
+import com.stapp.terminals.StudentSubmissionTerminal;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,10 +33,16 @@ public class RVAssignmentAdapter extends RecyclerView.Adapter<RVAssignmentAdapte
 
     }
 
-    List<Assignment> assignments;
+    private List<Assignment> assignments;
+    private String username;
 
     public RVAssignmentAdapter(List<Assignment> assignments){
         this.assignments = assignments;
+    }
+
+    public RVAssignmentAdapter(List<Assignment> assignments, String username){
+        this.assignments = assignments;
+        this.username = username;
     }
 
     @Override
@@ -53,7 +60,8 @@ public class RVAssignmentAdapter extends RecyclerView.Adapter<RVAssignmentAdapte
     @Override
     public void onBindViewHolder(AssignmentViewHolder assignementViewHolder, int i){
         assignementViewHolder.assignmentTitle.setText(assignments.get(i).getAssignmentName());
-        assignementViewHolder.assignmentGrade.setText("0/0");
+        StudentSubmission temp = StudentSubmissionTerminal.startNewSubmission(username, assignments.get(i).getId());
+        assignementViewHolder.assignmentGrade.setText(temp.getCurrentMark());
     }
 
     @Override

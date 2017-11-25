@@ -8,9 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.stapp.Other.RVCourseAdapter;
+import com.stapp.other.RVCourseAdapter;
 import com.stapp.R;
-import com.stapp.Toaster;
+import com.stapp.other.Toaster;
 import com.stapp.school.Course;
 import com.stapp.terminals.LoginTerminal;
 import com.stapp.users.Professor;
@@ -86,7 +86,10 @@ public class ProfessorMenu extends AppCompatActivity implements RVCourseAdapter.
 
     @Override
     public void onListItemClick(int clickedPosition) {
-        Toaster.toastShort("Item #" + clickedPosition + " clicked");
+        //Toaster.toastShort("Item #" + clickedPosition + " clicked");
+        Intent intent = new Intent(this, CourseDisplay.class);
+        intent.putExtra("course code", professor.getCourses().get(clickedPosition).toString());
+        startActivity(intent);
     }
 }
 

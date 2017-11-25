@@ -23,6 +23,9 @@ public class Professor extends User {
     super(username, name, password, UserHelper.getRoleIdGivenRoleName("PROFESSOR"));
   }
 
+  /**
+   * @return every course the prof has
+   */
   public List<Course> getCourses() {
     try {
       List<String> courseCodes = CourseHelper.getProfCourseNames(this.getUsername());

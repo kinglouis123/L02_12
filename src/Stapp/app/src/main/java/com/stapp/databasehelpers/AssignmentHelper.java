@@ -151,4 +151,5 @@ public class AssignmentHelper {
     closeDatabase();
     return name;
   }
+
 }

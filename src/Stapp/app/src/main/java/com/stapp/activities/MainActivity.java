@@ -3,22 +3,16 @@ package com.stapp.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.stapp.R;
-import com.stapp.Toaster;
-import com.stapp.activities.RegisterActivity;
-import com.stapp.database.DatabaseDriver;
+import com.stapp.other.Toaster;
 import com.stapp.database.DatabaseDriverHelper;
 import com.stapp.database.InitializeDatabase;
-import com.stapp.databasehelpers.UserHelper;
 import com.stapp.terminals.LoginTerminal;
 import com.stapp.users.Professor;
 import com.stapp.users.Student;
-import com.stapp.users.User;
 
 public class MainActivity extends AppCompatActivity {
 

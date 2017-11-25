@@ -16,6 +16,13 @@ import java.util.ArrayList;
 
 public class StudentSubmissionTerminal {
 
+  /**
+   * Only returns StudentSubmission object if:
+   *  - Assignment exists
+   *  - Assignment is in a course the student is also in
+   *  - Assignment is released
+   *  - Assignment is within due date relative to today
+   */
   public static StudentSubmission startNewSubmission(String username, int assignmentId) {
     Assignment assignment = AssignmentTerminal.getAssignment(assignmentId);
     if (assignment != null) {

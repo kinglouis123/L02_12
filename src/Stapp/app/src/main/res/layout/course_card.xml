@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:padding="16dp"
     android:background="@drawable/custom_border"
+    android:onClick="showCourseActivity"
     >
 
             <TextView
@@ -11,6 +12,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/course_code"
 
+                android:textColor="@android:color/black"
                 />
 
 </LinearLayout>

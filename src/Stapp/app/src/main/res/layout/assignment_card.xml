@@ -5,21 +5,23 @@
     android:layout_height="wrap_content"
     android:padding="16dp"
     android:orientation="horizontal"
-    android:background="@drawable/custom_border">
+    android:background="@drawable/custom_border"
+    android:onClick="showAssignmentActivity">
 
     <TextView
         android:id="@+id/assignment_card_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-
-        android:onClick="showAssignmentActivity" />
+        android:textColor="@android:color/black"
+        />
 
     <TextView
         android:id="@+id/assignment_card_grade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:textColor="@android:color/black"
         />
 
 

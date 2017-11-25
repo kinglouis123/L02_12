@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="createClassActivity"
-            android:text="Create a new class"
+            android:text="@string/create_new_class"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView

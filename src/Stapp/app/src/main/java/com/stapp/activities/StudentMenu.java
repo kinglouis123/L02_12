@@ -15,10 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.stapp.Other.RVAssignmentAdapter;
-import com.stapp.Other.RVCourseAdapter;
+import com.stapp.other.RVCourseAdapter;
 import com.stapp.R;
-import com.stapp.Toaster;
+import com.stapp.other.Toaster;
 import com.stapp.school.Course;
 import com.stapp.terminals.LoginTerminal;
 import com.stapp.users.Student;
@@ -113,6 +112,10 @@ public class StudentMenu extends AppCompatActivity implements RVCourseAdapter.Re
 
     @Override
     public void onListItemClick(int clickedPosition) {
-        Toaster.toastShort("Item #" + clickedPosition + " clicked");
+        //Toaster.toastShort("Item #" + clickedPosition + " clicked");
+        Intent intent = new Intent(this, StudentCourseDisplay.class);
+        intent.putExtra("course code", student.getCourses().get(clickedPosition).toString());
+        intent.putExtra("username", student.getUsername());
+        startActivity(intent);
     }
 }

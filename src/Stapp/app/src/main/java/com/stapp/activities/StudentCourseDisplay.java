@@ -5,11 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
-import com.stapp.Other.RVAssignmentAdapter;
+import com.stapp.other.RVAssignmentAdapter;
 import com.stapp.R;
 import com.stapp.school.Assignment;
 import com.stapp.school.Course;
@@ -49,7 +48,7 @@ public class StudentCourseDisplay extends AppCompatActivity {
         List<Assignment> assignments = course.getAssignments();
 
         //Adapter to populate Recycler with courses
-        RVAssignmentAdapter adapter = new RVAssignmentAdapter(assignments);
+        RVAssignmentAdapter adapter = new RVAssignmentAdapter(assignments, username);
         assignmentRecycler.setAdapter(adapter);
 
     }
