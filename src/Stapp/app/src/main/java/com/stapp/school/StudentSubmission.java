@@ -44,6 +44,9 @@ public class StudentSubmission {
     return null;
   }
 
+  /**
+   * Only call AFTER calling getNextQuestion.
+   */
   public boolean answerCurrentQuestion(String answer) {
     boolean result = false;
     if (currentQuestion.getAnswer().equals(answer)) {

@@ -88,6 +88,11 @@ public class DatabaseDriver extends SQLiteOpenHelper {
 
   // INSERT
 
+  /**
+   * @param time needs to be in form "YYYY-MM-DD"
+   * @param grade needs to be in form "numerator/denominator"
+   * @param username is student's username
+   */
   public void submitAssignment(String username, int assignmentId, String grade, String time) {
     ContentValues contentValues = new ContentValues();
     contentValues.put("STUDENTUSERNAME", username);
@@ -138,6 +143,9 @@ public class DatabaseDriver extends SQLiteOpenHelper {
     return "(Not Attempted)";
   }
 
+  /**
+   * Checks if a student has previously submitted an assignment.
+   */
   public boolean studentAssignmentLinkExists(String username, int assignmentId) {
     boolean exists = true;
     SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
@@ -463,6 +471,12 @@ public class DatabaseDriver extends SQLiteOpenHelper {
 
   // USERS/ROLES STUFF
   // INSERT
+
+  /**
+   * @param password must be plaintext, not hashed
+   * @param role must be an ID already in the roles table
+   * @return user ID
+   */
   public long insertUser(String username, String name, String password, int role) {
     SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
     ContentValues contentValues = new ContentValues();

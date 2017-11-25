@@ -25,6 +25,9 @@ public class Student extends User {
     super(username, name, password, UserHelper.getRoleIdGivenRoleName("STUDENT"));
   }
 
+  /**
+   * @return every course the student is in
+   */
   public List<Course> getCourses() {
     try {
       List<String> courseCodes = CourseHelper.getStudentCourseNames(this.getUsername());

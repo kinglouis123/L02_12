@@ -86,6 +86,9 @@ public class Course {
       this.validCourse = false;
   }
 
+  /**
+   * @return course code
+   */
   public String toString(){
     return this.courseCode;
   }
