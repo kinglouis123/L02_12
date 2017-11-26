@@ -37,7 +37,7 @@ public class RVInfoAdapter extends RecyclerView.Adapter<RVInfoAdapter.InfoViewHo
 
   @Override
   public void onBindViewHolder(InfoViewHolder infoViewHolder, int i) {
-    infoViewHolder.assignment_name.setText(submissions.get(i).toString());
+    infoViewHolder.assignment_name.setText(submissions.get(i).getAssignmentName());
     infoViewHolder.assignment_grade.setText(submissions.get(i).getCurrentMark());
   }
 

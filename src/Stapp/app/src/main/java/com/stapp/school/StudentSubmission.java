@@ -70,4 +70,8 @@ public class StudentSubmission {
     }
     return success;
   }
+
+  public String getAssignmentName() {
+    return this.assignment.getAssignmentName();
+  }
 }
