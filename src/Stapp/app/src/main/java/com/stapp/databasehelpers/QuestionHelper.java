@@ -5,10 +5,7 @@ import com.stapp.database.DatabaseDriver;
 
 import java.util.ArrayList;
 
-/**
- * Created by rahulkumar1998 on 2017-11-05.
- */
-
+/** Created by rahulkumar1998 on 2017-11-05. */
 public class QuestionHelper {
 
   private static DatabaseDriver databaseDriver;

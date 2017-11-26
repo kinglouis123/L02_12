@@ -1,19 +1,11 @@
 package com.stapp.school;
 
 import com.stapp.databasehelpers.AssignmentHelper;
-import com.stapp.databasehelpers.UserHelper;
 import com.stapp.terminals.AssignmentTerminal;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
-/**
- * Created by rahulkumar1998 on 2017-11-16.
- */
-
+/** Created by rahulkumar1998 on 2017-11-16. */
 public class StudentSubmission {
 
   private String studentUsername;
@@ -36,8 +28,8 @@ public class StudentSubmission {
   }
 
   /**
-   * Gets the next question in the assignment, null if end of assignment.
-   * Before calling this method again, make sure to answer previous question!
+   * Gets the next question in the assignment, null if end of assignment. Before calling this method
+   * again, make sure to answer previous question!
    */
   public Question getNextQuestion() {
     if (questions.size() > currentQuestionIndex) {
@@ -47,9 +39,7 @@ public class StudentSubmission {
     return null;
   }
 
-  /**
-   * Only call AFTER calling getNextQuestion.
-   */
+  /** Only call AFTER calling getNextQuestion. */
   public boolean answerCurrentQuestion(String answer) {
     boolean result = false;
     if (numerator == -1) {
@@ -74,10 +64,10 @@ public class StudentSubmission {
     boolean success = false;
     String submitDate = AssignmentHelper.getCurrentDate();
     if (assignment.withinDueDate()) {
-      AssignmentHelper.submitAssignment(studentUsername, assignmentId, getCurrentMark(), submitDate);
+      AssignmentHelper.submitAssignment(
+          studentUsername, assignmentId, getCurrentMark(), submitDate);
       success = true;
     }
     return success;
   }
-
 }

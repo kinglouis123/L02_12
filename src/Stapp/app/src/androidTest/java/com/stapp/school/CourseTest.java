@@ -15,9 +15,7 @@ import java.util.Random;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by rahulkumar1998 on 2017-11-20.
- */
+/** Created by rahulkumar1998 on 2017-11-20. */
 public class CourseTest {
   @Before
   public void setUp() throws Exception {
@@ -30,8 +28,8 @@ public class CourseTest {
   }
 
   /**
-   * Random string generator.
-   * obtained from: https://stackoverflow.com/questions/20536566/creating-a-random-string-with-a-z-and-0-9-in-java
+   * Random string generator. obtained from:
+   * https://stackoverflow.com/questions/20536566/creating-a-random-string-with-a-z-and-0-9-in-java
    */
   private String generateRandomString() {
     String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -67,7 +65,8 @@ public class CourseTest {
     assertTrue(course.isValidCourse());
   }
 
-  @Test  public void testConstructorGetArchived() {
+  @Test
+  public void testConstructorGetArchived() {
     String username = generateRandomString();
     String name = generateRandomString();
     String pass = generateRandomString();
@@ -142,8 +141,11 @@ public class CourseTest {
     course.addStudent(student1);
     course.addStudent(student2);
     ArrayList<String> students = course.getStudentUsernames();
-    assertTrue(students.contains(student) && students.contains(student1)
-        && students.contains(student2) && students.size() == 3);
+    assertTrue(
+        students.contains(student)
+            && students.contains(student1)
+            && students.contains(student2)
+            && students.size() == 3);
   }
 
   @Test
@@ -165,8 +167,11 @@ public class CourseTest {
     course.addStudent(student2);
     course.removeStudent(student1);
     ArrayList<String> students = course.getStudentUsernames();
-    assertTrue(students.contains(student) && !students.contains(student1)
-        && students.contains(student2) && students.size() == 2);
+    assertTrue(
+        students.contains(student)
+            && !students.contains(student1)
+            && students.contains(student2)
+            && students.size() == 2);
   }
 
   @Test
@@ -200,8 +205,8 @@ public class CourseTest {
     ArrayList<Assignment> assignments = (ArrayList) course.getAssignments();
     Assignment assignment1 = assignments.get(0);
     Assignment assignment2 = assignments.get(1);
-    assertTrue(assignment1.getCourseCode().equals(coursename)
-        && assignment2.getCourseCode().equals(coursename));
+    assertTrue(
+        assignment1.getCourseCode().equals(coursename)
+            && assignment2.getCourseCode().equals(coursename));
   }
-
 }

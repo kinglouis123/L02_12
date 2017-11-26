@@ -37,16 +37,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/new_assignment"
-                    android:onClick="showNewAssignment"/>
+                    android:onClick="showNewAssignment"
+                    android:text="@string/new_assignment" />
 
                 <Button
                     android:id="@+id/button_old_assignments"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/old_assignments"
-                    android:onClick="showOldAssignments"/>
+                    android:onClick="showOldAssignments"
+                    android:text="@string/old_assignments" />
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>

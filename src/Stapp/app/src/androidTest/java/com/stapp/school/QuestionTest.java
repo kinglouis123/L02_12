@@ -13,9 +13,7 @@ import java.util.Random;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by rahulkumar1998 on 2017-11-20.
- */
+/** Created by rahulkumar1998 on 2017-11-20. */
 public class QuestionTest {
 
   private String courseName;
@@ -36,8 +34,8 @@ public class QuestionTest {
   }
 
   /**
-   * Random string generator.
-   * obtained from: https://stackoverflow.com/questions/20536566/creating-a-random-string-with-a-z-and-0-9-in-java
+   * Random string generator. obtained from:
+   * https://stackoverflow.com/questions/20536566/creating-a-random-string-with-a-z-and-0-9-in-java
    */
   private String generateRandomString() {
     String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -53,8 +51,7 @@ public class QuestionTest {
   private void generateNewAssignment() {
     courseName = generateRandomString();
     assignmentName = generateRandomString();
-    assignment = AssignmentTerminal.createNewAssignment(assignmentName,
-        "3000-01-01", courseName);
+    assignment = AssignmentTerminal.createNewAssignment(assignmentName, "3000-01-01", courseName);
     question = generateRandomString();
     choices = new ArrayList<>();
     choices.add(generateRandomString());
@@ -84,8 +81,11 @@ public class QuestionTest {
     generateNewAssignment();
     Question q = assignment.insertMultipleChoiceQuestion(question, choices, 2);
     ArrayList<String> c = q.getChoices();
-    assertTrue(c.get(0).equals(choices.get(0)) && c.get(1).equals(choices.get(1))
-        && c.get(2).equals(choices.get(2)) && c.get(3).equals(choices.get(3)));
+    assertTrue(
+        c.get(0).equals(choices.get(0))
+            && c.get(1).equals(choices.get(1))
+            && c.get(2).equals(choices.get(2))
+            && c.get(3).equals(choices.get(3)));
   }
 
   @Test
@@ -94,5 +94,4 @@ public class QuestionTest {
     Question q = assignment.insertMultipleChoiceQuestion(question, choices, 1);
     assertEquals(choices.get(1), q.getAnswer());
   }
-
 }

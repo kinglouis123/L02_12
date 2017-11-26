@@ -25,7 +25,6 @@
             android:orientation="vertical">
 
             <EditText
-                android:paddingLeft="25dp"
                 android:id="@+id/AddQuestions_editText3"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
@@ -33,10 +32,10 @@
                 android:layout_below="@+id/AddQuestions_editText2"
                 android:layout_weight="1"
                 android:hint="@string/Answer_3"
-                android:inputType="textMultiLine" />
+                android:inputType="textMultiLine"
+                android:paddingLeft="25dp" />
 
             <EditText
-                android:paddingLeft="25dp"
                 android:id="@+id/AddQuestions_editText1"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
@@ -44,20 +43,20 @@
                 android:layout_alignParentTop="true"
                 android:layout_weight="1"
                 android:hint="@string/Answer_1"
-                android:inputType="textMultiLine" />
+                android:inputType="textMultiLine"
+                android:paddingLeft="25dp" />
 
             <EditText
-                android:paddingLeft="25dp"
                 android:id="@+id/AddQuestions_editText4"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/AddQuestions_editText3"
                 android:layout_weight="1"
-                android:hint="@string/Answer_4" />
+                android:hint="@string/Answer_4"
+                android:paddingLeft="25dp" />
 
             <EditText
-                android:paddingLeft="25dp"
                 android:id="@+id/AddQuestions_editText2"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
@@ -65,7 +64,8 @@
                 android:layout_below="@id/AddQuestions_editText1"
                 android:layout_weight="1"
                 android:hint="@string/Answer_2"
-                android:inputType="textMultiLine" />
+                android:inputType="textMultiLine"
+                android:paddingLeft="25dp" />
 
             <RadioGroup
                 android:id="@+id/AddQuestions_radioGroup"
@@ -108,8 +108,8 @@
             <RadioGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_below="@id/AddQuestions_editText4">
+                android:layout_below="@id/AddQuestions_editText4"
+                android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/add_Custom"
@@ -117,33 +117,32 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:checked="true"
-                    android:text="Custom"
-                    android:onClick="clearFields"/>
+                    android:onClick="clearFields"
+                    android:text="Custom" />
 
                 <RadioButton
                     android:id="@+id/add_Mean"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Mean"
                     android:onClick="generateMeanQuestion"
-                    />
+                    android:text="Mean" />
 
                 <RadioButton
                     android:id="@+id/add_Variance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Variance"
-                    android:onClick="generateVarianceQuestion"/>
+                    android:onClick="generateVarianceQuestion"
+                    android:text="Variance" />
 
                 <RadioButton
                     android:id="@+id/add_SD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Standard Dev."
-                    android:onClick="generateStdDeviationQuestion"/>
+                    android:onClick="generateStdDeviationQuestion"
+                    android:text="Standard Dev." />
 
             </RadioGroup>
 
@@ -172,11 +171,11 @@
                     android:layout_width="193dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="48dp"
-                    android:text="Finish"
                     android:onClick="Finish"
+                    android:text="Finish"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/AddNewQuestions"/>
+                    app:layout_constraintStart_toEndOf="@+id/AddNewQuestions" />
             </android.support.constraint.ConstraintLayout>
 
 

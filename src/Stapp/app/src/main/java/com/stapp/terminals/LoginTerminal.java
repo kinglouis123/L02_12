@@ -5,14 +5,12 @@ import com.stapp.exceptions.UserNotFoundException;
 import com.stapp.users.Professor;
 import com.stapp.users.Student;
 
-/**
- * Created by rahulkumar1998 on 2017-10-23.
- */
-
+/** Created by rahulkumar1998 on 2017-10-23. */
 public class LoginTerminal {
 
   /**
    * Get a Professor object from the Database.
+   *
    * @param username of Professor
    * @param password of Professor
    * @return Professor object, null if authentication fails!
@@ -31,6 +29,7 @@ public class LoginTerminal {
 
   /**
    * Get a Student object from the Database.
+   *
    * @param username of Student
    * @param password of Student
    * @return Student object, null if authentication fails!
@@ -49,6 +48,7 @@ public class LoginTerminal {
 
   /**
    * Create a new Professor and add to Database.
+   *
    * @param username of Professor
    * @param name of Professor
    * @param password of Professor
@@ -67,6 +67,7 @@ public class LoginTerminal {
 
   /**
    * Create a new Student and add to Database.
+   *
    * @param username of Student
    * @param name of Student
    * @param password of Student
@@ -82,5 +83,4 @@ public class LoginTerminal {
     }
     return null;
   }
-
 }

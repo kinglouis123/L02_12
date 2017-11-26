@@ -1,28 +1,21 @@
 package com.stapp.school;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.stapp.database.DatabaseDriver;
 import com.stapp.databasehelpers.CourseHelper;
 import com.stapp.databasehelpers.UserHelper;
 import com.stapp.exceptions.ClassAlreadyExistsException;
 import com.stapp.exceptions.StudentAlreadyExistsException;
 import com.stapp.exceptions.UserNotFoundException;
 
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Created by wenboma on 04/11/2017.
- */
-
+/** Created by wenboma on 04/11/2017. */
 public class Course {
 
   private String courseCode = "";
   private boolean validCourse = false;
 
-  /**
-   * Gets existing course from database.
-   */
+  /** Gets existing course from database. */
   public Course(String courseCode) {
     if (CourseHelper.courseExists(courseCode)) {
       this.courseCode = courseCode;
@@ -35,18 +28,16 @@ public class Course {
     }
   }
 
-  /**
-   * Creates a new course and adds to Database.
-   */
+  /** Creates a new course and adds to Database. */
   public Course(String courseCode, String profUsername) {
-      try {
-        if (UserHelper.getRoleNameGivenUsername(profUsername).equals("PROFESSOR")) {
-          CourseHelper.insertCourse(courseCode, profUsername);
-          this.validCourse = true;
-          this.courseCode = courseCode;
-        }
-      } catch (UserNotFoundException | ClassAlreadyExistsException e) {
+    try {
+      if (UserHelper.getRoleNameGivenUsername(profUsername).equals("PROFESSOR")) {
+        CourseHelper.insertCourse(courseCode, profUsername);
+        this.validCourse = true;
+        this.courseCode = courseCode;
       }
+    } catch (UserNotFoundException | ClassAlreadyExistsException e) {
+    }
   }
 
   public boolean isValidCourse() {
@@ -56,17 +47,18 @@ public class Course {
   public String getProf() {
     try {
       return CourseHelper.getProfUsername(courseCode);
-    } catch(ClassNotFoundException e) {
+    } catch (ClassNotFoundException e) {
       return null;
     }
   }
 
-  public long addStudent(String username) throws StudentAlreadyExistsException, ClassNotFoundException {
+  public long addStudent(String username)
+      throws StudentAlreadyExistsException, ClassNotFoundException {
     return CourseHelper.insertStudentToCourse(courseCode, username);
   }
 
   public ArrayList<String> getStudentUsernames() {
-    try  {
+    try {
       ArrayList<String> studentlist = CourseHelper.getStudentUsernames(courseCode);
       return studentlist;
     } catch (ClassNotFoundException E) {
@@ -81,19 +73,17 @@ public class Course {
     }
   }
 
-  public void archiveCourse() throws ClassNotFoundException{
-      CourseHelper.archiveCourse(this.courseCode);
-      this.validCourse = false;
+  public void archiveCourse() throws ClassNotFoundException {
+    CourseHelper.archiveCourse(this.courseCode);
+    this.validCourse = false;
   }
 
-  /**
-   * @return course code
-   */
-  public String toString(){
+  /** @return course code */
+  public String toString() {
     return this.courseCode;
   }
 
   public List<Assignment> getAssignments() {
-      return CourseHelper.getAssignments(courseCode);
+    return CourseHelper.getAssignments(courseCode);
   }
 }

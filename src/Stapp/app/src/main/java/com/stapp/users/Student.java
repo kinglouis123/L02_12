@@ -11,10 +11,7 @@ import com.stapp.terminals.CourseTerminal;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by rahulkumar1998 on 2017-10-22.
- */
-
+/** Created by rahulkumar1998 on 2017-10-22. */
 public class Student extends User {
 
   public Student(String username, String password) throws UserNotFoundException {
@@ -25,9 +22,7 @@ public class Student extends User {
     super(username, name, password, UserHelper.getRoleIdGivenRoleName("STUDENT"));
   }
 
-  /**
-   * @return every course the student is in
-   */
+  /** @return every course the student is in */
   public List<Course> getCourses() {
     try {
       List<String> courseCodes = CourseHelper.getStudentCourseNames(this.getUsername());

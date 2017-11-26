@@ -12,10 +12,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * Created by rahulkumar1998 on 2017-11-05.
- */
-
+/** Created by rahulkumar1998 on 2017-11-05. */
 public class AssignmentHelper {
 
   private static DatabaseDriver databaseDriver;
@@ -45,7 +42,6 @@ public class AssignmentHelper {
     return dueDate;
   }
 
-
   public static boolean assignmentExists(String assignmentName, String courseName) {
     openDatabase();
     boolean exists = databaseDriver.assignmentExists(assignmentName, courseName);
@@ -69,28 +65,36 @@ public class AssignmentHelper {
   }
 
   public static List<Question> getQuestions(int assignmentId) {
-      openDatabase();
-      List<Question> questions = databaseDriver.getQuestions(assignmentId);
-      closeDatabase();
-      return questions;
+    openDatabase();
+    List<Question> questions = databaseDriver.getQuestions(assignmentId);
+    closeDatabase();
+    return questions;
   }
 
   /**
    * Insert a multiple choice question into the database
+   *
    * @param assignmentId
    * @param question the question to put
    * @param choices length <= 4, 4 choices only
    * @param correctIndex the index of the choice in choices that is the correct answer, < 4
    * @return id of the question
    */
-  public static long insertMultipleChoiceQuestion(int assignmentId, String question, List<String> choices,
-                                           int correctIndex) {
-      openDatabase();
-      if (choices.size() > 4) return -1;
-      long id = databaseDriver.insertMultipleChoiceQuestion(assignmentId, question, choices.get(0),
-              choices.get(1), choices.get(2), choices.get(3), choices.get(correctIndex));
-      closeDatabase();
-      return id;
+  public static long insertMultipleChoiceQuestion(
+      int assignmentId, String question, List<String> choices, int correctIndex) {
+    openDatabase();
+    if (choices.size() > 4) return -1;
+    long id =
+        databaseDriver.insertMultipleChoiceQuestion(
+            assignmentId,
+            question,
+            choices.get(0),
+            choices.get(1),
+            choices.get(2),
+            choices.get(3),
+            choices.get(correctIndex));
+    closeDatabase();
+    return id;
   }
 
   public static boolean assignmentIsReleased(int assignmentId) {
@@ -114,7 +118,8 @@ public class AssignmentHelper {
     return assignments;
   }
 
-  public static void submitAssignment(String username, int assignmentId, String grade, String time) {
+  public static void submitAssignment(
+      String username, int assignmentId, String grade, String time) {
     openDatabase();
     databaseDriver.submitAssignment(username, assignmentId, grade, time);
     closeDatabase();
@@ -127,9 +132,7 @@ public class AssignmentHelper {
     return grade;
   }
 
-  /**
-   * Returns a String representation of the current date in the appropriate YYYY-MM-DD format.
-   */
+  /** Returns a String representation of the current date in the appropriate YYYY-MM-DD format. */
   public static String getCurrentDate() {
     Calendar calendar = Calendar.getInstance();
     calendar.add(Calendar.DATE, 1);
@@ -151,5 +154,4 @@ public class AssignmentHelper {
     closeDatabase();
     return name;
   }
-
 }

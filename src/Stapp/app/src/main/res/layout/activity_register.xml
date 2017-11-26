@@ -4,24 +4,24 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:orientation="vertical"
-        android:id="@+id/relativeLayout">
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/RegisterEditTextUsername"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
             android:ems="10"
             android:gravity="center"
             android:hint="@string/Username"
             android:inputType="textPersonName"
-            android:textAlignment="center"
-            android:layout_gravity="center_horizontal"
-            android:layout_centerHorizontal="true" />
+            android:textAlignment="center" />
 
         <EditText
             android:id="@+id/RegisterEditTextName"
@@ -31,42 +31,42 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="25dp"
             android:ems="10"
-            android:inputType="textPersonName"
             android:hint="@string/Name"
-            android:textAlignment="center"/>
+            android:inputType="textPersonName"
+            android:textAlignment="center" />
 
         <EditText
             android:id="@+id/RegisterEditTextPassword"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/RegisterEditTextUsername"
+            android:layout_below="@+id/RegisterEditTextName"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25dp"
             android:ems="10"
             android:hint="@string/Password"
             android:inputType="textPassword"
-            android:textAlignment="center"
-            android:layout_gravity="center_horizontal"
-            android:layout_below="@+id/RegisterEditTextName"
-            android:layout_alignRight="@+id/RegisterEditTextUsername"
-            android:layout_marginTop="25dp"/>
+            android:textAlignment="center" />
 
         <EditText
             android:id="@+id/RegisterEditTextConfirm"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/RegisterEditTextUsername"
+            android:layout_below="@+id/RegisterEditTextPassword"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25dp"
             android:ems="10"
             android:hint="@string/Confirm"
             android:inputType="textPassword"
-            android:textAlignment="center"
-            android:layout_gravity="center_horizontal"
-            android:layout_below="@+id/RegisterEditTextPassword"
-            android:layout_alignRight="@+id/RegisterEditTextUsername"
-            android:layout_marginTop="25dp"/>
+            android:textAlignment="center" />
 
         <LinearLayout
+            android:id="@+id/RegisterRadioLayout"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_below="@+id/RegisterEditTextConfirm"
-            android:id="@+id/RegisterRadioLayout">
+            android:orientation="horizontal">
 
             <RadioGroup
                 android:id="@+id/RegisterRadioGroup"
@@ -74,6 +74,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="horizontal">
+
                 <RadioButton
                     android:id="@+id/radioButton"
                     android:layout_width="wrap_content"
@@ -98,11 +99,11 @@
             android:id="@+id/RegisterButtonRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Register"
             android:layout_alignEnd="@+id/RegisterEditTextUsername"
             android:layout_below="@+id/RegisterRadioLayout"
             android:layout_marginTop="25dp"
-            android:onClick="registerUser"/>
+            android:onClick="registerUser"
+            android:text="@string/Register" />
 
     </RelativeLayout>
 

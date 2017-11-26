@@ -4,10 +4,7 @@ import com.stapp.databasehelpers.QuestionHelper;
 
 import java.util.ArrayList;
 
-/**
- * Created by rahulkumar1998 on 2017-11-05.
- */
-
+/** Created by rahulkumar1998 on 2017-11-05. */
 public class Question {
 
   private int Id;

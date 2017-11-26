@@ -1,15 +1,15 @@
 package com.stapp.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
 import com.stapp.R;
-import com.stapp.other.Toaster;
 import com.stapp.database.DatabaseDriverHelper;
 import com.stapp.database.InitializeDatabase;
+import com.stapp.other.Toaster;
 import com.stapp.terminals.LoginTerminal;
 import com.stapp.users.Professor;
 import com.stapp.users.Student;
@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
       if ((student = LoginTerminal.getStudent(username, password)) == null) {
         Toaster.toastShort("Login failed!");
       } else {
-        //Toaster.toastShort("Welcome Student " + student.getName() + "!");
-        //Toaster.toastShort("DATABASE ID: " + student.getId());
+        // Toaster.toastShort("Welcome Student " + student.getName() + "!");
+        // Toaster.toastShort("DATABASE ID: " + student.getId());
         // Start Student interface
         Intent student_intent = new Intent(this, StudentMenu.class);
         student_intent.putExtra("username", username);
@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
       intent.putExtra("password", password);
       startActivity(intent);
     }
-
   }
 
   @Override
@@ -71,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
     InitializeDatabase.initializeDatabase();
 
     setContentView(R.layout.activity_log_in);
-
   }
 
   @Override
@@ -81,5 +79,4 @@ public class MainActivity extends AppCompatActivity {
     startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     startActivity(startMain);
   }
-
 }

@@ -12,9 +12,7 @@ import java.util.Random;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by rahulkumar1998 on 2017-11-20.
- */
+/** Created by rahulkumar1998 on 2017-11-20. */
 public class CourseTerminalTest {
 
   @Before
@@ -28,8 +26,8 @@ public class CourseTerminalTest {
   }
 
   /**
-   * Random string generator.
-   * obtained from: https://stackoverflow.com/questions/20536566/creating-a-random-string-with-a-z-and-0-9-in-java
+   * Random string generator. obtained from:
+   * https://stackoverflow.com/questions/20536566/creating-a-random-string-with-a-z-and-0-9-in-java
    */
   private String generateRandomString() {
     String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -67,5 +65,4 @@ public class CourseTerminalTest {
   public void getNonExistentCourse() {
     assertNull(CourseTerminal.getCourse(generateRandomString()));
   }
-
 }

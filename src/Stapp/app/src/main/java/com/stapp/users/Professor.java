@@ -9,10 +9,7 @@ import com.stapp.terminals.CourseTerminal;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by rahulkumar1998 on 2017-10-22.
- */
-
+/** Created by rahulkumar1998 on 2017-10-22. */
 public class Professor extends User {
 
   public Professor(String username, String password) throws UserNotFoundException {
@@ -23,9 +20,7 @@ public class Professor extends User {
     super(username, name, password, UserHelper.getRoleIdGivenRoleName("PROFESSOR"));
   }
 
-  /**
-   * @return every course the prof has
-   */
+  /** @return every course the prof has */
   public List<Course> getCourses() {
     try {
       List<String> courseCodes = CourseHelper.getProfCourseNames(this.getUsername());
@@ -44,5 +39,4 @@ public class Professor extends User {
       return null;
     }
   }
-
 }
