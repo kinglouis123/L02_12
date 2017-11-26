@@ -16,22 +16,9 @@ import com.stapp.users.Student;
 
 public class MainActivity extends AppCompatActivity {
 
-  Professor prof1 = LoginTerminal.newProfessor("nick", "nicc", "nick");
-  Student student1 = LoginTerminal.newStudent("nick2", "nicccc", "nick2");
-  Professor user2 = LoginTerminal.newProfessor("shierry", "Shierry Tans", "shierry");
-  Student user3 = LoginTerminal.newStudent("john", "John Doe", "john");
-  Professor user4 = LoginTerminal.newProfessor("Kohee", "Kohee Sang", "kohee");
-
   protected void showRegisterActivity(View view) {
     Intent intent = new Intent(this, RegisterActivity.class);
     startActivity(intent);
-  }
-
-  protected void resetDatabase(View view) {
-    if (DatabaseDriverHelper.databaseExists()) {
-      DatabaseDriverHelper.reinitializeDatabase();
-      InitializeDatabase.initializeDatabase();
-    }
   }
 
   protected void loginUser(View view) {
@@ -44,11 +31,17 @@ public class MainActivity extends AppCompatActivity {
 
     if ((professor = LoginTerminal.getProfessor(username, password)) == null) {
       if ((student = LoginTerminal.getStudent(username, password)) == null) {
-        Toaster.toastShort("Login failed!");
+        if (username.equals("-1") && password.equals("admin")) {
+          Intent intent = new Intent(this, AdminMenu.class);
+          startActivity(intent);
+        } else {
+          Toaster.toastShort("Login failed!");
+        }
       } else {
         // Toaster.toastShort("Welcome Student " + student.getName() + "!");
         // Toaster.toastShort("DATABASE ID: " + student.getId());
         // Start Student interface
+        Toaster.toastShort(student.getName() + " now logged in.");
         Intent student_intent = new Intent(this, StudentMenu.class);
         student_intent.putExtra("username", username);
         student_intent.putExtra("password", password);
