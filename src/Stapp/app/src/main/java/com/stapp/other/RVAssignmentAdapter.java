@@ -28,11 +28,13 @@ public class RVAssignmentAdapter extends RecyclerView.Adapter<RVAssignmentAdapte
     public class AssignmentViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView assignmentTitle;
         TextView assignmentGrade;
+        TextView assignmentDueDate;
 
         AssignmentViewHolder(View itemView){
             super(itemView);
             assignmentTitle = (TextView)itemView.findViewById(R.id.assignment_card_title);
             assignmentGrade = (TextView)itemView.findViewById(R.id.assignment_card_grade);
+            assignmentDueDate = (TextView)itemView.findViewById(R.id.assignment_card_duedate);
             itemView.setOnClickListener(this);
         }
 
@@ -72,10 +74,11 @@ public class RVAssignmentAdapter extends RecyclerView.Adapter<RVAssignmentAdapte
     }
 
     @Override
-    public void onBindViewHolder(AssignmentViewHolder assignementViewHolder, int i){
-        assignementViewHolder.assignmentTitle.setText(assignments.get(i).getAssignmentName());
+    public void onBindViewHolder(AssignmentViewHolder assignmentViewHolder, int i){
+        assignmentViewHolder.assignmentTitle.setText(assignments.get(i).getAssignmentName());
         StudentSubmission temp = StudentSubmissionTerminal.startNewSubmission(username, assignments.get(i).getId());
-        assignementViewHolder.assignmentGrade.setText(temp.getCurrentMark());
+        assignmentViewHolder.assignmentGrade.setText(temp.getCurrentMark());
+        assignmentViewHolder.assignmentDueDate.setText(assignments.get(i).getDueDate());
     }
 
     @Override
