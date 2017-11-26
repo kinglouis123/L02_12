@@ -22,8 +22,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="142dp"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="@string/course_code" />
+            android:hint="@string/course_code"
+            android:inputType="textPersonName" />
 
         <Button
             android:id="@+id/join_course_button"
@@ -32,7 +32,7 @@
             android:layout_alignEnd="@+id/course_code_edit"
             android:layout_below="@+id/course_code_edit"
             android:layout_marginTop="20dp"
-            android:text="@string/join"
-            android:onClick="addStudentCourse"/>
+            android:onClick="addStudentCourse"
+            android:text="@string/join" />
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

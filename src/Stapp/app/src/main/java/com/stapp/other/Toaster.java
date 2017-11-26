@@ -1,13 +1,10 @@
-package com.stapp;
+package com.stapp.other;
 
 import android.widget.Toast;
 
 import com.stapp.database.ContextHelper;
 
-/**
- * Created by rahulkumar1998 on 2017-10-21.
- */
-
+/** Created by rahulkumar1998 on 2017-10-21. */
 public class Toaster {
 
   public static void toastShort(String message) {
@@ -17,5 +14,4 @@ public class Toaster {
   public static void toastLong(String message) {
     Toast.makeText(ContextHelper.getStappContext(), message, Toast.LENGTH_LONG).show();
   }
-
 }

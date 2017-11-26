@@ -4,14 +4,10 @@ import com.stapp.databasehelpers.AssignmentHelper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by wenboma on 05/11/2017.
- */
-
+/** Created by wenboma on 05/11/2017. */
 public class Assignment {
 
   private int id;
@@ -20,6 +16,7 @@ public class Assignment {
   private String courseName;
   private String dueDate;
 
+  /** Used to GET an existing assignment. */
   public Assignment(int id) {
     if (AssignmentHelper.assignmentExists(id)) {
       this.id = id;
@@ -30,6 +27,7 @@ public class Assignment {
     }
   }
 
+  /** Used to CREATE a new assignment. */
   public Assignment(String assignmentName, String due, String courseName) {
     this.dueDate = due;
     if (!AssignmentHelper.assignmentExists(assignmentName, courseName) && withinDueDate()) {
@@ -47,26 +45,29 @@ public class Assignment {
 
   /**
    * Creates a new multiple choice question for the assignment.
+   *
    * @param choices size() <= 4
    * @param correctIndex index of the correct answer in the choices list
    * @return the question object, null if not successful
    */
-  public Question insertMultipleChoiceQuestion(String question, List<String> choices, int correctIndex) {
-      long id = AssignmentHelper.insertMultipleChoiceQuestion(this.id, question, choices, correctIndex);
-      if (id == -1) return null;
-      return new Question((int)id);
+  public Question insertMultipleChoiceQuestion(
+      String question, List<String> choices, int correctIndex) {
+    long id =
+        AssignmentHelper.insertMultipleChoiceQuestion(this.id, question, choices, correctIndex);
+    if (id == -1) return null;
+    return new Question((int) id);
   }
 
   public String getDueDate() {
-      return this.dueDate;
+    return this.dueDate;
   }
 
-  public String getAssignmentName(){
-      return this.assignmentName;
+  public String getAssignmentName() {
+    return this.assignmentName;
   }
 
   public List<Question> getQuestions() {
-      return AssignmentHelper.getQuestions(this.id);
+    return AssignmentHelper.getQuestions(this.id);
   }
 
   public boolean isReleased() {
@@ -81,9 +82,11 @@ public class Assignment {
     return this.id;
   }
 
+  /** Checks if assignment is within due date relative to TODAY. */
   public boolean withinDueDate() {
     String submitDate = AssignmentHelper.getCurrentDate();
     SimpleDateFormat formatting = new SimpleDateFormat("yyyy-MM-dd");
+    formatting.setLenient(false);
     try {
       Date submit = formatting.parse(submitDate);
       Date due = formatting.parse(this.getDueDate());
@@ -97,4 +100,12 @@ public class Assignment {
     return this.courseName;
   }
 
+  public int getId(String assignmentName, String courseName) {
+    return AssignmentHelper.getAssignmentId(assignmentName, courseName);
+  }
+
+  // Test Function
+  public int getNumberOfQuestions() {
+    return this.getQuestions().size();
+  }
 }

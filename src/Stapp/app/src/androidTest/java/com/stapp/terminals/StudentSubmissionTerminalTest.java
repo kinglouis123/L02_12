@@ -14,9 +14,7 @@ import java.util.Random;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by rahulkumar1998 on 2017-11-20.
- */
+/** Created by rahulkumar1998 on 2017-11-20. */
 public class StudentSubmissionTerminalTest {
 
   @Before
@@ -30,8 +28,8 @@ public class StudentSubmissionTerminalTest {
   }
 
   /**
-   * Random string generator.
-   * obtained from: https://stackoverflow.com/questions/20536566/creating-a-random-string-with-a-z-and-0-9-in-java
+   * Random string generator. obtained from:
+   * https://stackoverflow.com/questions/20536566/creating-a-random-string-with-a-z-and-0-9-in-java
    */
   private String generateRandomString() {
     String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -53,7 +51,7 @@ public class StudentSubmissionTerminalTest {
     LoginTerminal.newProfessor(prof, generateRandomString(), generateRandomString());
     LoginTerminal.newStudent(student, generateRandomString(), generateRandomString());
     CourseTerminal.createNewCourse(course, prof);
-    Assignment a = AssignmentTerminal.createNewAssignment(assignment, "2020-01-20" ,course);
+    Assignment a = AssignmentTerminal.createNewAssignment(assignment, "2020-01-20", course);
     assertNull(StudentSubmissionTerminal.startNewSubmission(student, a.getId()));
   }
 
@@ -70,9 +68,8 @@ public class StudentSubmissionTerminalTest {
       c.addStudent(student);
     } catch (StudentAlreadyExistsException | ClassNotFoundException e) {
     }
-    Assignment a = AssignmentTerminal.createNewAssignment(assignment, "2020-01-20" ,course);
+    Assignment a = AssignmentTerminal.createNewAssignment(assignment, "2020-01-20", course);
     a.release();
     assertNotNull(StudentSubmissionTerminal.startNewSubmission(student, a.getId()));
   }
-
 }

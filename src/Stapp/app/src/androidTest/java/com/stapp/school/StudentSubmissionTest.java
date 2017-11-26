@@ -15,9 +15,7 @@ import java.util.Random;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by rahulkumar1998 on 2017-11-20.
- */
+/** Created by rahulkumar1998 on 2017-11-20. */
 public class StudentSubmissionTest {
 
   private String student;
@@ -42,8 +40,8 @@ public class StudentSubmissionTest {
   }
 
   /**
-   * Random string generator.
-   * obtained from: https://stackoverflow.com/questions/20536566/creating-a-random-string-with-a-z-and-0-9-in-java
+   * Random string generator. obtained from:
+   * https://stackoverflow.com/questions/20536566/creating-a-random-string-with-a-z-and-0-9-in-java
    */
   private String generateRandomString() {
     String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -60,8 +58,7 @@ public class StudentSubmissionTest {
     student = generateRandomString();
     courseName = generateRandomString();
     assignmentName = generateRandomString();
-    assignment = AssignmentTerminal.createNewAssignment(assignmentName,
-        "3000-01-01", courseName);
+    assignment = AssignmentTerminal.createNewAssignment(assignmentName, "3000-01-01", courseName);
     question = generateRandomString();
     question2 = generateRandomString();
     choices = new ArrayList<>();
@@ -82,7 +79,7 @@ public class StudentSubmissionTest {
   public void testConstructor() {
     generateNewAssignment();
     StudentSubmission studentSubmission = new StudentSubmission(student, assignment.getId());
-    assertEquals("0/2", studentSubmission.getCurrentMark());
+    assertEquals("(Not Attempted)", studentSubmission.getCurrentMark());
   }
 
   @Test
@@ -93,9 +90,10 @@ public class StudentSubmissionTest {
     studentSubmission.answerCurrentQuestion("placeholder");
     Question q2 = studentSubmission.getNextQuestion();
     studentSubmission.answerCurrentQuestion("placeholder");
-    assertTrue(q1.getQuestionString().equals(question)
-        && q2.getQuestionString().equals(question2)
-        && studentSubmission.getNextQuestion() == null);
+    assertTrue(
+        q1.getQuestionString().equals(question)
+            && q2.getQuestionString().equals(question2)
+            && studentSubmission.getNextQuestion() == null);
   }
 
   @Test
@@ -116,12 +114,11 @@ public class StudentSubmissionTest {
     assertEquals("0/2", studentSubmission.getCurrentMark());
   }
 
-
   @Test
   public void getCurrentMark() throws Exception {
     generateNewAssignment();
     StudentSubmission studentSubmission = new StudentSubmission(student, assignment.getId());
-    assertEquals("0/2", studentSubmission.getCurrentMark());
+    assertEquals("(Not Attempted)", studentSubmission.getCurrentMark());
     studentSubmission.getNextQuestion();
     studentSubmission.answerCurrentQuestion(choices.get(1));
     assertEquals("1/2", studentSubmission.getCurrentMark());
@@ -136,12 +133,12 @@ public class StudentSubmissionTest {
     StudentSubmission studentSubmission = new StudentSubmission(student, assignment.getId());
     assertTrue(studentSubmission.submitAssignment());
   }
+
   @Test
   public void submitAssignmentLate() throws Exception {
     generateNewAssignment();
-    assignment = AssignmentTerminal.createNewAssignment(generateRandomString(),
-        "2000-01-01", courseName);
+    assignment =
+        AssignmentTerminal.createNewAssignment(generateRandomString(), "2000-01-01", courseName);
     assertNull(assignment);
   }
-
 }

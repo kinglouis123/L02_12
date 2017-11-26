@@ -1,31 +1,45 @@
 package com.stapp.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.stapp.R;
+import com.stapp.school.Assignment;
+import com.stapp.school.Course;
+import com.stapp.terminals.CourseTerminal;
+
+import java.util.List;
 
 public class ShowOldAssignments extends AppCompatActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_old_assignments);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+  private String courseCode;
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-    }
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_show_old_assignments);
 
+    Intent intent = getIntent();
+    courseCode = intent.getStringExtra("course code");
+
+    // Recycler for displaying all courses
+    RecyclerView assignmentRecycler = (RecyclerView) findViewById(R.id.old_assignments_list);
+
+    // layout manager for Recycler
+    LinearLayoutManager llm = new LinearLayoutManager(this);
+    assignmentRecycler.setLayoutManager(llm);
+
+    Course course = CourseTerminal.getCourse(courseCode);
+
+    // Generate list of classes
+    List<Assignment> assignments = course.getAssignments();
+
+    // Adapter to populate Recycler with courses
+    // RVAssignmentAdapter adapter = new RVAssignmentAdapter(assignments, this);
+    // assignmentRecycler.setAdapter(adapter);
+
+  }
 }

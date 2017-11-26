@@ -21,6 +21,34 @@
     <string name="title_activity_create_new_assignment">CreateNewAssignment</string>
     <string name="title_activity_student_assignment">StudentAssignment</string>
     <string name="assignment_title">Assignment Title</string>
+    <string name="reset_database">Reset Database</string>
+
+    <!--Strings for activity_add_questions.xml -->
+    <string name="Answer_1">Answer 1</string>
+    <string name="Answer_2">Answer 2</string>
+    <string name="Answer_3">Answer 3</string>
+    <string name="Answer_4">Answer 4</string>
+    <string name="enter_question">Enter the question here</string>
+    <!--Strings for activity_answer_assignment.xml -->
+    <string name="question_colon">Question:</string>
+    <string name="sample_question">Sample question</string>
+    <string name="next_question">Next question</string>
+    <!--Strings for activity_assignment_results.xml -->
+    <string name="mark_of_message">Well done! You received a mark of:</string>
+    <string name="finish">Finish</string>
+    <!--Strings for activity_create_class.xml -->
+    <string name="create_class">Create Class</string>
+
+    <!--Strings for activity_professor_menu.xml -->
+    <string name="create_new_class">Create a new class</string>
+    <!--Strings for activity_student_menu.xml -->
+    <string name="join_new_class">Join a new class</string>
+    <!--Strings for content_create_new_assignment.xml -->
+    <string name="due_date">Due Date(yyyy-mm-dd):</string>
+    <string name="yyyy">yyyy</string>
+    <string name="mm">mm</string>
+    <string name="dd">dd</string>
+    <string name="add_questions">Add Questions</string>
     <!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.

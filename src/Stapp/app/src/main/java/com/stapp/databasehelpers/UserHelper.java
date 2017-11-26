@@ -6,10 +6,7 @@ import com.stapp.exceptions.RoleAlreadyExistsException;
 import com.stapp.exceptions.UserAlreadyExistsException;
 import com.stapp.exceptions.UserNotFoundException;
 
-/**
- * Created by rahulkumar1998 on 2017-10-21.
- */
-
+/** Created by rahulkumar1998 on 2017-10-21. */
 public class UserHelper {
 
   private static DatabaseDriver databaseDriver;
@@ -34,7 +31,8 @@ public class UserHelper {
 
   // INSERTERS
 
-  public static long insertUser(String username, String name, String password, int role) throws UserAlreadyExistsException {
+  public static long insertUser(String username, String name, String password, int role)
+      throws UserAlreadyExistsException {
     openDatabase();
     if (databaseDriver.userExists(username)) {
       closeDatabase();
@@ -55,14 +53,15 @@ public class UserHelper {
       closeDatabase();
       throw new RoleAlreadyExistsException();
     }
-    long role =  databaseDriver.insertRole(roleName);
+    long role = databaseDriver.insertRole(roleName);
     closeDatabase();
     return role;
   }
 
   // UPDATERS
 
-  public static boolean updatePassword(String password, String username) throws UserNotFoundException {
+  public static boolean updatePassword(String password, String username)
+      throws UserNotFoundException {
     openDatabase();
     if (databaseDriver.userExists(username)) {
       boolean updated = databaseDriver.updatePassword(password, username);
@@ -88,7 +87,8 @@ public class UserHelper {
     openDatabase();
     if (databaseDriver.userExists(username)) {
       if (databaseDriver.roleExists(roleName)) {
-        boolean updated = databaseDriver.updateRole(databaseDriver.getRoleIdGivenRoleName(roleName), username);
+        boolean updated =
+            databaseDriver.updateRole(databaseDriver.getRoleIdGivenRoleName(roleName), username);
         closeDatabase();
         return updated;
       }
@@ -166,5 +166,4 @@ public class UserHelper {
     closeDatabase();
     throw new UserNotFoundException();
   }
-
 }

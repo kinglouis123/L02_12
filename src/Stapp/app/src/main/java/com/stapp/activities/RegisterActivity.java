@@ -1,23 +1,17 @@
 package com.stapp.activities;
 
 import android.os.Bundle;
-import android.provider.MediaStore.Audio.Radio;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+
 import com.stapp.R;
-import com.stapp.Toaster;
-import com.stapp.databasehelpers.UserHelper;
+import com.stapp.other.Toaster;
 import com.stapp.terminals.LoginTerminal;
-import com.stapp.users.Professor;
-import com.stapp.users.Student;
 import com.stapp.users.User;
 
-/**
- * Created by jr on 23/10/17.
- */
-
+/** Created by jr on 23/10/17. */
 public class RegisterActivity extends AppCompatActivity {
 
   protected void registerUser(View view) {
@@ -38,30 +32,32 @@ public class RegisterActivity extends AppCompatActivity {
       User user = null;
 
       switch (userType) {
-        // Student
+          // Student
         case R.id.radioButton:
-          user = LoginTerminal.newStudent(username.getText().toString(),
-              name.getText().toString(), password.getText().toString());
+          user =
+              LoginTerminal.newStudent(
+                  username.getText().toString(),
+                  name.getText().toString(),
+                  password.getText().toString());
           break;
-        // Professor
+          // Professor
         case R.id.radioButton2:
-          user = LoginTerminal.newProfessor(username.getText().toString(),
-              name.getText().toString(), password.getText().toString());
+          user =
+              LoginTerminal.newProfessor(
+                  username.getText().toString(),
+                  name.getText().toString(),
+                  password.getText().toString());
           break;
       }
 
       // User already registered
       if (user == null) {
         Toaster.toastShort("A user of the same username is already registered!");
-      }
-
-      else {
+      } else {
         Toaster.toastShort("Successfully registered!");
         finish();
       }
-    }
-
-    else {
+    } else {
       Toaster.toastShort("Passwords are not the same!");
     }
   }
@@ -70,6 +66,5 @@ public class RegisterActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_register);
-
   }
 }

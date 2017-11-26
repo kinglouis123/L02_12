@@ -3,16 +3,9 @@ package com.stapp.school;
 import com.stapp.databasehelpers.AssignmentHelper;
 import com.stapp.terminals.AssignmentTerminal;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
-/**
- * Created by rahulkumar1998 on 2017-11-16.
- */
-
+/** Created by rahulkumar1998 on 2017-11-16. */
 public class StudentSubmission {
 
   private String studentUsername;
@@ -21,8 +14,9 @@ public class StudentSubmission {
   private ArrayList<Question> questions;
   private Question currentQuestion;
   private int currentQuestionIndex = 0;
-  private int numerator;
+  private int numerator = -1;
   private int denominator;
+  private String grade;
 
   public StudentSubmission(String studentUsername, int assignmentId) {
     this.studentUsername = studentUsername;
@@ -30,11 +24,12 @@ public class StudentSubmission {
     this.assignment = AssignmentTerminal.getAssignment(assignmentId);
     this.questions = (ArrayList<Question>) assignment.getQuestions();
     this.denominator = questions.size();
+    this.grade = AssignmentHelper.getGrade(studentUsername, assignmentId);
   }
 
   /**
-   * Gets the next question in the assignment, null if end of assignment.
-   * Before calling this method again, make sure to answer previous question!
+   * Gets the next question in the assignment, null if end of assignment. Before calling this method
+   * again, make sure to answer previous question!
    */
   public Question getNextQuestion() {
     if (questions.size() > currentQuestionIndex) {
@@ -44,8 +39,12 @@ public class StudentSubmission {
     return null;
   }
 
+  /** Only call AFTER calling getNextQuestion. */
   public boolean answerCurrentQuestion(String answer) {
     boolean result = false;
+    if (numerator == -1) {
+      numerator += 1;
+    }
     if (currentQuestion.getAnswer().equals(answer)) {
       result = true;
       numerator += 1;
@@ -55,6 +54,9 @@ public class StudentSubmission {
   }
 
   public String getCurrentMark() {
+    if (numerator == -1) {
+      return this.grade;
+    }
     return numerator + "/" + denominator;
   }
 
@@ -62,10 +64,14 @@ public class StudentSubmission {
     boolean success = false;
     String submitDate = AssignmentHelper.getCurrentDate();
     if (assignment.withinDueDate()) {
-      AssignmentHelper.submitAssignment(studentUsername, assignmentId, getCurrentMark(), submitDate);
+      AssignmentHelper.submitAssignment(
+          studentUsername, assignmentId, getCurrentMark(), submitDate);
       success = true;
     }
     return success;
   }
 
+  public String getAssignmentName() {
+    return this.assignment.getAssignmentName();
+  }
 }

@@ -5,49 +5,80 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import android.view.View;
 
-import com.stapp.Other.RVAssignmentAdapter;
 import com.stapp.R;
+import com.stapp.other.RVAssignmentAdapter;
 import com.stapp.school.Assignment;
 import com.stapp.school.Course;
 import com.stapp.terminals.CourseTerminal;
 
 import java.util.List;
 
+public class StudentCourseDisplay extends AppCompatActivity
+    implements RVAssignmentAdapter.RecyclerViewClickListener {
 
-public class StudentCourseDisplay extends AppCompatActivity {
+  private String username;
+  private String course_code;
+  private Course course;
+  private List<Assignment> assignments;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_course_display);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_student_course_display);
 
-        Intent intent = getIntent();
+    Intent intent = getIntent();
 
-        String course_code = intent.getStringExtra("course code");
+    course_code = intent.getStringExtra("course code");
+    username = intent.getStringExtra("username");
 
+    // Recycler for displaying all courses
+    RecyclerView assignmentRecycler = (RecyclerView) findViewById(R.id.student_assignment_list);
 
-        // Recycler for displaying all courses
-        RecyclerView assignmentRecycler =(RecyclerView)findViewById(R.id.student_assignment_list);
+    // layout manager for Recycler
+    LinearLayoutManager llm = new LinearLayoutManager(this);
+    assignmentRecycler.setLayoutManager(llm);
 
-        //layout manager for Recycler
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        assignmentRecycler.setLayoutManager(llm);
+    // Get course
+    course = CourseTerminal.getCourse(course_code);
 
-        // Get course
-        Course course = CourseTerminal.getCourse(course_code);
+    // Generate list of assignements
+    assignments = course.getAssignments();
 
-        // Generate list of assignements
-        List<Assignment> assignments = course.getAssignments();
+    // Adapter to populate Recycler with courses
+    RVAssignmentAdapter adapter = new RVAssignmentAdapter(assignments, username, this);
+    assignmentRecycler.setAdapter(adapter);
+  }
 
-        //Adapter to populate Recycler with courses
-        RVAssignmentAdapter adapter = new RVAssignmentAdapter(assignments);
-        assignmentRecycler.setAdapter(adapter);
+  protected void showAssignmentActivity(View view) {
+    /*
+    Intent intent = new Intent (this, AnswerAssignmentActivity.class);
+    String assignment_title;
+    TextView tv = findViewById(R.id.assignment_card_title);
+    assignment_title = tv.getText().toString();
+    int assignmentId = AssignmentTerminal.getAssignmentId(assignment_title, course_code);
+    intent.putExtra("username", username);
+    intent.putExtra("course code", course_code);
+    intent.putExtra("assignment id", assignmentId);
+    startActivity(intent);*/
 
+  }
 
-    }
+  @Override
+  public void onListItemClick(int clickedPosition) {
+    Intent intent = new Intent(this, AnswerAssignmentActivity.class);
+    int assignmentId = assignments.get(clickedPosition).getId();
+    intent.putExtra("username", username);
+    intent.putExtra("course code", course_code);
+    intent.putExtra("assignment id", assignmentId);
+    startActivity(intent);
+  }
 
+  @Override
+  public void onRestart() {
+    super.onRestart();
+    finish();
+    startActivity(this.getIntent());
+  }
 }

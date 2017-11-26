@@ -8,4 +8,21 @@
     tools:context="com.stapp.activities.ShowOldAssignments"
     tools:showIn="@layout/activity_show_old_assignments">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/old_assignments" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/old_assignments_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

@@ -5,30 +5,19 @@ import com.stapp.exceptions.UserAlreadyExistsException;
 import com.stapp.exceptions.UserNotFoundException;
 import com.stapp.security.PasswordHelpers;
 
-/**
- * Created by rahulkumar1998 on 2017-10-22.
- */
-
-public class User {
+/** Created by rahulkumar1998 on 2017-10-22. */
+public abstract class User {
 
   private String username;
   private boolean loggedIn = false;
 
-  public boolean isLoggedIn() {
-    return loggedIn;
-  }
-
-  /**
-   * USE THIS TO LOG IN AN EXISTING USER
-   */
+  /** USE THIS TO LOG IN AN EXISTING USER */
   public User(String username, String password) throws UserNotFoundException {
     this.username = username;
     login(password);
   }
 
-  /**
-   * USE THIS TO CREATE A NEW USER
-   */
+  /** USE THIS TO CREATE A NEW USER */
   public User(String username, String name, String password, int roleId) {
     this.username = username;
     try {
@@ -43,6 +32,10 @@ public class User {
     }
   }
 
+  public boolean isLoggedIn() {
+    return loggedIn;
+  }
+
   private boolean login(String password) throws UserNotFoundException {
     String hashedPass = UserHelper.getPassword(username);
     loggedIn = PasswordHelpers.comparePassword(hashedPass, password);
@@ -50,13 +43,11 @@ public class User {
   }
 
   /**
-   * Ignoring exceptions in the following methods for these reasons:
-   * 1. On creating a User Object the User gets logged in, so there should be no chance that the
-   *    User does not exist or is not logged in
-   * 2. The exceptions are used for when you manually do something with the UserHelper class, if you
-   *    use these methods it should be all good!
+   * Ignoring exceptions in the following methods for these reasons: 1. On creating a User Object
+   * the User gets logged in, so there should be no chance that the User does not exist or is not
+   * logged in 2. The exceptions are used for when you manually do something with the UserHelper
+   * class, if you use these methods it should be all good!
    */
-
 
   // SELECTORS
 
@@ -82,9 +73,7 @@ public class User {
     return null;
   }
 
-  /**
-   * Returns the HASHED password stored in database.
-   */
+  /** Returns the HASHED password stored in database. */
   public String getPassword() {
     try {
       return UserHelper.getPassword(username);
@@ -122,5 +111,4 @@ public class User {
     }
     return false;
   }
-
 }

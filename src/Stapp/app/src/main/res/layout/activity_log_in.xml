@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,9 +16,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="182dp"
             android:ems="10"
-            android:inputType="textPersonName"
             android:hint="@string/Username"
-            />
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/editTextPasswordLogIn"
@@ -34,8 +34,8 @@
             android:id="@+id/loginButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/editTextPasswordLogIn"
             android:layout_alignRight="@+id/editTextPasswordLogIn"
+            android:layout_below="@+id/editTextPasswordLogIn"
             android:onClick="loginUser"
             android:text="@string/LogIn" />
 
@@ -43,19 +43,19 @@
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/loginButton"
             android:layout_alignRight="@+id/loginButton"
+            android:layout_below="@+id/loginButton"
             android:onClick="showRegisterActivity"
-            android:text="@string/Register"/>
+            android:text="@string/Register" />
 
         <Button
             android:id="@+id/resetDatabaseButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/button2"
             android:layout_alignRight="@+id/button2"
+            android:layout_below="@+id/button2"
             android:onClick="resetDatabase"
-            android:text="Reset Database"
+            android:text="@string/reset_database"
 
             />
 
