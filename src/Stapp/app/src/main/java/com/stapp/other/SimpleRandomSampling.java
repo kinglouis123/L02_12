@@ -47,9 +47,9 @@ public class SimpleRandomSampling {
         double options[] = new double[4];
         for (int i = 0; i<options.length;i++){
             if (i == correct[0]){
-                options[i] = round(samplemean(),4);
+                options[i] = samplemean();
             }else{
-                options[i] = round(samplemean() + Math.round(((Math.random()*10) - 5)),4);
+                options[i] = samplemean() + (Math.random() * 100) - 50;
             }
         }
         return options;
@@ -64,9 +64,9 @@ public class SimpleRandomSampling {
         double options[] = new double[4];
         for (int i = 0; i<options.length;i++){
             if (i == correct[1]){
-                options[i] = round(samplevariance(),4);
+                options[i] = samplevariance();
             }else{
-                options[i] = round( samplevariance() + Math.round(((Math.random()*10) - 5) ),4);
+                options[i] = samplevariance() + (Math.random()*10) - 5 ;
             }
         }
         return options;
@@ -81,9 +81,9 @@ public class SimpleRandomSampling {
         double options[] = new double[4];
         for (int i = 0; i<options.length;i++){
             if (i == correct[2]){
-                options[i] = round(samplestandarderror(),4);
+                options[i] = samplestandarderror();
             }else{
-                options[i] = round(samplestandarderror() + Math.round(((Math.random() * 10) - 5)),4);
+                options[i] = samplestandarderror() +(Math.random() * 10) - 5 ;
             }
         }
         return options;
@@ -132,7 +132,7 @@ public class SimpleRandomSampling {
             if (elementexist(exclude,select)){
                 i--;
             }else{
-                sampler[i] = round(this.data[select],4);
+                sampler[i] = this.data[select];
                 exclude[i] = select;
             }
         }
@@ -143,18 +143,6 @@ public class SimpleRandomSampling {
         for (int i = 0;i<sample.length; i++){
             System.out.println(sample[i]);
         }
-    }
-
-
-    public static double round(double value, int decimalplace) {
-
-        int fac = (int) Math.pow(10, decimalplace);
-
-        value = value * fac;
-
-        int tmp = (int)Math.round(value);
-
-        return (double) tmp / fac;
     }
 
 

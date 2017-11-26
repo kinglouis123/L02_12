@@ -1,5 +1,8 @@
 package com.stapp.other;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 /**
  * Created by wenboma on 2017-11-25.
  */
@@ -8,6 +11,7 @@ public final class RandomVarianceQuestion implements MultipleChoice {
 
 
     SimpleRandomSampling means;
+    NumberFormat formatter = new DecimalFormat("#0.0000");
 
     public RandomVarianceQuestion(int samplesize){
         this.means = new SimpleRandomSampling(samplesize);
@@ -20,10 +24,10 @@ public final class RandomVarianceQuestion implements MultipleChoice {
 
     @Override
     public String[] choices() {
-        String options[] = {String.valueOf(means.optionsvariance()[0]),
-                String.valueOf(means.optionsvariance()[1]),
-                String.valueOf(means.optionsvariance()[2]),
-                String.valueOf(means.optionsvariance()[3])};
+        String options[] = {formatter.format(means.optionsvariance()[0]),
+                formatter.format(means.optionsvariance()[1]),
+                formatter.format(means.optionsvariance()[2]),
+                formatter.format(means.optionsvariance()[3])};
 
 
         return options;

@@ -93,6 +93,7 @@ public class Assignment {
   public boolean withinDueDate() {
     String submitDate = AssignmentHelper.getCurrentDate();
     SimpleDateFormat formatting = new SimpleDateFormat("yyyy-MM-dd");
+    formatting.setLenient(false);
     try {
       Date submit = formatting.parse(submitDate);
       Date due = formatting.parse(this.getDueDate());
