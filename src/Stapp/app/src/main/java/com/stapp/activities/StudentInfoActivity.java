@@ -21,7 +21,7 @@ import java.util.List;
 
 public class StudentInfoActivity extends AppCompatActivity {
 
-    private List<StudentSubmission> submissions;
+    private List<StudentSubmission> submissions = new ArrayList<>();
     String student_username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,6 @@ public class StudentInfoActivity extends AppCompatActivity {
         for (Assignment assignment:assignments){
             submissions.add(new StudentSubmission(student_username,assignment.getId()));
         }
-        String student_name = intent.getStringExtra("student_name");
 
         // Recycler for displaying all courses
         RecyclerView InfoRecycler = (RecyclerView) findViewById(R.id.info_recycler);

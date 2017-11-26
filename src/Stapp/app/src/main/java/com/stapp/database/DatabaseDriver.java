@@ -100,7 +100,7 @@ public class DatabaseDriver extends SQLiteOpenHelper {
       return;
     }
     SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-    contentValues.put("TIMESATTEMPTED", 0);
+    contentValues.put("TIMESATTEMPTED", 1);
     sqLiteDatabase.insert("ASSIGNMENTSTUDENTLINKS", null, contentValues);
   }
 

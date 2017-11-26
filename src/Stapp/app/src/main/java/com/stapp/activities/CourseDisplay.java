@@ -75,7 +75,7 @@ public class CourseDisplay extends AppCompatActivity implements RVStudentAdapter
   public void onListItemClick(int clickedPosition) {
     // Toaster.toastShort("Item #" + clickedPosition + " clicked");
     Intent intent = new Intent(this, StudentInfoActivity.class);
-    intent.putExtra("student_name", course.getStudentUsernames().get(clickedPosition));
+    intent.putExtra("student_username", course.getStudentUsernames().get(clickedPosition));
     intent.putExtra("course_code", course_code);
 
     startActivity(intent);

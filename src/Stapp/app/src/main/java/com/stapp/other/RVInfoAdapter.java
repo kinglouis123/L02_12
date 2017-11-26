@@ -57,10 +57,8 @@ public class RVInfoAdapter extends RecyclerView.Adapter<RVInfoAdapter.InfoViewHo
 
     InfoViewHolder(View itemView) {
       super(itemView);
-      assignment_name = (TextView) itemView.findViewById(R.id.course_code);
+      assignment_name = (TextView) itemView.findViewById(R.id.assignment_name);
       assignment_grade = (TextView) itemView.findViewById(R.id.assignment_grade);
-
-
     }
 
   }
