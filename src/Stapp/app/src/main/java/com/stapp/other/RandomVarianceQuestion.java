@@ -10,24 +10,24 @@ import java.text.NumberFormat;
 public final class RandomVarianceQuestion implements MultipleChoice {
 
 
-    SimpleRandomSampling means;
+    SimpleRandomSampling vari;
     NumberFormat formatter = new DecimalFormat("#0.0000");
 
     public RandomVarianceQuestion(int samplesize){
-        this.means = new SimpleRandomSampling(samplesize);
+        this.vari = new SimpleRandomSampling(samplesize);
     }
 
     @Override
     public String questiondescription() {
-        return means.questiondescription() + "\n" + means.questionvariance();
+        return vari.questiondescription() + "\n" + vari.questionvariance();
     }
 
     @Override
     public String[] choices() {
-        String options[] = {formatter.format(means.optionsvariance()[0]),
-                formatter.format(means.optionsvariance()[1]),
-                formatter.format(means.optionsvariance()[2]),
-                formatter.format(means.optionsvariance()[3])};
+        String options[] = {formatter.format(vari.optionsvariance()[0]),
+                formatter.format(vari.optionsvariance()[1]),
+                formatter.format(vari.optionsvariance()[2]),
+                formatter.format(vari.optionsvariance()[3])};
 
 
         return options;
@@ -36,7 +36,7 @@ public final class RandomVarianceQuestion implements MultipleChoice {
 
     @Override
     public int correctanswerindex(){
-        return means.correctanswer()[1];
+        return vari.correctanswer()[1];
     }
 
 }

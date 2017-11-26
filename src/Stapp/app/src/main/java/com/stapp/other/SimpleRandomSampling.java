@@ -66,7 +66,7 @@ public class SimpleRandomSampling {
             if (i == correct[1]){
                 options[i] = samplevariance();
             }else{
-                options[i] = samplevariance() + (Math.random()*10) - 5 ;
+                options[i] = samplevariance() + (Math.random()*30) - 15 ;
             }
         }
         return options;
@@ -83,7 +83,7 @@ public class SimpleRandomSampling {
             if (i == correct[2]){
                 options[i] = samplestandarderror();
             }else{
-                options[i] = samplestandarderror() +(Math.random() * 10) - 5 ;
+                options[i] = samplestandarderror() + (Math.random() * 20) - 10 ;
             }
         }
         return options;
