@@ -28,7 +28,7 @@ public class CourseDisplay extends AppCompatActivity {
         //set the course_title TextView
         TextView title = new TextView(this);
         title = (TextView)findViewById(R.id.course_title);
-        title.setText(course_code);
+        title.setText("Course: " + course_code);
     }
 
     public void showNewAssignment(View view){
