@@ -21,20 +21,6 @@ public class RandomQuestionFactory {
     return question;
   }
 
-  /**
-   * Template for Wen.
-   */
-  public static HashMap<Object, Object> createNew___Question() {
-    String question = "your question string";
-    ArrayList<String> choices = new ArrayList<>();
-    choices.add("c1");
-    choices.add("c2");
-    choices.add("c3");
-    choices.add("c4");
-    int index = -1;
-    return newQuestion(question, choices, index);
-  }
-
   public static HashMap<Object, Object> createNewMeanQuestion(){
     MultipleChoice means = new RandomMeanQuestion(10);
     String question =  means.questiondescription();
