@@ -40,14 +40,18 @@
                     android:onClick="showNewAssignment"
                     android:text="@string/new_assignment" />
 
-                <Button
+              <!--  <Button
                     android:id="@+id/button_old_assignments"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="showOldAssignments"
-                    android:text="@string/old_assignments" />
+                    android:text="@string/old_assignments" /> -->
             </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/students_recycler"></android.support.v7.widget.RecyclerView>
         </LinearLayout>
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
