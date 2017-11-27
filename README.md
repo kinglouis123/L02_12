@@ -15,10 +15,6 @@ Hi, we're the Code Manglers. Welcome to our group repository for CSCC01 Fall 201
 ### Building from source
 Please see `src/README.md` for instructions for running/installation from source.
 
-### Directly installing APK
-Included in this directory is the file `Stapp.apk`. Copy
-the file to your Android phone/emulator and open the file to install the app.
-
 ## Reports
 Our reports will be documented on our project website, in the `project-website` folder. Clone the repository and open the `index.html` file to access it.
 
